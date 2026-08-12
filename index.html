@@ -5,31 +5,44 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Arpen | Jornadas Clínicas</title>
 <style>
-  body { font-family: Arial, sans-serif; background: #f5f5f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-  .container { text-align: center; padding: 40px; }
-  h1 { color: #2c3e50; margin-bottom: 10px; }
-  p { color: #666; margin-bottom: 40px; }
-  .cards { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
-  .card { background: white; border-radius: 12px; padding: 30px 40px; box-shadow: 0 2px 12px rgba(0,0,0,0.1); text-decoration: none; color: #2c3e50; transition: transform 0.2s; }
-  .card:hover { transform: translateY(-4px); }
-  .card h2 { margin: 0 0 8px; font-size: 1.2rem; }
-  .card p { margin: 0; font-size: 0.9rem; color: #888; }
+  body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; color: #2c3e50; }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 48px 24px 64px; }
+  header { text-align: center; margin-bottom: 40px; }
+  h1 { margin: 0 0 8px; }
+  header p { color: #666; margin: 0; }
+  h2.esp { border-left: 5px solid #2c74b3; padding-left: 12px; margin: 36px 0 16px; color: #1b3a5b; font-size: 1.15rem; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+  .card { background: white; border-radius: 12px; padding: 24px 26px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); text-decoration: none; color: #2c3e50; transition: transform 0.2s; }
+  .card:hover { transform: translateY(-3px); }
+  .card h3 { margin: 0 0 6px; font-size: 1.1rem; }
+  .card p { margin: 0; font-size: 0.85rem; color: #888; }
+  footer { margin-top: 56px; color: #aaa; font-size: 0.8rem; text-align: center; }
 </style>
 </head>
 <body>
-<div class="container">
-  <h1>Arpen | Jornadas Clínicas</h1>
-  <p>Protocolos assistenciais — São Cristóvão Saúde</p>
+<div class="wrap">
+  <header>
+    <h1>Arpen | Jornadas Clínicas</h1>
+    <p>Protocolos assistenciais e linhas de cuidado — São Cristóvão Saúde</p>
+  </header>
+
+  <h2 class="esp">🧬 Endocrinologia</h2>
   <div class="cards">
-    <a class="card" href="fibromialgia.html">
-      <h2>Fibromialgia</h2>
-      <p>Linha de Cuidado v2</p>
-    </a>
     <a class="card" href="obesidade.html">
-      <h2>Obesidade</h2>
+      <h3>Obesidade</h3>
       <p>Linha de Cuidado v2</p>
     </a>
   </div>
+
+  <h2 class="esp">🦴 Reumatologia</h2>
+  <div class="cards">
+    <a class="card" href="fibromialgia.html">
+      <h3>Fibromialgia</h3>
+      <p>Linha de Cuidado v2</p>
+    </a>
+  </div>
+
+  <footer>Arpen — Gestão &middot; novas especialidades entram aqui conforme forem aprovadas</footer>
 </div>
 </body>
 </html>
