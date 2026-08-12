@@ -2,11 +2,1707 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="refresh" content="0; url=sao-cristovao/reumatologia/fibromialgia.html">
-<link rel="canonical" href="sao-cristovao/reumatologia/fibromialgia.html">
-<title>Redirecionando…</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linha de Cuidado — Fibromialgia | São Cristóvão Saúde</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f0f4f8;
+  color: #1a2535;
+  min-height: 100vh;
+}
+
+header {
+  background: linear-gradient(135deg, #004b6e 0%, #006b9e 100%);
+  color: white;
+  padding: 26px 40px 20px;
+  border-bottom: 4px solid #00a8d4;
+}
+header h1 { font-size: 1.45rem; font-weight: 700; }
+header p  { font-size: .82rem; opacity: .8; margin-top: 4px; }
+.header-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.hbadge {
+  display: inline-block;
+  background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 4px;
+  padding: 2px 9px;
+  font-size: .7rem;
+  font-weight: 600;
+}
+
+.tabs {
+  display: flex;
+  background: #e2eaf1;
+  border-bottom: 2px solid #c5d5e4;
+  padding: 0 40px;
+  overflow-x: auto;
+}
+.tab {
+  padding: 11px 20px;
+  cursor: pointer;
+  font-size: .82rem;
+  font-weight: 600;
+  border-bottom: 3px solid transparent;
+  color: #5a7080;
+  white-space: nowrap;
+  transition: all .2s;
+  flex-shrink: 0;
+}
+.tab:hover { color: #004b6e; }
+.tab.active { color: #004b6e; border-bottom-color: #004b6e; background: #f0f4f8; }
+
+.legend {
+  display: flex; gap: 18px; flex-wrap: wrap;
+  padding: 12px 40px;
+  background: white;
+  border-bottom: 1px solid #dce6ef;
+  font-size: .75rem;
+}
+.legend-item { display: flex; align-items: center; gap: 5px; }
+.legend-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+
+main { padding: 28px 40px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.intro-box {
+  background: white;
+  border-left: 5px solid #004b6e;
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  font-size: .83rem;
+  line-height: 1.6;
+  color: #2c3e50;
+}
+.intro-box strong { color: #004b6e; }
+.source-tag {
+  display: inline-block;
+  font-size: .68rem;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 3px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+.src-pdf { background: #bee3f8; color: #2a4365; }
+.src-arpen { background: #c6f6d5; color: #22543d; }
+
+.stage-grid { display: flex; flex-direction: column; gap: 18px; }
+
+.stage {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.07);
+  overflow: hidden;
+}
+.stage-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+  cursor: pointer;
+  user-select: none;
+}
+.stage-header:hover { background: #f7fafc; }
+.stage-num {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: .88rem;
+  color: white; flex-shrink: 0;
+}
+.stage-title { font-weight: 700; font-size: .94rem; flex: 1; }
+.stage-subtitle { font-size: .76rem; color: #637080; margin-top: 2px; }
+.stage-badge {
+  font-size: .7rem; font-weight: 700;
+  padding: 3px 9px; border-radius: 20px; white-space: nowrap;
+}
+.stage-chevron { font-size: .72rem; color: #8a9bb0; transition: transform .25s; }
+.stage.open .stage-chevron { transform: rotate(180deg); }
+.stage-body { display: none; padding: 0 20px 18px; border-top: 1px solid #edf2f7; }
+.stage.open .stage-body { display: block; }
+
+.cols { display: grid; gap: 12px; margin-top: 14px; }
+.cols-2 { grid-template-columns: 1fr 1fr; }
+.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+.col-box {
+  background: #f7fafc;
+  border-radius: 7px;
+  padding: 13px 15px;
+  font-size: .8rem;
+}
+.col-box h4 {
+  font-size: .76rem;
+  font-weight: 700;
+  margin-bottom: 7px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+.col-box ul { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.col-box ul li::before { content: "→ "; color: #8a9bb0; }
+.col-box ul li { line-height: 1.4; }
+
+.drug-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-size: .8rem;
+}
+.drug-card h4 {
+  font-size: .86rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.drug-card ul { list-style: none; display: flex; flex-direction: column; gap: 3px; }
+.drug-card ul li::before { content: "· "; color: #8a9bb0; font-weight: 700; }
+.drug-card ul li { line-height: 1.35; }
+.drug-dose { font-weight: 600; color: #2d3748; }
+.drug-alert { color: #c53030; font-size: .74rem; margin-top: 6px; font-weight: 500; }
+
+.alert-box {
+  background: #fff5f5;
+  border-left: 4px solid #e53e3e;
+  border-radius: 6px;
+  padding: 12px 15px;
+  margin-top: 14px;
+  font-size: .8rem;
+  color: #742a2a;
+  line-height: 1.5;
+}
+.alert-box strong { display: block; margin-bottom: 4px; }
+
+.warn-box {
+  background: #fffbeb;
+  border-left: 4px solid #d69e2e;
+  border-radius: 6px;
+  padding: 12px 15px;
+  margin-top: 12px;
+  font-size: .8rem;
+  color: #744210;
+  line-height: 1.5;
+}
+
+.decision-box {
+  background: #fffbeb;
+  border: 2px dashed #d69e2e;
+  border-radius: 8px;
+  padding: 13px 15px;
+  margin-top: 14px;
+  font-size: .8rem;
+  color: #744210;
+}
+.decision-box strong { color: #b7791f; display: block; margin-bottom: 5px; }
+
+.success-box {
+  background: #f0fff4;
+  border-left: 4px solid #2b7a4b;
+  border-radius: 6px;
+  padding: 12px 15px;
+  margin-top: 12px;
+  font-size: .8rem;
+  color: #22543d;
+  line-height: 1.5;
+}
+
+.arrow-connector {
+  text-align: center; color: #8a9bb0;
+  font-size: 1.2rem; margin: 2px 0 -6px;
+}
+
+/* Colors */
+.c-clinico { background: #2b7a4b; }
+.bg-clinico-light { background: #e6f4ec; }
+.text-clinico { color: #2b7a4b; }
+.badge-clinico { background: #c6f6d5; color: #22543d; }
+.border-clinico { border-color: #2b7a4b; }
+
+.c-reuma { background: #2c5282; }
+.bg-reuma-light { background: #ebf4ff; }
+.text-reuma { color: #2c5282; }
+.badge-reuma { background: #bee3f8; color: #2a4365; }
+
+.c-mista { background: #b7791f; }
+.bg-mista-light { background: #fffbeb; }
+.badge-mista { background: #fefcbf; color: #744210; }
+
+.c-rx { background: #6b46c1; }
+.bg-rx-light { background: #faf5ff; }
+.text-rx { color: #6b46c1; }
+.badge-rx { background: #e9d8fd; color: #553c9a; }
+
+.c-alerta { background: #c53030; }
+.badge-alerta { background: #fed7d7; color: #742a2a; }
+.c-gray { background: #4a5568; }
+.bg-gray-light { background: #f7fafc; }
+
+/* Pills */
+.pill {
+  display: inline-block; padding: 1px 7px;
+  border-radius: 10px; font-size: .68rem;
+  font-weight: 700; margin-right: 3px; vertical-align: middle;
+}
+.pill-g { background: #c6f6d5; color: #22543d; }
+.pill-b { background: #bee3f8; color: #2a4365; }
+.pill-y { background: #fefcbf; color: #744210; }
+.pill-r { background: #fed7d7; color: #742a2a; }
+.pill-p { background: #e9d8fd; color: #553c9a; }
+
+/* Swimlane */
+.swimlane-wrapper { overflow-x: auto; padding-bottom: 10px; }
+.swimlane { min-width: 880px; }
+.swimlane-header {
+  display: grid;
+  grid-template-columns: 140px 1fr 1fr 1fr;
+  gap: 2px; margin-bottom: 2px;
+}
+.swimlane-header > div {
+  padding: 10px 13px; font-weight: 700; font-size: .76rem;
+  text-align: center; border-radius: 6px 6px 0 0; color: white;
+}
+.sh-fase { background: #2d3748; }
+.sh-clinico { background: #2b7a4b; }
+.sh-reuma  { background: #2c5282; }
+.sh-outros { background: #6b46c1; }
+
+.swimlane-row {
+  display: grid;
+  grid-template-columns: 140px 1fr 1fr 1fr;
+  gap: 2px; margin-bottom: 2px;
+}
+.swimlane-row > div {
+  padding: 11px 13px; font-size: .78rem;
+  line-height: 1.45; background: white;
+  border: 1px solid #e2e8f0;
+}
+.swimlane-row > div:first-child {
+  background: #edf2f7; font-weight: 700; font-size: .76rem;
+  color: #2d3748; display: flex; align-items: center;
+}
+.swimlane-row > div ul { list-style: disc; padding-left: 14px; }
+.swimlane-row > div ul li { margin-bottom: 3px; }
+.cell-clinico  { border-left: 3px solid #2b7a4b !important; }
+.cell-reuma    { border-left: 3px solid #2c5282 !important; }
+.cell-outros   { border-left: 3px solid #6b46c1 !important; }
+.cell-shared   { border-left: 3px solid #d69e2e !important; background: #fffbeb !important; }
+.cell-empty    { background: #f7fafc !important; color: #a0aec0; font-style: italic; font-size: .74rem; }
+
+/* Summary table */
+.summary-table {
+  width: 100%; border-collapse: collapse;
+  margin-top: 14px; font-size: .79rem;
+}
+.summary-table th {
+  background: #2d3748; color: white;
+  padding: 9px 13px; text-align: left;
+  font-size: .75rem; font-weight: 700;
+}
+.summary-table td {
+  padding: 8px 13px;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: top; line-height: 1.4;
+}
+.summary-table tr:nth-child(even) td { background: #f7fafc; }
+
+/* Prescription cards */
+.rx-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+.rx-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.07);
+  overflow: hidden;
+}
+.rx-card-header {
+  padding: 12px 16px;
+  font-weight: 700; font-size: .9rem;
+  color: white;
+}
+.rx-card-body { padding: 14px 16px; font-size: .8rem; line-height: 1.5; }
+.rx-drug { margin-bottom: 12px; }
+.rx-drug-name { font-weight: 700; font-size: .85rem; margin-bottom: 4px; }
+.rx-drug-detail { color: #4a5568; margin-left: 10px; }
+.rx-drug-detail li { list-style: none; }
+.rx-drug-detail li::before { content: "▸ "; color: #8a9bb0; }
+.rx-or { text-align: center; color: #718096; font-size: .78rem; font-weight: 600; margin: 6px 0; }
+.rx-warn { font-size: .74rem; color: #742a2a; margin-top: 8px; font-style: italic; }
+
+.rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
+.rules-card {
+  background: white; border-radius: 8px;
+  box-shadow: 0 1px 5px rgba(0,0,0,.06);
+  padding: 14px 16px;
+}
+.rules-card h4 {
+  font-size: .82rem; font-weight: 700;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid currentColor;
+}
+.rules-card ul { list-style: none; display: flex; flex-direction: column; gap: 5px; font-size: .79rem; }
+.rules-card ul li::before { content: "→ "; color: #8a9bb0; }
+
+.not-rec-list {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;
+}
+.not-rec-tag {
+  background: #fed7d7; color: #742a2a;
+  border-radius: 4px; padding: 4px 10px;
+  font-size: .76rem; font-weight: 600;
+}
+
+/* Indicators */
+.ind-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 16px; }
+.ind-card {
+  background: white; border-radius: 8px;
+  box-shadow: 0 1px 5px rgba(0,0,0,.06);
+  padding: 13px 15px;
+}
+.ind-card h4 { font-size: .78rem; font-weight: 700; margin-bottom: 8px; text-transform: uppercase; letter-spacing: .4px; }
+.ind-card ul { list-style: none; font-size: .76rem; display: flex; flex-direction: column; gap: 4px; }
+.ind-card ul li::before { content: "• "; }
+
+@media (max-width: 700px) {
+  header, .tabs, main { padding-left: 16px; padding-right: 16px; }
+  .cols-2, .cols-3, .cols-4 { grid-template-columns: 1fr; }
+  .rx-grid, .rules-grid, .ind-grid { grid-template-columns: 1fr; }
+  .legend { padding: 10px 16px; }
+}
+</style>
 </head>
 <body>
-<p>Esta página foi movida. <a href="sao-cristovao/reumatologia/fibromialgia.html">Clique aqui</a> se não for redirecionado automaticamente.</p>
+
+<header>
+  <h1>Linha de Cuidado — Fibromialgia</h1>
+  <p>São Cristóvão Saúde · Arpen · CID-10: M79.7</p>
+  <div class="header-badges">
+    <span class="hbadge">Protocolo SC v1 — Jul/2026</span>
+    <span class="hbadge">SBR 2026 · ACR · AAFP 2023</span>
+    <span class="hbadge">Jornada v2 — Arpen</span>
+  </div>
+</header>
+
+<div class="tabs">
+  <div class="tab active"  onclick="showView('clinico')">🟢 Jornada do Clínico</div>
+  <div class="tab"         onclick="showView('reuma')">🔵 Jornada Reumatologia</div>
+  <div class="tab"         onclick="showView('mista')">🟡 Cuidado Compartilhado</div>
+  <div class="tab"         onclick="showView('rx')">💊 Prescrição Prática</div>
+  <div class="tab"         onclick="showView('matriz')">📋 Matriz e Indicadores</div>
+</div>
+
+<div class="legend">
+  <span style="font-weight:700;font-size:.75rem;color:#4a5568">Complexidade:</span>
+  <div class="legend-item"><div class="legend-dot" style="background:#2b7a4b"></div> Baixa — Clínico conduz</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#d69e2e"></div> Média — Compartilhado</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#2c5282"></div> Alta — Reumatologista lidera</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#c53030"></div> Alerta — Urgência</div>
+  <div class="legend-item"><span class="source-tag src-pdf">PDF SC</span> Conteúdo do Protocolo São Cristóvão</div>
+  <div class="legend-item"><span class="source-tag src-arpen">ARPEN</span> Contribuição da equipe Arpen</div>
+</div>
+
+<!-- ══════════════════ TAB: CLÍNICO ══════════════════ -->
+<main>
+<div id="view-clinico" class="view active">
+  <div class="intro-box">
+    <strong>Trilha do Clínico Geral</strong> <span class="source-tag src-arpen">ARPEN</span> — O Protocolo São Cristóvão foca no ambulatório de Reumatologia. Esta jornada complementa o protocolo com o fluxo do Clínico Geral, que é o coordenador longitudinal do cuidado. A fibromialgia de <strong>baixa a média complexidade deve ser conduzida integralmente pelo Clínico</strong>, sem encaminhamento à Reumatologia. O especialista é acionado apenas quando critérios clínicos específicos estiverem presentes.
+  </div>
+
+  <div class="stage-grid">
+
+    <!-- ESTÁGIO 0 -->
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-clinico">0</div>
+        <div>
+          <div class="stage-title">Chegada e Triagem — Suspeita de Fibromialgia</div>
+          <div class="stage-subtitle">Paciente com dor musculoesquelética difusa crônica → clínico geral</div>
+        </div>
+        <span class="stage-badge badge-clinico">Clínico</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="cols cols-2">
+          <div class="col-box bg-clinico-light">
+            <h4 class="text-clinico">Critérios para suspeita clínica <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Dor musculoesquelética generalizada ≥ 3 meses</li>
+              <li>Dor em ≥ 4 das 5 regiões corporais</li>
+              <li>Fadiga, sono não reparador, sintomas cognitivos</li>
+              <li>Exames prévios normais ou inespecíficos</li>
+              <li>Sem sinais inflamatórios objetivos</li>
+            </ul>
+          </div>
+          <div class="col-box bg-gray-light">
+            <h4>Informações mínimas a coletar <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Localização, tempo de evolução e características das dores</li>
+              <li>Presença e gravidade de fadiga</li>
+              <li>Sono: reparador ou não</li>
+              <li>Sintomas cognitivos: memória, atenção, lentificação</li>
+              <li>Comorbidades psiquiátricas e medicamentos em uso</li>
+              <li>Tratamentos já realizados e resposta</li>
+            </ul>
+          </div>
+        </div>
+        <div class="decision-box">
+          <strong>⚠️ Ponto de decisão — sinais de alerta presentes?</strong>
+          Se houver artrite objetiva, artralgia inflamatória, Raynaud, rash malar, fraqueza muscular progressiva, febre persistente, perda ponderal ou VHS/PCR elevados sem explicação → <strong>encaminhar diretamente para Reumatologia</strong> (não aguardar tentativa terapêutica prévia).
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <!-- ESTÁGIO 1 -->
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-clinico">1</div>
+        <div>
+          <div class="stage-title">1ª Consulta — Avaliação Diagnóstica</div>
+          <div class="stage-subtitle">Confirmar critérios ACR 2016 · Excluir diferenciais · Estratificar complexidade</div>
+        </div>
+        <span class="stage-badge badge-clinico">Clínico</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="cols cols-3">
+          <div class="col-box bg-clinico-light">
+            <h4 class="text-clinico">Critérios diagnósticos ACR 2016 <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Dor musculoesquelética ≥ 3 meses</li>
+              <li>Dor em ≥ 4 das 5 regiões corporais</li>
+              <li><strong>IDG/WPI ≥ 7 + EGS/SSS ≥ 5</strong></li>
+              <li><em>ou</em> IDG 4–6 + EGS ≥ 9</li>
+              <li>Diagnóstico válido mesmo com outras doenças presentes</li>
+              <li>Tender points NÃO são mais obrigatórios</li>
+            </ul>
+          </div>
+          <div class="col-box bg-gray-light">
+            <h4>Exames iniciais — solicitar de forma individualizada <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Hemograma completo</li>
+              <li>VHS e PCR</li>
+              <li>TSH (excluir hipotireoidismo)</li>
+              <li>CPK (se fraqueza objetiva ou suspeita de miopatia)</li>
+              <li>Creatinina, TGO/TGP, glicemia ou HbA1c (conforme perfil)</li>
+              <li>Vitamina D, cálcio e fósforo (se risco de osteomalácia)</li>
+              <li style="color:#c53030;font-weight:500">FAN / FR: APENAS se suspeita clínica específica. Não usar como triagem inespecífica</li>
+            </ul>
+          </div>
+          <div class="col-box bg-gray-light">
+            <h4>Estratificação de complexidade <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li><span class="pill pill-g">Baixa</span> Sintomas leves a moderados, sem limitação funcional importante, sem comorbidade psiquiátrica grave, sem sinais inflamatórios → <strong>Clínico conduz</strong></li>
+              <li><span class="pill pill-y">Média</span> Dor persistente + limitação funcional + sono ruim + fadiga relevante + ansiedade/depressão leve a moderada <em>ou</em> falha parcial ao tratamento inicial → <strong>Clínico conduz com reavaliação em 12 semanas</strong></li>
+              <li><span class="pill pill-r">Alta</span> Incapacidade funcional importante + múltiplas comorbidades + opioides/BDZ crônicos inadequados + sofrimento psíquico grave + risco suicida + dor refratária + dúvida diagnóstica complexa → <strong>Reumatologia</strong></li>
+            </ul>
+          </div>
+        </div>
+        <div class="cols cols-2" style="margin-top:12px">
+          <div class="col-box bg-gray-light">
+            <h4>Diagnósticos diferenciais obrigatórios <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Artrite reumatoide · Espondiloartrites · LES</li>
+              <li>Polimialgia reumática · Miopatias inflamatórias</li>
+              <li>Hipotireoidismo · Outras endocrinopatias</li>
+              <li>Osteomalácia · Deficiência de vitamina D</li>
+              <li>Síndrome miofascial · Neuropatias periféricas</li>
+              <li>Neoplasias · Infecções crônicas</li>
+              <li>Uso de álcool, drogas ou medicamentos associados a mialgia</li>
+              <li>Distúrbios primários do sono (apneia obstrutiva)</li>
+              <li>Depressão · Ansiedade · TEPT</li>
+            </ul>
+          </div>
+          <div class="col-box bg-clinico-light">
+            <h4 class="text-clinico">Instrumentos recomendados — aplicar na 1ª consulta e repetir a cada 3–6 meses <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>IDG/WPI — Índice de Dor Generalizada</li>
+              <li>EGS/SSS — Escala de Gravidade dos Sintomas</li>
+              <li>EVA — 0 a 10</li>
+              <li>FIQR — impacto funcional (se disponível)</li>
+              <li>PHQ-9 e GAD-7 — se suspeita de depressão/ansiedade</li>
+              <li>Escala de Epworth — se distúrbio do sono</li>
+              <li>Escala de catastrofização — se disponível</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <!-- ESTÁGIO 2 -->
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-clinico">2</div>
+        <div>
+          <div class="stage-title">Plano Terapêutico Inicial</div>
+          <div class="stage-subtitle">Não farmacológico (1ª linha obrigatória) + Farmacológico conforme perfil clínico</div>
+        </div>
+        <span class="stage-badge badge-clinico">Clínico</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+
+        <div class="cols cols-2">
+          <div class="col-box bg-clinico-light">
+            <h4 class="text-clinico">Educação em dor e autocuidado — 1ª consulta <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Fibromialgia é condição real, crônica e benigna do ponto de vista estrutural</li>
+              <li>Não causa deformidade articular nem inflamação sistêmica</li>
+              <li>A dor decorre de amplificação do processamento no SNC</li>
+              <li>Exames normais são esperados</li>
+              <li>Tratamento depende de participação ativa e metas realistas</li>
+              <li>Meta: funcionalidade — não dor zero</li>
+              <li>Piora inicial ao iniciar exercício é esperada e tende a melhorar</li>
+            </ul>
+          </div>
+          <div class="col-box bg-clinico-light">
+            <h4 class="text-clinico">Exercício físico — tratamento central <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li><strong>Aeróbico:</strong> caminhada, bicicleta, hidroginástica, natação, elíptico</li>
+              <li>Frequência: 2–3x/semana; iniciar com 10–15 min (pode começar com 5 min em muito descondicionados)</li>
+              <li>Progressão: +5 min a cada 1–2 semanas conforme tolerância</li>
+              <li>Meta: 150 min/semana de atividade moderada</li>
+              <li><strong>Fortalecimento:</strong> 2x/semana, baixa carga, 1–2 séries de 8–12 repetições, progressivo</li>
+              <li>Alongamento pode ser associado</li>
+              <li>Orientar "leve desconforto tolerável" — não "dor zero"</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cols cols-3" style="margin-top:12px">
+          <div class="col-box bg-gray-light">
+            <h4>Higiene do sono <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Horário regular para dormir e acordar</li>
+              <li>Evitar telas 60 min antes de dormir</li>
+              <li>Evitar cafeína após 14h</li>
+              <li>Evitar cochilos prolongados</li>
+              <li>Usar cama apenas para dormir e atividade sexual</li>
+              <li>Tratar apneia do sono, pernas inquietas e dor noturna localizada</li>
+            </ul>
+          </div>
+          <div class="col-box bg-gray-light">
+            <h4>Psicoterapia — indicar quando houver <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Catastrofização da dor</li>
+              <li>Medo de movimento (cinesiofobia)</li>
+              <li>Ansiedade ou depressão</li>
+              <li>Insônia psicofisiológica</li>
+              <li>Evitação funcional</li>
+              <li>Trauma ou estresse crônico</li>
+              <li>Modalidades: TCC, Terapia de Aceitação e Compromisso (ACT)</li>
+            </ul>
+          </div>
+          <div class="col-box bg-gray-light">
+            <h4>Práticas integrativas e complementares — adjuvantes <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Acupuntura</li>
+              <li>Tai Chi Chuan</li>
+              <li>Yoga</li>
+              <li>Pilates adaptado</li>
+              <li>Mindfulness / meditação</li>
+              <li>Liberação miofascial / massagem</li>
+              <li style="color:#637080;font-style:italic">Sem substituir exercício e educação</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="margin-top:16px;font-weight:700;font-size:.82rem;color:#2d3748;margin-bottom:8px">Tratamento farmacológico — prescrever conforme perfil clínico predominante <span class="source-tag src-pdf">PDF SC</span></div>
+        <div class="warn-box" style="margin-top:0;margin-bottom:12px">
+          ⚠️ <strong>Regras de prescrição:</strong> Iniciar apenas um medicamento por vez em dose baixa. Reavaliar em 12 semanas. Manter apenas se houver benefício funcional claro. Considerar: idade, risco de quedas, obesidade, apneia, gestação, glaucoma, arritmia, epilepsia, função renal/hepática e interações medicamentosas. Evitar polifarmácia sedativa.
+        </div>
+
+        <div class="cols cols-2">
+          <div class="drug-card">
+            <h4><span class="pill pill-b">Perfil 1</span> Dor + sono ruim · sem depressão importante</h4>
+            <div class="rx-drug">
+              <div class="rx-drug-name">Amitriptilina — 1ª escolha</div>
+              <ul class="rx-drug-detail">
+                <li>Inicial: <span class="drug-dose">10–12,5 mg VO à noite, 2h antes de dormir</span></li>
+                <li>Titular: +10–12,5 mg a cada 1–2 semanas</li>
+                <li>Dose usual: <span class="drug-dose">25–50 mg/noite</span></li>
+                <li>Dose máxima em fibromialgia: <span class="drug-dose">50 mg/noite</span></li>
+                <li>Cuidados: boca seca, constipação, retenção urinária, sonolência, ganho ponderal, prolongamento de QT</li>
+                <li>Evitar em: glaucoma de ângulo fechado, arritmias, idosos frágeis com alto risco de quedas</li>
+              </ul>
+            </div>
+            <div class="rx-or">ou</div>
+            <div class="rx-drug">
+              <div class="rx-drug-name">Ciclobenzaprina — alternativa</div>
+              <ul class="rx-drug-detail">
+                <li>Inicial: <span class="drug-dose">5 mg VO à noite</span></li>
+                <li>Dose usual: <span class="drug-dose">5–10 mg/noite</span></li>
+                <li>Máximo: 30–40 mg/dia em doses divididas (casos excepcionais)</li>
+                <li>Cuidados: sonolência, boca seca, tontura</li>
+                <li>Evitar em idosos frágeis e com outros sedativos</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="drug-card">
+            <h4><span class="pill pill-b">Perfil 2</span> Dor + ansiedade/depressão + fadiga</h4>
+            <div class="rx-drug">
+              <div class="rx-drug-name">Duloxetina — 1ª escolha (melhor evidência SBR 2026)</div>
+              <ul class="rx-drug-detail">
+                <li>Inicial: <span class="drug-dose">30 mg VO pela manhã por 7–14 dias</span></li>
+                <li>Se tolerado: aumentar para <span class="drug-dose">60 mg pela manhã</span></li>
+                <li>Máximo usual: 60 mg/dia; até 120 mg em casos selecionados (indicação psiquiátrica)</li>
+                <li>Cuidados: náusea, sudorese, insônia ou sonolência, aumento de PA, disfunção sexual</li>
+                <li>Evitar em: IH significativa, etilismo importante, uso recente de IMAO, IR grave</li>
+              </ul>
+            </div>
+            <div class="rx-or">ou</div>
+            <div class="rx-drug">
+              <div class="rx-drug-name">Fluoxetina — alternativa (disponível na rede)</div>
+              <ul class="rx-drug-detail">
+                <li>Inicial: <span class="drug-dose">20 mg VO pela manhã</span></li>
+                <li>Dose usual: <span class="drug-dose">20–40 mg/dia</span></li>
+                <li>Pode ser associada a amitriptilina em baixa dose (cautela: síndrome serotoninérgica)</li>
+                <li>Cuidados: insônia, náusea, cefaleia, disfunção sexual, interações</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="drug-card">
+            <h4><span class="pill pill-b">Perfil 3</span> Dor + sono muito fragmentado + intolerância a tricíclico</h4>
+            <div class="rx-drug">
+              <div class="rx-drug-name">Pregabalina — melhor evidência (SBR 2026)</div>
+              <ul class="rx-drug-detail">
+                <li>Inicial: <span class="drug-dose">25–75 mg VO à noite</span></li>
+                <li>Titular: aumentar a cada 1 semana conforme tolerância</li>
+                <li>Dose usual: <span class="drug-dose">150–300 mg/dia em 1–2 tomadas</span></li>
+                <li>Dose máxima em fibromialgia: <span class="drug-dose">450 mg/dia (de preferência 12/12h)</span></li>
+                <li>Ajustar à função renal (reduzir dose em IR)</li>
+                <li>Cuidados: sonolência, tontura, edema, ganho ponderal, risco de queda</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="drug-card">
+            <h4><span class="pill pill-y">Perfil 4</span> Crise dolorosa episódica — resgate curto prazo</h4>
+            <div class="rx-drug">
+              <div class="rx-drug-name">Dipirona</div>
+              <ul class="rx-drug-detail">
+                <li><span class="drug-dose">500 mg a 1 g VO a cada 6h se dor</span></li>
+                <li>Máximo: 4 g/dia · duração: até 3–5 dias</li>
+                <li>Cuidados: alergia, hipotensão, risco raríssimo de agranulocitose</li>
+              </ul>
+            </div>
+            <div class="rx-or">ou</div>
+            <div class="rx-drug">
+              <div class="rx-drug-name">Paracetamol</div>
+              <ul class="rx-drug-detail">
+                <li><span class="drug-dose">750 mg a 1 g VO a cada 6–8h se dor</span></li>
+                <li>Máximo ambulatorial: 3 g/dia · reduzir em idosos, hepatopatia, etilismo</li>
+              </ul>
+            </div>
+            <div class="rx-or">reservar — exacerbações intensas quando outras medidas falharem</div>
+            <div class="rx-drug">
+              <div class="rx-drug-name">Tramadol — uso excepcional e de curto prazo</div>
+              <ul class="rx-drug-detail">
+                <li><span class="drug-dose">50 mg VO a cada 8–12h se dor</span></li>
+                <li>Máximo: 400 mg/dia (idosos: ≤ 300 mg/dia)</li>
+                <li class="drug-alert">⛔ EVITAR USO CRÔNICO — risco de dependência e síndrome serotoninérgica se associado a antidepressivos</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="alert-box" style="margin-top:16px">
+          <strong>🚫 Medicamentos NÃO recomendados rotineiramente em fibromialgia <span class="source-tag src-pdf">PDF SC</span></strong>
+          Corticoides sistêmicos · AINEs como terapia de base · Opioides fortes · Codeína crônica · Benzodiazepínicos · Zolpidem crônico · Canabinoides como rotina · Terapias intravenosas sem indicação específica · Polifarmácia sedativa
+        </div>
+
+        <div class="success-box">
+          <strong>Plano de 12 semanas — com acompanhamento progressivo:</strong> Entregar plano terapêutico por escrito na 1ª consulta. Estabelecer metas funcionais realistas (não "dor zero").<br><br>
+          <strong>↪ Retorno precoce em 2–4 semanas:</strong> obrigatório se novo fármaco foi prescrito — checar tolerância, efeitos adversos e realizar titulação de dose.<br>
+          <strong>↪ Retorno intermediário em 4–8 semanas</strong> (a critério clínico): reforçar adesão ao exercício, ajustar dose se necessário, avaliar dificuldades práticas.<br>
+          <strong>↪ Marco de 12 semanas:</strong> reavaliação formal estruturada (EVA + FIQR + adesão + efeitos adversos) → decisão de trajetória: manter, ajustar ou encaminhar.
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <!-- ESTÁGIO 3 -->
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-clinico">3</div>
+        <div>
+          <div class="stage-title">Marco de 12 Semanas — Reavaliação Formal e Decisão de Trajetória</div>
+          <div class="stage-subtitle">Ponto de decisão formal — após acompanhamento progressivo (2–4 sem · 4–8 sem · 12 sem)</div>
+        </div>
+        <span class="stage-badge badge-clinico">Clínico</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="cols cols-2">
+          <div class="col-box bg-clinico-light">
+            <h4 class="text-clinico">O que avaliar <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Adesão ao exercício físico (tipo, frequência, duração)</li>
+              <li>Qualidade e arquitetura do sono</li>
+              <li>EVA de dor comparativo (baseline × atual)</li>
+              <li>FIQR ou escala funcional disponível</li>
+              <li>Efeitos adversos medicamentosos</li>
+              <li>Necessidade de titulação de dose</li>
+              <li>PHQ-9 / GAD-7 (rastreio de depressão/ansiedade)</li>
+              <li>Necessidade de fisioterapia, psicologia, psiquiatria, nutrição</li>
+            </ul>
+          </div>
+          <div class="col-box bg-gray-light">
+            <h4>Decisão após reavaliação</h4>
+            <ul>
+              <li><span class="pill pill-g">Boa resposta</span> Manter seguimento clínico semestral</li>
+              <li><span class="pill pill-y">Resposta parcial</span> Ajustar farmacoterapia; considerar fisioterapia, psicologia ou outras práticas integrativas; reavaliar em 4–8 semanas</li>
+              <li><span class="pill pill-r">Falha ao tratamento otimizado</span> Encaminhar para Reumatologia com contrarreferência qualificada</li>
+              <li><span class="pill pill-r">Novo sinal inflamatório</span> Encaminhar imediatamente — não aguardar</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <!-- ESTÁGIO 4 -->
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-clinico">4</div>
+        <div>
+          <div class="stage-title">Seguimento Longitudinal</div>
+          <div class="stage-subtitle">Clínico como coordenador longitudinal — retornos a cada 3–6 meses</div>
+        </div>
+        <span class="stage-badge badge-clinico">Clínico</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="cols cols-2">
+          <div class="col-box bg-clinico-light">
+            <h4 class="text-clinico">Responsabilidades continuadas <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Acolher e coordenar o cuidado longitudinal</li>
+              <li>Monitorar adesão ao exercício e funcionalidade</li>
+              <li>Manejar comorbidades comuns: hipotireoidismo, DM, HAS, apneia, obesidade</li>
+              <li>Reaplicar IDG/EGS e EVA a cada 3–6 meses</li>
+              <li>Revisar farmacoterapia: manter apenas se benefício funcional claro</li>
+              <li>Educar paciente e família continuamente</li>
+              <li>Monitorar uso inadequado de opioides/BDZ</li>
+            </ul>
+          </div>
+          <div class="col-box bg-gray-light">
+            <h4>Critérios de encaminhamento — qualquer momento do seguimento</h4>
+            <ul>
+              <li>Surgimento de sinais inflamatórios após diagnóstico</li>
+              <li>Dor refratária após tratamento clínico otimizado (12 semanas mínimo)</li>
+              <li>Uso crônico inadequado de opioides fortes ou BDZ</li>
+              <li>Sofrimento psíquico grave ou risco suicida</li>
+              <li>Incapacidade funcional importante e progressiva</li>
+              <li>Dúvida diagnóstica relevante que surgir no seguimento</li>
+              <li>Alta complexidade com múltiplas comorbidades descompensadas</li>
+            </ul>
+          </div>
+        </div>
+        <div class="alert-box">
+          <strong>🚨 Sinais de encaminhamento urgente — PA ou Reumatologia prioritária <span class="source-tag src-pdf">PDF SC</span></strong>
+          Déficit neurológico progressivo · <strong>Anestesia em sela ou alteração esfincteriana</strong> · Fraqueza objetiva progressiva · Febre persistente ou suspeita de infecção · Perda ponderal involuntária · Dor noturna progressiva não mecânica com sinais sistêmicos · Suspeita de neoplasia · <strong>Artrite aguda importante</strong> · Ideação suicida ou risco psiquiátrico · Reação medicamentosa grave
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════ TAB: REUMATOLOGIA ══════════════════ -->
+<div id="view-reuma" class="view">
+  <div class="intro-box">
+    <strong>Trilha da Reumatologia</strong> <span class="source-tag src-pdf">PDF SC</span> — Baseada no Protocolo São Cristóvão v1 (Jul/2026). O ambulatório de Reumatologia recebe pacientes com <strong>critérios clínicos específicos</strong> para avaliação especializada. Após confirmação diagnóstica, estabilização e plano definido, emite contrarreferência qualificada e devolve o acompanhamento ao Clínico Geral. O objetivo é reduzir o tempo de permanência no especialista e aumentar a resolutividade da APS.
+  </div>
+
+  <div class="stage-grid">
+
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-reuma">R0</div>
+        <div>
+          <div class="stage-title">Encaminhamento Qualificado para Reumatologia</div>
+          <div class="stage-subtitle">Critérios do Protocolo São Cristóvão — encaminhamento inadequado deve ser devolvido com orientação</div>
+        </div>
+        <span class="stage-badge badge-reuma">Reumatologia</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="cols cols-2">
+          <div class="col-box bg-reuma-light">
+            <h4 class="text-reuma">Critérios de encaminhamento adequado <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li><strong>Artrite objetiva:</strong> edema articular, calor local, hiperemia ou derrame</li>
+              <li><strong>Artralgia inflamatória:</strong> piora em repouso, melhora com movimento, rigidez matinal prolongada, dor noturna inflamatória</li>
+              <li>Sinais sistêmicos: febre persistente, perda ponderal, sudorese noturna, linfonodomegalias</li>
+              <li>Raynaud · Úlceras digitais · Fotossensibilidade · Rash malar · Alopecia inflamatória · Serosite</li>
+              <li>Fraqueza muscular objetiva · Elevação de CPK · Suspeita de miopatia inflamatória</li>
+              <li>Sicca importante com suspeita de Sjögren</li>
+              <li>Dor lombar inflamatória ou suspeita de espondiloartrite</li>
+              <li>VHS/PCR persistentemente elevados sem outra explicação</li>
+              <li>Diagnóstico prévio de doença reumática com piora de dor difusa (distinguir atividade inflamatória de sensibilização central)</li>
+              <li>Falha ao tratamento clínico otimizado por ≥ 12 semanas</li>
+              <li>Alta complexidade: incapacidade + múltiplas comorbidades + opioides/BDZ crônicos</li>
+            </ul>
+          </div>
+          <div class="col-box bg-gray-light">
+            <h4>Informações mínimas obrigatórias no encaminhamento <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Localização, tempo de evolução e características das dores</li>
+              <li>Presença e gravidade de fadiga</li>
+              <li>Sono reparador ou não</li>
+              <li>Sintomas cognitivos: memória, atenção, lentificação</li>
+              <li>Sintomas sistêmicos ou de alerta</li>
+              <li>Comorbidades psiquiátricas e medicamentos em uso</li>
+              <li>Tratamento não farmacológico realizado: tipo, duração, adesão, resposta</li>
+              <li>Farmacoterapia: medicamento, dose, posologia, tempo de uso, eventos adversos</li>
+              <li>Exames disponíveis: hemograma, VHS, PCR, TSH, CPK, função renal/hepática</li>
+              <li style="color:#c53030;font-weight:500">Encaminhamento sem informações mínimas = devolver com orientação clínica (apoio matricial)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-reuma">R1</div>
+        <div>
+          <div class="stage-title">1ª Consulta em Reumatologia</div>
+          <div class="stage-subtitle">Confirmar/revisar diagnóstico · Excluir inflamatório · Definir plano e metas de 8–12 semanas</div>
+        </div>
+        <span class="stage-badge badge-reuma">Reumatologia</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="cols cols-3">
+          <div class="col-box bg-reuma-light">
+            <h4 class="text-reuma">Checklist da 1ª consulta <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Confirmar motivo do encaminhamento</li>
+              <li>Revisar história de dor, sono, fadiga, cognição, humor, trabalho e funcionalidade</li>
+              <li>Aplicar IDG/EGS e escala de dor (EVA)</li>
+              <li>Aplicar FIQR se disponível</li>
+              <li>Buscar ativamente sinais de doença inflamatória ou sistêmica</li>
+              <li>Revisar exames prévios</li>
+              <li>Solicitar exames complementares APENAS se houver hipótese clínica</li>
+              <li>Definir: fibromialgia isolada / associada a doença reumática / outro diagnóstico / sinal de alerta</li>
+              <li>Entregar plano inicial por escrito</li>
+              <li>Estabelecer metas de 8–12 semanas</li>
+            </ul>
+          </div>
+          <div class="col-box bg-gray-light">
+            <h4>Diagnóstico diferencial obrigatório <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Artrite reumatoide · Espondiloartrites · LES</li>
+              <li>Doenças do tecido conjuntivo · Vasculites</li>
+              <li>Polimialgia reumática</li>
+              <li>Miopatias inflamatórias</li>
+              <li>Hipotireoidismo e outras endocrinopatias</li>
+              <li>Osteomalácia · Deficiência de vitamina D</li>
+              <li>Síndrome miofascial · Neuropatias periféricas</li>
+              <li>Neoplasias · Infecções crônicas</li>
+              <li>Uso de álcool, drogas ou medicamentos</li>
+              <li>Apneia obstrutiva do sono</li>
+              <li>Depressão · Ansiedade · TEPT</li>
+            </ul>
+          </div>
+          <div class="col-box bg-reuma-light">
+            <h4 class="text-reuma">Plano inicial por escrito — na 1ª consulta</h4>
+            <ul>
+              <li>Informar diagnóstico e orientar sobre a doença</li>
+              <li>Reforçar educação especializada: reduzir exames e tratamentos desnecessários</li>
+              <li>Definir farmacoterapia especializada se indicada</li>
+              <li>Titular medicação em uso ou iniciar nova opção</li>
+              <li>Indicar psicoterapia (TCC/ACT) se catastrofização, depressão ou trauma</li>
+              <li>Referenciar fisioterapia se descondicionamento grave</li>
+              <li>Planejar desmame de opioides/BDZ inadequados (se presentes)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-reuma">R2</div>
+        <div>
+          <div class="stage-title">Acompanhamento com Reumatologia — Titulação e Reavaliação</div>
+          <div class="stage-subtitle">O Reumato conduz e monitora o plano até a decisão de trajetória · não delega ao Clínico nesta fase</div>
+        </div>
+        <span class="stage-badge badge-reuma">Reumatologia</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="cols cols-2">
+          <div class="col-box bg-reuma-light">
+            <h4 class="text-reuma">⏱ Retorno precoce com Reumato — 4–8 semanas <span class="source-tag src-arpen">ARPEN</span></h4>
+            <ul>
+              <li>Checar tolerância ao fármaco iniciado ou ajustado na 1ª consulta</li>
+              <li>Realizar titulação de dose conforme resposta e tolerabilidade</li>
+              <li>Avaliar efeitos adversos e necessidade de substituição</li>
+              <li>Monitorar progressão do desmame de opioides/BDZ se em andamento</li>
+              <li>Reforçar adesão ao exercício e ao sono</li>
+              <li>Ajustar encaminhamentos para Psicologia, Fisioterapia, Psiquiatria ou Nutrição se necessário</li>
+            </ul>
+          </div>
+          <div class="col-box bg-reuma-light">
+            <h4 class="text-reuma">⏱ Marco formal com Reumato — 8–12 semanas <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>EVA comparativo (baseline × atual)</li>
+              <li>FIQR ou escala funcional disponível</li>
+              <li>Adesão ao exercício físico e qualidade do sono</li>
+              <li>Resultado da titulação: dose atingida, resposta, efeitos adversos</li>
+              <li>Desmame concluído ou em andamento?</li>
+              <li>Doença inflamatória associada: ativa ou controlada?</li>
+              <li>Necessidade de novos encaminhamentos</li>
+            </ul>
+          </div>
+        </div>
+        <div class="decision-box" style="margin-top:14px;">
+          <strong>⚖️ Após a reavaliação formal — Reumato define a trajetória: ver Estágio R3 abaixo</strong>
+          O Clínico Geral mantém disponibilidade para urgências e comorbidades durante todo este período, mas o acompanhamento do plano especializado é conduzido pelo Reumato até a decisão de saída.
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-reuma">R3</div>
+        <div>
+          <div class="stage-title">Decisão de Trajetória — 3 Saídas Possíveis</div>
+          <div class="stage-subtitle">Reumato define a saída após reavaliação formal · Alta direta · Jornada Mista · Novo ciclo com Reumato</div>
+        </div>
+        <span class="stage-badge badge-reuma">Reumatologia</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+
+        <div class="cols cols-3" style="margin-top:10px;">
+
+          <div class="col-box" style="background:#f0fff4; border-top:3px solid #2b7a4b;">
+            <h4 style="color:#2b7a4b;">✅ Trajetória 1 — Alta direta para o Clínico</h4>
+            <ul>
+              <li>Diagnóstico de fibromialgia confirmado</li>
+              <li>Ausência de doença reumática inflamatória ativa</li>
+              <li>Exames e sinais de alerta avaliados e resolvidos</li>
+              <li>Plano terapêutico definido e compreendido</li>
+              <li>Medicações ajustadas com titulação ou desmame concluído</li>
+              <li>Paciente compreendeu metas de autocuidado</li>
+            </ul>
+            <div style="margin-top:8px;font-size:.77rem;color:#2b7a4b;font-weight:600;">→ Contrarreferência qualificada. Clínico assume cuidado integral definitivo.</div>
+          </div>
+
+          <div class="col-box" style="background:#fffbeb; border-top:3px solid #b7791f;">
+            <h4 style="color:#b7791f;">🔄 Trajetória 2 — Cuidado Compartilhado (Jornada Mista)</h4>
+            <ul>
+              <li>Melhora parcial — condição controlável, mas ainda requer supervisão especializada periódica</li>
+              <li>Farmacoterapia estabilizada, mas plano ainda em consolidação</li>
+              <li>Desmame concluído ou não mais necessário, mas metas funcionais ainda em evolução</li>
+              <li>Clínico já tem capacidade de executar o plano entre as consultas do Reumato</li>
+            </ul>
+            <div style="margin-top:8px;font-size:.77rem;color:#b7791f;font-weight:600;">→ Ativa modelo cíclico Clínico ↔ Reumato. Ver aba Cuidado Compartilhado.</div>
+          </div>
+
+          <div class="col-box" style="background:#ebf4ff; border-top:3px solid #2c5282;">
+            <h4 style="color:#2c5282;">🔵 Trajetória 3 — Novo ciclo com Reumatologia</h4>
+            <ul>
+              <li>Doença inflamatória associada ainda ativa ou em investigação</li>
+              <li>Farmacoterapia ainda em titulação — dose alvo não atingida</li>
+              <li>Desmame de opioides/BDZ em andamento e ainda instável</li>
+              <li>Alta complexidade psicossocial ou funcional não resolvida</li>
+              <li>Paciente ainda não compreendeu ou não aderiu ao plano de autocuidado</li>
+            </ul>
+            <div style="margin-top:8px;font-size:.77rem;color:#2c5282;font-weight:600;">→ Retorno com Reumato em 3–6 meses. Retorna ao R2 até nova decisão.</div>
+          </div>
+
+        </div>
+
+        <div class="col-box bg-gray-light" style="margin-top:12px;">
+          <h4>Contrarreferência qualificada — obrigatória nas Trajetórias 1 e 2 <span class="source-tag src-pdf">PDF SC</span></h4>
+          <ul>
+            <li>Diagnóstico principal e diagnósticos associados</li>
+            <li>Critérios diagnósticos preenchidos (IDG/EGS valores)</li>
+            <li>Sinais que justificariam novo encaminhamento</li>
+            <li>Plano não farmacológico: exercício, sono, psicoterapia</li>
+            <li>Medicamentos com dose, posologia e duração prevista</li>
+            <li>Plano de desmame ou titulação (se aplicável)</li>
+            <li>Indicadores que o Clínico deve acompanhar</li>
+          </ul>
+        </div>
+
+        <div class="warn-box">
+          <strong>Critérios de retorno ao especialista após alta (Trajetória 1):</strong> Surgimento de novos sinais inflamatórios · Eventos adversos graves a medicamentos · Perda funcional importante e progressiva · Dúvida diagnóstica relevante que surja no seguimento clínico
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════ TAB: CUIDADO COMPARTILHADO ══════════════════ -->
+<div id="view-mista" class="view">
+  <div class="intro-box">
+    <strong>Jornada Mista — Modelo Cíclico Clínico ↔ Reumatologia</strong> <span class="source-tag src-arpen">ARPEN</span> — Princípio: <strong>um responsável por fase</strong>, com ciclos iterativos entre Clínico e Reumatologista. A cada retorno ao especialista existe uma pergunta ativa: <em>"esse paciente já tem critérios para seguir apenas com o Clínico, ou precisa de mais um ciclo?"</em> O ciclo se repete até os critérios de alta serem atingidos. O Clínico é o coordenador longitudinal permanente dentro e fora dos ciclos.
+  </div>
+
+  <style>
+    /* ── Sequential flow ── */
+    .seq-flow { display:flex; flex-direction:column; gap:0; max-width:900px; margin:0 auto; }
+
+    .seq-step { display:flex; gap:0; border-radius:8px; overflow:hidden; box-shadow:0 1px 5px rgba(0,0,0,.1); margin-bottom:6px; }
+    .seq-num  { min-width:50px; display:flex; align-items:center; justify-content:center; font-size:1.15rem; font-weight:800; color:#fff; flex-shrink:0; }
+    .seq-body { flex:1; padding:14px 18px; }
+    .seq-actor-badge { display:inline-block; padding:2px 11px; border-radius:20px; font-size:.7rem; font-weight:700; margin-bottom:7px; color:#fff; }
+    .seq-title { font-weight:700; font-size:.92rem; margin-bottom:6px; }
+    .seq-body ul { margin:4px 0 0 0; padding-left:16px; }
+    .seq-body ul li { font-size:.81rem; margin-bottom:4px; color:#2d3748; line-height:1.4; }
+    .seq-note  { font-size:.76rem; color:#718096; margin-top:8px; font-style:italic; border-top:1px dashed #e2e8f0; padding-top:6px; }
+    .seq-tags  { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+    .seq-tag   { display:inline-flex; align-items:center; gap:4px; background:rgba(0,0,0,.07); border-radius:4px; padding:3px 9px; font-size:.73rem; font-weight:700; }
+
+    .seq-arrow { text-align:center; padding:4px 0; margin:0; }
+    .seq-arrow-inner { display:inline-flex; align-items:center; gap:10px; font-size:.76rem; font-weight:700; color:#4a5568; }
+    .seq-arrow-line { width:60px; height:2px; }
+
+    /* Trigger block */
+    .seq-trigger { background:#fffbeb; border:2px solid #d69e2e; border-radius:8px; padding:13px 16px; margin:6px 0; }
+    .seq-trigger-title { font-weight:700; font-size:.86rem; color:#744210; margin-bottom:10px; }
+    .seq-trigger-cols { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .seq-trigger-col { background:white; border-radius:6px; padding:11px 13px; font-size:.79rem; line-height:1.45; }
+    .seq-trigger-col strong { display:block; font-size:.78rem; margin-bottom:6px; }
+
+    /* Cycle wrapper — visual loop container */
+    .cycle-wrapper {
+      position:relative;
+      border:2px dashed #d69e2e;
+      border-radius:12px;
+      padding:14px 14px 14px 20px;
+      margin:8px 0;
+      background:rgba(255,251,235,.35);
+    }
+    .cycle-label {
+      position:absolute;
+      top:-12px; left:20px;
+      background:#d69e2e;
+      color:white;
+      font-size:.72rem;
+      font-weight:800;
+      padding:2px 12px;
+      border-radius:20px;
+      letter-spacing:.5px;
+      white-space:nowrap;
+    }
+
+    /* Decision diamond */
+    .decision-wrapper { margin:10px 0 6px; }
+    .decision-header {
+      background:#b7791f;
+      color:white;
+      border-radius:8px 8px 0 0;
+      padding:11px 16px;
+      font-weight:700;
+      font-size:.88rem;
+      display:flex; align-items:center; gap:8px;
+    }
+    .decision-criteria {
+      background:#fffbeb;
+      border:1px solid #d69e2e;
+      border-top:none;
+      padding:12px 16px;
+      font-size:.79rem;
+    }
+    .decision-criteria-title { font-weight:700; font-size:.78rem; color:#744210; margin-bottom:8px; }
+    .criteria-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; margin-bottom:10px; }
+    .criteria-item {
+      background:white; border-radius:5px; padding:7px 10px;
+      font-size:.77rem; display:flex; align-items:flex-start; gap:6px; line-height:1.35;
+    }
+    .criteria-check { font-size:.85rem; flex-shrink:0; margin-top:1px; }
+    .decision-branches { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
+    .branch-yes {
+      background:#f0fff4; border:2px solid #68d391; border-radius:8px;
+      padding:13px 15px; font-size:.8rem; color:#276749; line-height:1.5;
+    }
+    .branch-no {
+      background:#fff5f5; border:2px solid #fc8181; border-radius:8px;
+      padding:13px 15px; font-size:.8rem; color:#9b2c2c; line-height:1.5;
+    }
+    .branch-yes strong, .branch-no strong { display:block; font-size:.85rem; margin-bottom:8px; }
+    .branch-tag { display:inline-block; border-radius:4px; padding:2px 8px; font-size:.71rem; font-weight:700; margin:3px 2px 3px 0; }
+    .branch-tag-g { background:#c6f6d5; color:#22543d; }
+    .branch-tag-r { background:#fed7d7; color:#742a2a; }
+    .branch-tag-b { background:#bee3f8; color:#2a4365; }
+
+    /* Loop back indicator */
+    .loop-back {
+      display:flex; align-items:center; gap:10px;
+      background:#fff5f5; border:1px dashed #fc8181;
+      border-radius:6px; padding:9px 14px; margin-top:8px;
+      font-size:.78rem; font-weight:700; color:#9b2c2c;
+    }
+    .loop-icon { font-size:1.1rem; }
+
+    /* Others */
+    .seq-outros { background:#faf5ff; border:1px solid #d6bcfa; border-radius:8px; padding:13px 16px; margin:6px 0; }
+    .seq-outros-title { font-size:.8rem; font-weight:700; color:#6b46c1; margin-bottom:10px; }
+    .seq-outros-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; }
+    .seq-outros-item { font-size:.78rem; color:#44337a; background:white; border-radius:6px; padding:9px 11px; }
+    .seq-outros-item strong { display:block; font-size:.76rem; margin-bottom:3px; color:#553c9a; }
+    .seq-outros-when { font-size:.71rem; color:#6b46c1; margin-top:4px; font-style:italic; }
+
+    @media(max-width:700px){
+      .seq-trigger-cols,.decision-branches,.criteria-grid,.seq-outros-grid{ grid-template-columns:1fr; }
+    }
+  </style>
+
+  <div class="seq-flow">
+
+    <!-- ─── FASE 1: CLÍNICO ─── -->
+    <div class="seq-step">
+      <div class="seq-num" style="background:#2b7a4b;">1</div>
+      <div class="seq-body" style="background:#f0fff4; border-left:3px solid #2b7a4b;">
+        <span class="seq-actor-badge" style="background:#2b7a4b;">🟢 CLÍNICO GERAL</span>
+        <div class="seq-title">Avaliação Inicial e Início do Tratamento</div>
+        <ul>
+          <li>Confirma critérios ACR 2016 (IDG/EGS + EVA) e aplica PHQ-9/GAD-7 se indicado</li>
+          <li>Solicita exames de exclusão: hemograma, VHS, PCR, TSH, CPK, creatinina, glicemia</li>
+          <li>Estratifica complexidade: baixa, média ou alta</li>
+          <li>Inicia plano: educação em dor, exercício aeróbico progressivo, higiene do sono</li>
+          <li>Prescreve farmacoterapia conforme perfil (Amitriptilina / Ciclobenzaprina / Duloxetina / Pregabalina)</li>
+          <li>Aciona Fisioterapia ou Psicologia se já indicado</li>
+        </ul>
+        <div class="seq-tags">
+          <span class="seq-tag" style="color:#2b7a4b;">⏱ Retorno precoce em 2–4 sem: obrigatório se novo fármaco foi iniciado (titulação + efeitos adversos)</span>
+          <span class="seq-tag" style="color:#2b7a4b;">⏱ Retorno intermediário em 4–8 sem: a critério clínico (adesão ao exercício, ajuste de dose)</span>
+          <span class="seq-tag" style="color:#2b7a4b;">⏱ Marco de 12 sem: decisão formal de trajetória (manter, ajustar ou encaminhar)</span>
+        </div>
+        <p class="seq-note">A Reumatologia não é acionada nesta fase, salvo sinais de alerta imediatos.</p>
+      </div>
+    </div>
+
+    <!-- ─── GATILHO ─── -->
+    <div class="seq-trigger">
+      <div class="seq-trigger-title">🔀 Momento do Encaminhamento à Reumatologia — quando e por quê</div>
+      <div class="seq-trigger-cols">
+        <div class="seq-trigger-col" style="border-left:3px solid #c53030;">
+          <strong style="color:#c53030;">⚡ Imediato — não aguardar 12 semanas</strong>
+          Artrite objetiva (edema, calor, derrame) · Artralgia inflamatória com rigidez matinal prolongada · Raynaud · Rash malar · Fraqueza muscular objetiva · Febre persistente · Perda ponderal · Linfonodomegalias · VHS/PCR elevados sem explicação · Sicca com suspeita de Sjögren · Dor lombar inflamatória · Diagnóstico prévio de doença reumática com piora de dor difusa
+        </div>
+        <div class="seq-trigger-col" style="border-left:3px solid #d69e2e;">
+          <strong style="color:#b7791f;">📋 Eletivo — após 12 semanas de tratamento clínico otimizado</strong>
+          Falha ao tratamento (sem resposta funcional nem de dor após exercício + farmacoterapia por 12 semanas) · Alta complexidade: incapacidade funcional importante + múltiplas comorbidades + opioides/BDZ crônicos inadequados · Dúvida diagnóstica que persistir após investigação inicial
+        </div>
+      </div>
+    </div>
+
+    <div class="seq-arrow">
+      <div class="seq-arrow-inner">
+        <div class="seq-arrow-line" style="background:#2c5282;"></div>
+        <span style="color:#2c5282;">📋 Encaminhamento qualificado com informações mínimas obrigatórias</span>
+        <div class="seq-arrow-line" style="background:#2c5282;"></div>
+      </div>
+    </div>
+
+    <!-- ─── FASE 2: REUMATO (1ª consulta) ─── -->
+    <div class="seq-step">
+      <div class="seq-num" style="background:#2c5282;">2</div>
+      <div class="seq-body" style="background:#ebf4ff; border-left:3px solid #2c5282;">
+        <span class="seq-actor-badge" style="background:#2c5282;">🔵 REUMATOLOGIA — único responsável nesta fase</span>
+        <div class="seq-title">1ª Consulta Especializada — Diagnóstico e Plano</div>
+        <ul>
+          <li>Confirma ou revisa diagnóstico; exclui doença inflamatória, autoimune ou sistêmica</li>
+          <li>Aplica IDG/EGS/FIQR/Epworth/Catastrofização formalmente</li>
+          <li>Define farmacoterapia especializada; estrutura desmame de opioides/BDZ se necessário</li>
+          <li>Aciona CAIS ou Serviço Social se critérios de alta complexidade</li>
+          <li>Emite <strong>contrarreferência qualificada</strong>: diagnóstico + critérios preenchidos + plano farmacológico completo + indicadores + sinais de retorno</li>
+          <li>Agenda retorno na Reumatologia em 3–6 meses</li>
+        </ul>
+        <div class="seq-tags">
+          <span class="seq-tag" style="color:#2c5282;">⏱ 1ª consulta: diagnóstico + plano escrito + metas de 8–12 semanas</span>
+          <span class="seq-tag" style="color:#2c5282;">🗓 Agenda retorno em Reumato: 3–6 meses</span>
+        </div>
+        <p class="seq-note">O Clínico não atende em paralelo — aguarda contrarreferência com plano definido.</p>
+      </div>
+    </div>
+
+    <div class="seq-arrow">
+      <div class="seq-arrow-inner">
+        <div class="seq-arrow-line" style="background:#2b7a4b;"></div>
+        <span style="color:#2b7a4b;">📄 Contrarreferência: diagnóstico · plano · doses · indicadores · sinais de retorno</span>
+        <div class="seq-arrow-line" style="background:#2b7a4b;"></div>
+      </div>
+    </div>
+
+    <!-- ─── CICLO ITERATIVO ─── -->
+    <div class="cycle-wrapper">
+      <div class="cycle-label">🔄 CICLO CLÍNICO ↔ REUMATOLOGIA — repete até critérios de alta serem atingidos</div>
+
+      <!-- FASE 3: CLÍNICO executa -->
+      <div class="seq-step" style="margin-top:10px;">
+        <div class="seq-num" style="background:#2b7a4b;">3</div>
+        <div class="seq-body" style="background:#f0fff4; border-left:3px solid #2b7a4b;">
+          <span class="seq-actor-badge" style="background:#2b7a4b;">🟢 CLÍNICO GERAL — único responsável nesta fase</span>
+          <div class="seq-title">Execução do Plano e Seguimento entre Consultas</div>
+          <ul>
+            <li>Prescreve e monitora farmacoterapia conforme plano da contrarreferência</li>
+            <li>Progride exercício aeróbico e higiene do sono; monitora adesão</li>
+            <li>Acompanha efeitos adversos e realiza ajustes menores autorizados</li>
+            <li>Conduz redução gradual de opioides/BDZ se orientado</li>
+            <li>Registra EVA, FIQR e funcionalidade a cada consulta</li>
+            <li>Aciona Fisioterapia, Psicologia ou Psiquiatria conforme critério</li>
+            <li>Maneja comorbidades: hipotireoidismo, DM, HAS, apneia, obesidade</li>
+          </ul>
+          <div class="seq-tags">
+            <span class="seq-tag" style="color:#2b7a4b;">⏱ 1º retorno ao Clínico: 2–4 semanas após contrarreferência, se novo fármaco foi iniciado ou ajustado</span>
+            <span class="seq-tag" style="color:#2b7a4b;">⏱ Retornos subsequentes: a cada 1–3 meses conforme estabilidade</span>
+            <span class="seq-tag" style="color:#2b7a4b;">📏 EVA + adesão: toda consulta</span>
+          </div>
+          <p class="seq-note">Reumatologia não é acionada nesta fase, salvo urgência ou novo critério de encaminhamento imediato.</p>
+        </div>
+      </div>
+
+      <!-- Outros profissionais -->
+      <div class="seq-outros" style="margin-top:8px;">
+        <div class="seq-outros-title">🟣 Outros profissionais — acionados pelo Clínico (sem consulta paralela obrigatória)</div>
+        <div class="seq-outros-grid">
+          <div class="seq-outros-item">
+            <strong>Fisioterapia</strong>
+            Descondicionamento, medo de movimento, exercício supervisionado
+            <div class="seq-outros-when">Quando: incapacidade funcional objetiva</div>
+          </div>
+          <div class="seq-outros-item">
+            <strong>Psicologia / TCC</strong>
+            Catastrofização, ansiedade, insônia psicofisiológica, trauma
+            <div class="seq-outros-when">Quando: catastrofização ou comorbidade psiquiátrica leve-moderada</div>
+          </div>
+          <div class="seq-outros-item">
+            <strong>Psiquiatria</strong>
+            Depressão grave, risco suicida, psicofármacos complexos
+            <div class="seq-outros-when">Quando: sofrimento psíquico grave ou risco psiquiátrico</div>
+          </div>
+          <div class="seq-outros-item">
+            <strong>Fisiatria / Clínica de Dor</strong>
+            Dor refratária após tratamento otimizado
+            <div class="seq-outros-when">Quando: falha a 2 tentativas especializadas</div>
+          </div>
+          <div class="seq-outros-item">
+            <strong>Nutrição</strong>
+            Obesidade, deficiências nutricionais, comorbidade metabólica
+            <div class="seq-outros-when">Quando: IMC ≥ 30 ou deficiência identificada</div>
+          </div>
+          <div class="seq-outros-item">
+            <strong>Serviço Social / CAIS</strong>
+            Vulnerabilidade social, afastamento laboral, benefícios
+            <div class="seq-outros-when">Quando: alta complexidade com impacto social</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="seq-arrow" style="margin:8px 0;">
+        <div class="seq-arrow-inner">
+          <div class="seq-arrow-line" style="background:#2c5282;"></div>
+          <span style="color:#2c5282;">📊 Clínico envia relatório de seguimento: EVA · FIQR · fármacos · doses · efeitos adversos · adesão</span>
+          <div class="seq-arrow-line" style="background:#2c5282;"></div>
+        </div>
+      </div>
+
+      <!-- FASE 4: REUMATO — DECISÃO -->
+      <div class="decision-wrapper">
+        <div class="decision-header">
+          ⚖️ FASE 4 — Reumatologia: Reavaliação a cada 3–6 meses → DECISÃO: Alta ou novo ciclo?
+        </div>
+        <div class="decision-criteria">
+          <div class="decision-criteria-title">Critérios de alta da Reumatologia — avaliados em cada retorno <span class="source-tag src-pdf">PDF SC</span></div>
+          <div class="criteria-grid">
+            <div class="criteria-item"><span class="criteria-check">☐</span> Diagnóstico de fibromialgia confirmado</div>
+            <div class="criteria-item"><span class="criteria-check">☐</span> Ausência de doença reumatológica inflamatória ativa</div>
+            <div class="criteria-item"><span class="criteria-check">☐</span> Exames e sinais de alerta avaliados e resolvidos</div>
+            <div class="criteria-item"><span class="criteria-check">☐</span> Plano terapêutico definido e compreendido pelo paciente</div>
+            <div class="criteria-item"><span class="criteria-check">☐</span> Medicações ajustadas com titulação ou desmame orientado</div>
+            <div class="criteria-item"><span class="criteria-check">☐</span> Paciente compreendeu metas de autocuidado e funcionalidade</div>
+          </div>
+
+          <div class="decision-branches">
+            <div class="branch-yes">
+              <strong>✅ TODOS os critérios atingidos → ALTA da Reumatologia</strong>
+              Especialista emite contrarreferência final com:<br>
+              <span class="branch-tag branch-tag-g">Diagnóstico + critérios IDG/EGS</span>
+              <span class="branch-tag branch-tag-g">Farmacoterapia com doses</span>
+              <span class="branch-tag branch-tag-g">Sinais de retorno</span>
+              <span class="branch-tag branch-tag-g">Indicadores a monitorar</span><br><br>
+              Clínico assume cuidado integral definitivo.<br>
+              <span class="branch-tag branch-tag-g">⏱ Retorno ao Clínico: a cada 3–6 meses</span><br>
+              <span class="branch-tag branch-tag-g">📏 IDG/EGS + EVA: a cada 3–6 meses</span><br>
+              <span class="branch-tag branch-tag-g">📊 FIQR: a cada 6 meses</span>
+            </div>
+            <div class="branch-no">
+              <strong>❌ Um ou mais critérios NÃO atingidos → Novo ciclo</strong>
+              Especialista reajusta conduta e emite nova contrarreferência com:<br>
+              <span class="branch-tag branch-tag-b">Condutas ajustadas</span>
+              <span class="branch-tag branch-tag-b">Metas do próximo período</span>
+              <span class="branch-tag branch-tag-b">Próximo retorno agendado</span><br><br>
+              Possíveis razões para continuar o ciclo:<br>
+              <span class="branch-tag branch-tag-r">Doença inflamatória ainda ativa</span>
+              <span class="branch-tag branch-tag-r">Farmacoterapia em titulação</span>
+              <span class="branch-tag branch-tag-r">Desmame de opioides/BDZ em andamento</span>
+              <span class="branch-tag branch-tag-r">Metas funcionais não atingidas</span>
+              <span class="branch-tag branch-tag-r">Dúvida diagnóstica persistente</span>
+              <div class="loop-back" style="margin-top:10px;">
+                <span class="loop-icon">↩</span>
+                <span>Retorna à Fase 3 — Clínico executa novo ciclo de 3–6 meses com plano atualizado</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- fim cycle-wrapper -->
+
+    <!-- ─── FASE 5: CLÍNICO — DEFINITIVO ─── -->
+    <div class="seq-arrow">
+      <div class="seq-arrow-inner">
+        <div class="seq-arrow-line" style="background:#2b7a4b;"></div>
+        <span style="color:#2b7a4b;">📄 Contrarreferência final → Clínico assume permanentemente</span>
+        <div class="seq-arrow-line" style="background:#2b7a4b;"></div>
+      </div>
+    </div>
+
+    <div class="seq-step">
+      <div class="seq-num" style="background:#2b7a4b;">5</div>
+      <div class="seq-body" style="background:#f0fff4; border-left:3px solid #2b7a4b;">
+        <span class="seq-actor-badge" style="background:#2b7a4b;">🟢 CLÍNICO GERAL — coordenador permanente e definitivo</span>
+        <div class="seq-title">Seguimento Longitudinal Definitivo</div>
+        <ul>
+          <li>Monitora funcionalidade, adesão ao exercício, qualidade do sono e EVA</li>
+          <li>Maneja comorbidades: hipotireoidismo, DM, HAS, apneia, obesidade</li>
+          <li>Revisa farmacoterapia: manter apenas se houver benefício funcional claro</li>
+          <li>Educa paciente e família continuamente sobre autocuidado</li>
+          <li>Reduz farmacoterapia se condição estabilizada e metas atingidas</li>
+          <li>Encaminha à Reumatologia <strong>somente se novos critérios clínicos surgirem</strong></li>
+        </ul>
+        <div class="seq-tags">
+          <span class="seq-tag" style="color:#2b7a4b;">⏱ Retorno ao Clínico: a cada 3–6 meses</span>
+          <span class="seq-tag" style="color:#2b7a4b;">📏 IDG/EGS + EVA: a cada 3–6 meses</span>
+          <span class="seq-tag" style="color:#2b7a4b;">📊 FIQR: a cada 6 meses</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- fim seq-flow -->
+
+  <div class="alert-box" style="margin-top:20px">
+    <strong>🚨 Gatilhos de retorno urgente — válidos em qualquer fase do ciclo <span class="source-tag src-pdf">PDF SC</span></strong>
+    Novos sinais inflamatórios · Anestesia em sela ou alteração esfincteriana · Déficit neurológico progressivo · Fraqueza objetiva progressiva · Febre persistente ou suspeita de infecção · Perda ponderal involuntária · Artrite aguda importante · Dor noturna progressiva com sinais sistêmicos · Suspeita de neoplasia · Ideação suicida ou risco psiquiátrico · Reação medicamentosa grave → <strong>Reumatologia prioritária ou PA/Urgência imediatamente</strong>
+  </div>
+</div>
+
+<!-- ══════════════════ TAB: PRESCRIÇÃO PRÁTICA ══════════════════ -->
+<div id="view-rx" class="view">
+  <div class="intro-box">
+    <strong>Guia de Prescrição Inicial Prática — Fibromialgia</strong> <span class="source-tag src-pdf">PDF SC</span> — Baseado na Seção 5 do Protocolo São Cristóvão / SBR 2026 / AAFP 2023. Iniciar sempre um único medicamento por vez em dose baixa. Reavaliar em 12 semanas. A farmacoterapia é <strong>adjuvante</strong> — jamais substitui exercício, educação e sono.
+  </div>
+
+  <div class="rx-grid">
+
+    <div class="rx-card">
+      <div class="rx-card-header" style="background:#2b7a4b">Perfil 1 — Dor + Sono Ruim · Sem Depressão Importante</div>
+      <div class="rx-card-body">
+        <div class="rx-drug">
+          <div class="rx-drug-name">1ª escolha: Amitriptilina</div>
+          <ul class="rx-drug-detail">
+            <li>10 mg VO à noite (2h antes de dormir) × 7 dias</li>
+            <li>Se tolerado → aumentar para 20–25 mg à noite</li>
+            <li>Titular +10–12,5 mg a cada 1–2 semanas até dose útil</li>
+            <li>Dose usual: 25–50 mg · Dose máxima FM: 50 mg/noite</li>
+            <li>Associar: exercício aeróbico 10 min, 3×/semana, progressivo</li>
+            <li>⚠️ Evitar em glaucoma ângulo fechado, arritmias, idoso com alto risco de queda</li>
+          </ul>
+        </div>
+        <div class="rx-or">— ou —</div>
+        <div class="rx-drug">
+          <div class="rx-drug-name">Alternativa: Ciclobenzaprina</div>
+          <ul class="rx-drug-detail">
+            <li>5 mg VO à noite</li>
+            <li>Se necessário: 10 mg à noite</li>
+            <li>Cuidados: sonolência, boca seca, tontura; evitar em idosos frágeis</li>
+          </ul>
+        </div>
+        <div class="rx-warn">Reavaliar PA, sono, EVA e adesão ao exercício em 12 semanas</div>
+      </div>
+    </div>
+
+    <div class="rx-card">
+      <div class="rx-card-header" style="background:#2c5282">Perfil 2 — Dor + Ansiedade/Depressão + Fadiga</div>
+      <div class="rx-card-body">
+        <div class="rx-drug">
+          <div class="rx-drug-name">1ª escolha: Duloxetina (melhor evidência SBR 2026)</div>
+          <ul class="rx-drug-detail">
+            <li>30 mg VO pela manhã × 7–14 dias</li>
+            <li>Se tolerado → aumentar para 60 mg pela manhã</li>
+            <li>Dose usual: 60 mg/dia · Máximo: até 120 mg (indicação psiquiátrica)</li>
+            <li>⚠️ Reavaliar PA, náusea, sono e resposta funcional em 12 semanas</li>
+            <li>⚠️ Evitar em insuficiência hepática, etilismo importante, IMAO recente</li>
+          </ul>
+        </div>
+        <div class="rx-or">— ou —</div>
+        <div class="rx-drug">
+          <div class="rx-drug-name">Alternativa: Fluoxetina</div>
+          <ul class="rx-drug-detail">
+            <li>20 mg VO pela manhã · Dose usual: 20–40 mg/dia</li>
+            <li>Pode ser associada a amitriptilina 25 mg à noite em casos selecionados</li>
+            <li>⚠️ Cautela síndrome serotoninérgica na associação</li>
+          </ul>
+        </div>
+        <div class="rx-warn">Reavaliar resposta funcional, humor e efeitos adversos em 12 semanas</div>
+      </div>
+    </div>
+
+    <div class="rx-card">
+      <div class="rx-card-header" style="background:#6b46c1">Perfil 3 — Dor + Sono Muito Fragmentado + Intolerância a Tricíclico</div>
+      <div class="rx-card-body">
+        <div class="rx-drug">
+          <div class="rx-drug-name">1ª escolha: Pregabalina (melhor evidência SBR 2026)</div>
+          <ul class="rx-drug-detail">
+            <li>25–75 mg VO à noite</li>
+            <li>Titular para 75 mg 12/12h ou 150 mg à noite conforme resposta e tolerância</li>
+            <li>Dose usual: 150–300 mg/dia em 1–2 tomadas</li>
+            <li>Dose máxima FM: 450 mg/dia (preferir 12/12h)</li>
+            <li>⚠️ Ajustar à função renal (reduzir dose em IR)</li>
+            <li>⚠️ Cuidados: sonolência, tontura, edema, ganho ponderal, risco de queda</li>
+          </ul>
+        </div>
+        <div class="rx-or">— opção com evidência limitada —</div>
+        <div class="rx-drug">
+          <div class="rx-drug-name">Gabapentina (evidência insuficiente — SBR 2026)</div>
+          <ul class="rx-drug-detail">
+            <li>300 mg VO à noite; titular 300 mg a cada 3–7 dias</li>
+            <li>Dose usual: 900–1.800 mg/dia em 8/8h · Máximo: 2.400–3.600 mg</li>
+            <li>⚠️ SBR 2026: sem evidência formal para FM; considerar em contextos selecionados</li>
+            <li>⚠️ Ajustar à função renal</li>
+          </ul>
+        </div>
+        <div class="rx-warn">Reavaliar sono, EVA, FIQR e efeitos adversos em 12 semanas</div>
+      </div>
+    </div>
+
+    <div class="rx-card">
+      <div class="rx-card-header" style="background:#b7791f">Perfil 4 — Crise Dolorosa Episódica (Resgate)</div>
+      <div class="rx-card-body">
+        <div class="rx-drug">
+          <div class="rx-drug-name">Dipirona — primeira escolha de resgate</div>
+          <ul class="rx-drug-detail">
+            <li>500 mg a 1 g VO a cada 6h se dor</li>
+            <li>Máximo: 4 g/dia · Duração: até 3–5 dias</li>
+          </ul>
+        </div>
+        <div class="rx-or">— ou —</div>
+        <div class="rx-drug">
+          <div class="rx-drug-name">Paracetamol</div>
+          <ul class="rx-drug-detail">
+            <li>750 mg a 1 g VO a cada 6–8h se dor</li>
+            <li>Máximo ambulatorial: 3 g/dia · Reduzir em idosos, hepatopatia, etilismo</li>
+          </ul>
+        </div>
+        <div class="rx-or">— reservar para exacerbações intensas quando outras medidas falharem —</div>
+        <div class="rx-drug">
+          <div class="rx-drug-name" style="color:#c53030">Tramadol — uso EXCEPCIONAL e de curto prazo</div>
+          <ul class="rx-drug-detail">
+            <li>50 mg VO a cada 8–12h se dor · 50–100 mg a cada 6h em casos selecionados</li>
+            <li>Máximo: 400 mg/dia · Idosos: ≤ 300 mg/dia</li>
+            <li>⛔ Evitar uso crônico — risco de dependência e síndrome serotoninérgica com antidepressivos</li>
+            <li>⛔ Não escalonar para opioide crônico</li>
+          </ul>
+        </div>
+        <div class="rx-warn">Sempre associado ao plano de reabilitação — nunca como tratamento isolado</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:24px">
+    <div style="font-weight:700;font-size:.9rem;color:#2d3748;margin-bottom:14px">Regras de Prescrição e Medicamentos Não Recomendados <span class="source-tag src-pdf">PDF SC</span></div>
+    <div class="rules-grid">
+      <div class="rules-card" style="border-top:3px solid #2b7a4b">
+        <h4 style="color:#2b7a4b">Regras obrigatórias de prescrição</h4>
+        <ul>
+          <li>Usar medicação como adjuvante — nunca como tratamento isolado</li>
+          <li>Definir sintoma-alvo: dor, sono, fadiga, depressão ou ansiedade</li>
+          <li>Iniciar um único medicamento por vez em dose baixa</li>
+          <li>Titular lentamente</li>
+          <li>Reavaliar resposta em 12 semanas</li>
+          <li>Manter apenas se houver benefício funcional claro</li>
+          <li>Suspender gradualmente se ineficaz após dose e tempo adequados</li>
+          <li>Considerar: idade, risco de quedas, obesidade, apneia, gestação, glaucoma, arritmia, epilepsia, IR, IH e interações</li>
+          <li>Evitar polifarmácia sedativa</li>
+        </ul>
+      </div>
+      <div class="rules-card" style="border-top:3px solid #c53030">
+        <h4 style="color:#c53030">Medicamentos NÃO recomendados rotineiramente</h4>
+        <div class="not-rec-list">
+          <span class="not-rec-tag">Corticoides sistêmicos</span>
+          <span class="not-rec-tag">AINEs como terapia de base</span>
+          <span class="not-rec-tag">Opioides fortes</span>
+          <span class="not-rec-tag">Codeína crônica</span>
+          <span class="not-rec-tag">Benzodiazepínicos</span>
+          <span class="not-rec-tag">Zolpidem crônico</span>
+          <span class="not-rec-tag">Canabinoides como rotina</span>
+          <span class="not-rec-tag">Terapias intravenosas sem indicação</span>
+          <span class="not-rec-tag">Polifarmácia sedativa</span>
+        </div>
+        <div class="alert-box" style="margin-top:12px">
+          SBR 2026 e ACR: sem evidência para uso rotineiro de opioides, AINEs, canabinoides, BDZ e terapias intravenosas. Risco de dano supera o benefício.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ TAB: MATRIZ E INDICADORES ══════════════════ -->
+<div id="view-matriz" class="view">
+  <div class="intro-box">
+    <strong>Matriz de Responsabilidade e Indicadores</strong> — Síntese de quem faz o quê em cada domínio do cuidado, com base no Protocolo São Cristóvão v1 (Jul/2026) e na contribuição da equipe Arpen.
+  </div>
+
+  <table class="summary-table">
+    <thead>
+      <tr>
+        <th style="width:16%">Domínio</th>
+        <th style="width:28%">🟢 Clínico Geral <span class="source-tag src-pdf" style="font-size:.65rem">PDF SC</span></th>
+        <th style="width:28%">🔵 Reumatologia <span class="source-tag src-pdf" style="font-size:.65rem">PDF SC</span></th>
+        <th style="width:28%">🟣 Psiquiatria / Fisio / Psicologia <span class="source-tag src-pdf" style="font-size:.65rem">PDF SC</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Diagnóstico</strong></td>
+        <td>Confirmar critérios ACR 2016 em casos típicos (IDG/EGS); excluir diferenciais básicos com exames racionais</td>
+        <td>Confirmar ou revisar diagnóstico; excluir doença inflamatória/autoimune/sistêmica; aplicar IDG/EGS/FIQR formais; reduzir exames desnecessários</td>
+        <td>Psiquiatria: diagnóstico de depressão, ansiedade, TEPT. Fisio: avaliação funcional e de desempenho físico</td>
+      </tr>
+      <tr>
+        <td><strong>Educação</strong></td>
+        <td>Educar paciente e família sobre natureza benigna, expectativas realistas, metas funcionais e autocuidado</td>
+        <td>Reforçar educação especializada; desfazer crenças equivocadas; reduzir medicalização excessiva</td>
+        <td>Psicologia/TCC: educação em dor, catastrofização, medo de movimento, autorregulação emocional</td>
+      </tr>
+      <tr>
+        <td><strong>Exercício físico</strong></td>
+        <td>Prescrever, acompanhar e progredir exercício aeróbico + fortalecimento; orientar "leve desconforto tolerável"; monitorar adesão</td>
+        <td>Orientar plano especializado; referenciar fisioterapia se descondicionamento grave; reforçar importância do exercício</td>
+        <td>Fisioterapia: reabilitação funcional; tratar cinesiofobia e descondicionamento; prescrever exercício supervisionado</td>
+      </tr>
+      <tr>
+        <td><strong>Sono</strong></td>
+        <td>Orientar higiene completa do sono; tratar apneia, pernas inquietas; titular Amitriptilina/Pregabalina para sono</td>
+        <td>Avaliar e manejar distúrbio do sono no contexto especializado; ajustar farmacoterapia</td>
+        <td>Psicologia: TCC para insônia (TCC-I); Psiquiatria: tratar transtornos do humor que comprometem sono</td>
+      </tr>
+      <tr>
+        <td><strong>Farmacoterapia</strong></td>
+        <td>Iniciar Amitriptilina, Ciclobenzaprina, Duloxetina, Fluoxetina ou Pregabalina conforme perfil; resgate com Dipirona/Paracetamol; monitorar efeitos adversos</td>
+        <td>Titular farmacoterapia; estruturar desmame de opioides/BDZ inadequados; manejar fibromialgia associada a doenças reumáticas; orientar Tramadol excepcionalmente</td>
+        <td>Psiquiatria: manejar psicofármacos em depressão grave, ansiedade refratária ou psicofármacos complexos</td>
+      </tr>
+      <tr>
+        <td><strong>Comorbidades</strong></td>
+        <td>Manejar hipotireoidismo, DM, HAS, apneia, obesidade — comorbidades comuns que agravam FM</td>
+        <td>Diagnosticar e manejar doenças reumatológicas associadas; distinguir atividade inflamatória de sensibilização central</td>
+        <td>Psiquiatria: depressão, ansiedade, TEPT, risco suicida. Nutrição: obesidade, deficiências nutricionais</td>
+      </tr>
+      <tr>
+        <td><strong>Monitoramento</strong></td>
+        <td>EVA a cada consulta; IDG/EGS e FIQR a cada 3–6 meses; PHQ-9/GAD-7 quando indicado; adesão e funcionalidade</td>
+        <td>IDG/EGS/FIQR a cada 3–6 meses; resposta funcional; % contrarreferência qualificada; tempo de permanência no ambulatório</td>
+        <td>Escalas específicas por especialidade: Epworth (sono), ansiedade/depressão, avaliação funcional (Fisio)</td>
+      </tr>
+      <tr>
+        <td><strong>Encaminhamento</strong></td>
+        <td>Encaminhar à Reumatologia conforme critérios; à urgência se sinais de alerta; à Psiquiatria, Fisio, Psicologia quando indicado</td>
+        <td>Alta e contrarreferência qualificada ao Clínico; encaminhar à Psiquiatria, Fisio, Clínica de Dor, Serviço Social quando indicado</td>
+        <td>Alta programada conforme objetivos; contrarreferência para Clínico ou Reumatologista coordenador</td>
+      </tr>
+      <tr>
+        <td><strong>Vínculo longitudinal</strong></td>
+        <td><strong>Principal responsável pelo cuidado longitudinal</strong> do paciente com fibromialgia estável após contrarreferência</td>
+        <td>Suporte técnico especializado; disponível para reconsulta quando critérios surgem; não é o coordenador longitudinal na maioria dos casos</td>
+        <td>Suporte pontual ou programado; alta quando metas atingidas</td>
+      </tr>
+      <tr>
+        <td><strong>Urgência</strong></td>
+        <td>Reconhecer sinais de alerta (incluindo anestesia em sela, artrite aguda) e encaminhar imediatamente ao PA/urgência</td>
+        <td>Receber urgências reumatológicas; descartar emergência inflamatória; acionar via protocolo adequado</td>
+        <td>Psiquiatria de urgência: ideação suicida ou risco psiquiátrico agudo</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:28px;font-weight:700;font-size:.9rem;color:#2d3748;margin-bottom:12px">Indicadores de Monitoramento do Protocolo <span class="source-tag src-pdf">PDF SC</span></div>
+  <div class="ind-grid">
+    <div class="ind-card" style="border-top:3px solid #2b7a4b">
+      <h4 style="color:#2b7a4b">Processo</h4>
+      <ul>
+        <li>% encaminhamentos com informações mínimas completas</li>
+        <li>% pacientes com IDG/EGS registrados na 1ª consulta</li>
+        <li>% pacientes com plano de exercício documentado</li>
+        <li>% pacientes com rastreio de depressão/ansiedade quando indicado</li>
+        <li>% pacientes com suspeita de doença inflamatória confirmada ou descartada</li>
+      </ul>
+    </div>
+    <div class="ind-card" style="border-top:3px solid #c53030">
+      <h4 style="color:#c53030">Qualidade e Segurança</h4>
+      <ul>
+        <li>% pacientes em uso crônico de opioide forte ou benzodiazepínico</li>
+        <li>Taxa de solicitação de exames por paciente</li>
+        <li>Taxa de solicitação de exame por consulta</li>
+        <li>Taxa de contrarreferência qualificada para seguimento clínico</li>
+        <li>% encaminhamentos à Reumatologia sem critério clínico</li>
+      </ul>
+    </div>
+    <div class="ind-card" style="border-top:3px solid #2c5282">
+      <h4 style="color:#2c5282">Resultados</h4>
+      <ul>
+        <li>Redução média da EVA em 3 a 6 meses</li>
+        <li>Melhora funcional pelo FIQR</li>
+        <li>Tempo médio de permanência no ambulatório especializado</li>
+        <li>Taxa de encaminhamento para outras especialidades</li>
+        <li>Taxa de reencaminhamento após alta da Reumatologia</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</main>
+
+<script>
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+function toggleStage(header) {
+  header.parentElement.classList.toggle('open');
+}
+</script>
 </body>
 </html>
