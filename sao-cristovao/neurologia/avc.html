@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linha de Cuidado — AVC | São Cristóvão Saúde</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f0f4f8;
+  color: #1a2535;
+  min-height: 100vh;
+}
+
+header {
+  background: linear-gradient(135deg, #7b1111 0%, #b91c1c 100%);
+  color: white;
+  padding: 26px 40px 20px;
+  border-bottom: 4px solid #ef4444;
+}
+header h1 { font-size: 1.45rem; font-weight: 700; }
+header p  { font-size: .82rem; opacity: .8; margin-top: 4px; }
+.header-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.hbadge {
+  display: inline-block;
+  background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 4px;
+  padding: 2px 9px;
+  font-size: .7rem;
+  font-weight: 600;
+}
+
+.tabs {
+  display: flex;
+  background: #e2eaf1;
+  border-bottom: 2px solid #c5d5e4;
+  padding: 0 40px;
+  overflow-x: auto;
+}
+.tab {
+  padding: 11px 20px;
+  cursor: pointer;
+  font-size: .82rem;
+  font-weight: 600;
+  border-bottom: 3px solid transparent;
+  color: #5a7080;
+  white-space: nowrap;
+  transition: all .2s;
+  flex-shrink: 0;
+}
+.tab:hover { color: #7b1111; }
+.tab.active { color: #7b1111; border-bottom-color: #7b1111; background: #f0f4f8; }
+
+.legend {
+  display: flex; gap: 18px; flex-wrap: wrap;
+  padding: 12px 40px;
+  background: white;
+  border-bottom: 1px solid #dce6ef;
+  font-size: .75rem;
+}
+.legend-item { display: flex; align-items: center; gap: 5px; }
+.legend-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+
+main { padding: 28px 40px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.intro-box {
+  background: white;
+  border-left: 5px solid #7b1111;
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  font-size: .83rem;
+  line-height: 1.6;
+  color: #2c3e50;
+}
+.intro-box strong { color: #7b1111; }
+
+.source-tag {
+  display: inline-block;
+  font-size: .68rem;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 3px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+.src-pdf  { background: #fee2e2; color: #7b1111; }
+.src-arpen{ background: #c6f6d5; color: #22543d; }
+
+/* ── Time targets ── */
+.time-targets {
+  display: flex; gap: 12px; margin-bottom: 22px; flex-wrap: wrap;
+}
+.time-card {
+  flex: 1; min-width: 160px;
+  background: white;
+  border-radius: 10px;
+  padding: 14px 16px;
+  text-align: center;
+  box-shadow: 0 1px 6px rgba(0,0,0,.08);
+  border-top: 4px solid #b91c1c;
+}
+.time-card .tc-num { font-size: 1.6rem; font-weight: 800; color: #b91c1c; }
+.time-card .tc-label { font-size: .7rem; color: #4a5568; margin-top: 2px; font-weight: 600; text-transform: uppercase; letter-spacing: .4px; }
+.time-card .tc-sub { font-size: .68rem; color: #718096; margin-top: 3px; }
+
+/* ── Stages ── */
+.stage-grid { display: flex; flex-direction: column; gap: 16px; }
+
+.stage {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.07);
+  overflow: hidden;
+}
+.stage-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+  cursor: pointer;
+  user-select: none;
+}
+.stage-header:hover { background: #f7fafc; }
+.stage-num {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: .88rem;
+  color: white; flex-shrink: 0;
+}
+.stage-title { font-weight: 700; font-size: .94rem; flex: 1; }
+.stage-subtitle { font-size: .76rem; color: #637080; margin-top: 2px; }
+.stage-badge {
+  font-size: .7rem; font-weight: 700;
+  padding: 3px 9px; border-radius: 20px; white-space: nowrap;
+}
+.stage-chevron { font-size: .72rem; color: #8a9bb0; transition: transform .25s; }
+.stage.open .stage-chevron { transform: rotate(180deg); }
+.stage-body { display: none; padding: 0 20px 18px; border-top: 1px solid #edf2f7; }
+.stage.open .stage-body { display: block; }
+
+/* ── Columns ── */
+.cols { display: grid; gap: 12px; margin-top: 14px; }
+.cols-2 { grid-template-columns: 1fr 1fr; }
+.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+.col-box {
+  background: #f7fafc;
+  border-radius: 7px;
+  padding: 13px 15px;
+  font-size: .8rem;
+}
+.col-box h4 {
+  font-size: .76rem;
+  font-weight: 700;
+  margin-bottom: 7px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+.col-box ul { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.col-box ul li::before { content: "→ "; color: #8a9bb0; }
+.col-box ul li { line-height: 1.4; }
+
+/* ── Boxes ── */
+.alert-box {
+  background: #fff5f5;
+  border-left: 4px solid #e53e3e;
+  border-radius: 6px;
+  padding: 12px 15px;
+  margin-top: 14px;
+  font-size: .8rem;
+  color: #742a2a;
+  line-height: 1.5;
+}
+.alert-box strong { display: block; margin-bottom: 4px; }
+
+.warn-box {
+  background: #fffbeb;
+  border-left: 4px solid #d69e2e;
+  border-radius: 6px;
+  padding: 12px 15px;
+  margin-top: 12px;
+  font-size: .8rem;
+  color: #744210;
+  line-height: 1.5;
+}
+.warn-box strong { display: block; margin-bottom: 4px; }
+
+.info-box {
+  background: #ebf8ff;
+  border-left: 4px solid #3182ce;
+  border-radius: 6px;
+  padding: 12px 15px;
+  margin-top: 12px;
+  font-size: .8rem;
+  color: #2a4365;
+  line-height: 1.5;
+}
+.info-box strong { display: block; margin-bottom: 4px; }
+
+.success-box {
+  background: #f0fff4;
+  border-left: 4px solid #2b7a4b;
+  border-radius: 6px;
+  padding: 12px 15px;
+  margin-top: 12px;
+  font-size: .8rem;
+  color: #22543d;
+  line-height: 1.5;
+}
+.success-box strong { display: block; margin-bottom: 4px; }
+
+.decision-box {
+  background: #fffbeb;
+  border: 2px dashed #d69e2e;
+  border-radius: 8px;
+  padding: 13px 15px;
+  margin-top: 14px;
+  font-size: .8rem;
+  color: #744210;
+}
+.decision-box strong { color: #b7791f; display: block; margin-bottom: 5px; }
+
+/* ── Interconsulta trigger ── */
+.trigger-box {
+  background: #fef3c7;
+  border: 2px solid #f59e0b;
+  border-radius: 8px;
+  padding: 13px 16px;
+  margin-top: 14px;
+  font-size: .82rem;
+}
+.trigger-box .trigger-title {
+  font-weight: 800;
+  color: #92400e;
+  font-size: .86rem;
+  margin-bottom: 6px;
+  display: flex; align-items: center; gap: 6px;
+}
+.trigger-box .trigger-cols {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px;
+}
+.trigger-col { background: white; border-radius: 6px; padding: 10px 12px; }
+.trigger-col h5 { font-size: .72rem; font-weight: 700; text-transform: uppercase; margin-bottom: 5px; }
+.trigger-col ul { list-style: none; font-size: .78rem; }
+.trigger-col ul li::before { content: "• "; }
+.trigger-col ul li { margin-bottom: 3px; }
+
+/* ── ARPEN badge ── */
+.arpen-actor {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: #dbeafe;
+  border: 1px solid #93c5fd;
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: .72rem;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin-bottom: 10px;
+}
+.pa-actor {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: #fee2e2;
+  border: 1px solid #fca5a5;
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: .72rem;
+  font-weight: 700;
+  color: #7b1111;
+  margin-bottom: 10px;
+}
+
+/* ── Protocol cards (AVCi / AVCh) ── */
+.protocol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+.protocol-card {
+  border-radius: 9px;
+  overflow: hidden;
+  box-shadow: 0 1px 5px rgba(0,0,0,.07);
+}
+.protocol-card-header {
+  padding: 10px 14px;
+  font-weight: 700; font-size: .85rem;
+  color: white;
+}
+.protocol-card-body {
+  background: white;
+  padding: 13px 14px;
+  font-size: .79rem;
+  line-height: 1.45;
+}
+.protocol-card-body ul { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.protocol-card-body ul li::before { content: "→ "; color: #8a9bb0; }
+.protocol-card-body strong { color: #1a2535; }
+
+/* ── TOAST table ── */
+.toast-grid { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+.toast-row {
+  display: grid; grid-template-columns: 180px 1fr;
+  gap: 0; border-radius: 7px; overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
+}
+.toast-etiologia {
+  padding: 11px 13px;
+  font-weight: 700; font-size: .78rem;
+  color: white;
+  display: flex; align-items: center;
+}
+.toast-conduta {
+  background: white;
+  padding: 11px 13px;
+  font-size: .78rem;
+  display: flex; flex-direction: column; justify-content: center;
+  gap: 3px;
+}
+.toast-drug { font-weight: 700; color: #1a2535; }
+.toast-sub  { color: #4a5568; font-size: .74rem; }
+
+/* ── Contraindication table ── */
+.ci-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: .77rem; }
+.ci-table th { background: #7b1111; color: white; padding: 8px 12px; text-align: left; font-size: .73rem; }
+.ci-table td { padding: 7px 12px; border-bottom: 1px solid #e2e8f0; vertical-align: top; line-height: 1.4; }
+.ci-table tr:nth-child(even) td { background: #fff5f5; }
+
+/* ── Follow-up timeline ── */
+.timeline { display: flex; flex-direction: column; gap: 0; margin-top: 14px; }
+.tl-item {
+  display: grid; grid-template-columns: 110px 1fr;
+  gap: 0;
+}
+.tl-time {
+  padding: 12px 14px;
+  background: #2b7a4b;
+  color: white;
+  font-weight: 700;
+  font-size: .78rem;
+  display: flex; align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,.15);
+}
+.tl-content {
+  background: white;
+  padding: 11px 14px;
+  font-size: .78rem;
+  border-bottom: 1px solid #edf2f7;
+  line-height: 1.4;
+}
+.tl-content strong { color: #2b7a4b; }
+.tl-item:first-child .tl-time { border-radius: 7px 0 0 0; }
+.tl-item:first-child .tl-content { border-radius: 0 7px 0 0; }
+.tl-item:last-child .tl-time { border-radius: 0 0 0 7px; }
+.tl-item:last-child .tl-content { border-radius: 0 0 7px 0; }
+
+/* ── Transfer card ── */
+.transfer-card {
+  background: white;
+  border-radius: 9px;
+  box-shadow: 0 1px 5px rgba(0,0,0,.07);
+  overflow: hidden;
+  margin-top: 12px;
+}
+.transfer-card-header {
+  padding: 10px 14px;
+  font-weight: 700; font-size: .84rem;
+  color: white;
+  display: flex; align-items: center; gap: 8px;
+  background: #7b2d2d;
+}
+.transfer-card-body {
+  padding: 13px 14px;
+  font-size: .79rem;
+  line-height: 1.5;
+}
+.transfer-card-body ul { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.transfer-card-body ul li::before { content: "⚠ "; color: #b91c1c; font-weight: 700; }
+
+/* ── Indicators grid ── */
+.ind-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 16px; }
+.ind-card {
+  background: white; border-radius: 8px;
+  box-shadow: 0 1px 5px rgba(0,0,0,.06);
+  padding: 13px 15px;
+}
+.ind-card h4 { font-size: .76rem; font-weight: 700; margin-bottom: 8px; text-transform: uppercase; letter-spacing: .4px; }
+.ind-card .ind-meta { font-size: .7rem; color: #718096; margin-top: 2px; }
+.ind-badge {
+  display: inline-block;
+  font-size: .68rem; font-weight: 700;
+  padding: 2px 7px; border-radius: 4px;
+  margin-top: 4px;
+}
+.ind-badge-r { background: #fed7d7; color: #742a2a; }
+.ind-badge-g { background: #c6f6d5; color: #22543d; }
+.ind-badge-b { background: #bee3f8; color: #2a4365; }
+
+/* ── Pills ── */
+.pill {
+  display: inline-block; padding: 1px 7px;
+  border-radius: 10px; font-size: .68rem;
+  font-weight: 700; margin-right: 3px; vertical-align: middle;
+}
+.pill-r { background: #fed7d7; color: #742a2a; }
+.pill-b { background: #bee3f8; color: #2a4365; }
+.pill-g { background: #c6f6d5; color: #22543d; }
+.pill-y { background: #fefcbf; color: #744210; }
+
+/* ── Summary table ── */
+.summary-table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: .79rem; }
+.summary-table th { background: #2d3748; color: white; padding: 9px 13px; text-align: left; font-size: .75rem; font-weight: 700; }
+.summary-table td { padding: 8px 13px; border-bottom: 1px solid #e2e8f0; vertical-align: top; line-height: 1.4; }
+.summary-table tr:nth-child(even) td { background: #f7fafc; }
+
+/* ── Colors ── */
+.c-pa      { background: #b91c1c; }
+.c-neuro   { background: #1d4ed8; }
+.c-multi   { background: #6b21a8; }
+.c-ambul   { background: #2b7a4b; }
+.c-transfer{ background: #7b2d2d; }
+.c-gray    { background: #4a5568; }
+
+.badge-pa      { background: #fee2e2; color: #7b1111; }
+.badge-neuro   { background: #dbeafe; color: #1e3a8a; }
+.badge-multi   { background: #f3e8ff; color: #581c87; }
+.badge-ambul   { background: #c6f6d5; color: #22543d; }
+.badge-transfer{ background: #fef2f2; color: #7b1111; }
+
+.arrow-connector { text-align: center; color: #8a9bb0; font-size: 1.2rem; margin: 2px 0 -4px; }
+
+@media (max-width: 720px) {
+  header, .tabs, main { padding-left: 16px; padding-right: 16px; }
+  .cols-2, .cols-3, .cols-4 { grid-template-columns: 1fr; }
+  .protocol-grid, .toast-row, .trigger-box .trigger-cols { grid-template-columns: 1fr; }
+  .ind-grid { grid-template-columns: 1fr; }
+  .tl-item { grid-template-columns: 90px 1fr; }
+  .time-targets { flex-direction: column; }
+  .legend { padding: 10px 16px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Linha de Cuidado — Acidente Vascular Cerebral (AVC)</h1>
+  <p>São Cristóvão Saúde · Arpen · CID-10: I63 · I61 · I60 · G45</p>
+  <div class="header-badges">
+    <span class="hbadge">Protocolo SC / Angels 2025</span>
+    <span class="hbadge">AHA/ASA 2019–2022 · ESO 2021</span>
+    <span class="hbadge">Jornada v1 — Arpen · Jul/2026</span>
+    <span class="hbadge">Neurologia — Hospitalista ARPEN</span>
+  </div>
+</header>
+
+<div class="tabs">
+  <div class="tab active" onclick="showView('pa')">🔴 Pronto-Atendimento</div>
+  <div class="tab"        onclick="showView('internacao')">🔵 Internação Hospitalar</div>
+  <div class="tab"        onclick="showView('ambulatorio')">🟢 Ambulatório Pós-AVC</div>
+  <div class="tab"        onclick="showView('escalamento')">⚠️ Escalamento e Transferência</div>
+  <div class="tab"        onclick="showView('indicadores')">📋 Indicadores</div>
+</div>
+
+<div class="legend">
+  <span style="font-weight:700;font-size:.75rem;color:#4a5568">Responsável:</span>
+  <div class="legend-item"><div class="legend-dot" style="background:#b91c1c"></div> Médico do PA (não ARPEN)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#1d4ed8"></div> Hospitalista Neurologia (ARPEN)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#6b21a8"></div> Equipe Multidisciplinar</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#2b7a4b"></div> Ambulatório / Seguimento</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#7b2d2d"></div> Transferência SAMU VZ</div>
+  <div class="legend-item"><span class="source-tag src-pdf">PDF SC</span> Protocolo São Cristóvão / Angels</div>
+  <div class="legend-item"><span class="source-tag src-arpen">ARPEN</span> Contribuição Arpen</div>
+</div>
+
+<main>
+
+<!-- ═══════════════════════ TAB: PRONTO-ATENDIMENTO ═══════════════════════ -->
+<div id="view-pa" class="view active">
+
+  <div class="intro-box">
+    <strong>Pronto-Atendimento — Dois atores, papéis distintos</strong>
+    <span class="source-tag src-arpen">ARPEN</span>
+    O <strong>Médico do PA</strong> (não ARPEN) reconhece o AVC, inicia a estabilização e solicita a interconsulta à Neurologia. O <strong>Hospitalista Neurologia (ARPEN)</strong> responde à interconsulta e assume a decisão terapêutica especializada. O tempo é o principal determinante do prognóstico: <strong>1,9 milhão de neurônios são perdidos a cada minuto</strong> sem tratamento.
+  </div>
+
+  <div class="time-targets">
+    <div class="time-card">
+      <div class="tc-num">≤ 25 min</div>
+      <div class="tc-label">Porta → Imagem</div>
+      <div class="tc-sub">TC crânio sem contraste</div>
+    </div>
+    <div class="time-card">
+      <div class="tc-num">≤ 60 min</div>
+      <div class="tc-label">Porta → Agulha</div>
+      <div class="tc-sub">Trombólise com Alteplase</div>
+    </div>
+    <div class="time-card" style="border-top-color: #1d4ed8;">
+      <div class="tc-num" style="color:#1d4ed8;">Imediata</div>
+      <div class="tc-label">Interconsulta Neuro</div>
+      <div class="tc-sub">Não aguardar resultado da TC</div>
+    </div>
+    <div class="time-card" style="border-top-color: #7b2d2d;">
+      <div class="tc-num" style="color:#7b2d2d;">SAMU VZ</div>
+      <div class="tc-label">Transferência</div>
+      <div class="tc-sub">HSA · Trombectomia · Neurocirurgia</div>
+    </div>
+  </div>
+
+  <div class="stage-grid">
+
+    <!-- FASE 1 -->
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-pa">1</div>
+        <div>
+          <div class="stage-title">Reconhecimento e Triagem</div>
+          <div class="stage-subtitle">Qualquer profissional → Triagem → Box 1</div>
+        </div>
+        <span class="stage-badge badge-pa">Médico PA + Enfermagem</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="pa-actor">🔴 Médico do PA — não ARPEN</div>
+
+        <div class="cols cols-2">
+          <div class="col-box">
+            <h4 style="color:#b91c1c">Escala de Cincinnati — 1 item = suspeita de AVC</h4>
+            <ul>
+              <li><strong>Face:</strong> assimetria ao sorrir (boca torta)</li>
+              <li><strong>Braços:</strong> queda de um braço ao levantar ambos</li>
+              <li><strong>Fala:</strong> arrastada, inadequada ou ausente</li>
+            </ul>
+            <div style="margin-top:8px;font-size:.75rem;color:#4a5568">Outros: parestesia, vertigem, perda visual, rebaixamento de consciência, cefaleia intensa súbita</div>
+          </div>
+          <div class="col-box">
+            <h4 style="color:#b91c1c">Conduta imediata na triagem</h4>
+            <ul>
+              <li>Prioridade máxima — não aguardar fila</li>
+              <li>Encaminhar para <strong>Box 1 da Emergência</strong></li>
+              <li>Registrar <strong>horário exato</strong> do reconhecimento</li>
+              <li>Solicitar abertura do BAM pelo administrativo</li>
+              <li>Enfermagem: sinais vitais e Cincinnati</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FASE 2 -->
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-pa">2</div>
+        <div>
+          <div class="stage-title">Estabilização Clínica Inicial</div>
+          <div class="stage-subtitle">Box 1 — Médico PA + Enfermagem · Simultâneo à preparação para TC</div>
+        </div>
+        <span class="stage-badge badge-pa">Médico PA + Enfermagem</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="pa-actor">🔴 Médico do PA — não ARPEN</div>
+
+        <div class="cols cols-2">
+          <div class="col-box">
+            <h4>Enfermagem — imediato</h4>
+            <ul>
+              <li>PA nos dois membros superiores</li>
+              <li>Glicemia capilar</li>
+              <li>SpO₂ e FR</li>
+              <li>Monitorização cardíaca + FC</li>
+              <li>Temperatura axilar</li>
+              <li>2 acessos venosos periféricos (18G ou 20G)</li>
+              <li>Cabeceira a 30°</li>
+            </ul>
+          </div>
+          <div class="col-box">
+            <h4>Médico PA — estabilização</h4>
+            <ul>
+              <li>PA > 220x120 mmHg sem TC: tratar com IV</li>
+              <li>Hipotensão (PAS &lt; 90): corrigir imediatamente</li>
+              <li>Hipoglicemia / hiperglicemia: corrigir</li>
+              <li>SpO₂ &lt; 90%: O₂ suplementar</li>
+              <li>Arritmias: tratar (evitar cardioversão)</li>
+              <li>Febre: tratar</li>
+              <li>Rebaixamento + risco VA: IOT se indicado</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cols cols-2" style="margin-top:10px">
+          <div class="col-box">
+            <h4>Coleta de informações críticas</h4>
+            <ul>
+              <li><strong>Horário dos sintomas</strong> ou último visto bem</li>
+              <li>Funcionalidade prévia (mRS)</li>
+              <li>Uso de anticoagulante? Qual? Últimas 48h?</li>
+              <li>AVC hemorrágico prévio?</li>
+              <li>Cirurgia / trauma recente (últimos 14 dias)?</li>
+              <li>Histórico de epilepsia / convulsão?</li>
+            </ul>
+          </div>
+          <div class="col-box">
+            <h4>Coleta laboratorial (Enfermagem)</h4>
+            <ul>
+              <li>Hemograma + plaquetas</li>
+              <li>Coagulograma (TP, TTPA)</li>
+              <li>Glicemia</li>
+              <li>Ureia + creatinina</li>
+              <li>Sódio, potássio</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="trigger-box">
+          <div class="trigger-title">⚡ INTERCONSULTA À NEUROLOGIA — ACIONAR AGORA</div>
+          <div style="font-size:.79rem;color:#92400e">Não aguardar resultado da TC. Qualquer Cincinnati positivo (≥ 1 item) = acionar o Hospitalista Neurologia imediatamente — presencialmente ou via telemedicina.</div>
+          <div class="trigger-cols">
+            <div class="trigger-col">
+              <h5 style="color:#b91c1c">Médico PA faz</h5>
+              <ul>
+                <li>Solicita interconsulta à Neurologia</li>
+                <li>Inicia preparação para TC</li>
+                <li>Abre protocolo AVC no sistema MV</li>
+                <li>Comunica SADT e Farmácia (preparo Alteplase)</li>
+              </ul>
+            </div>
+            <div class="trigger-col">
+              <h5 style="color:#1d4ed8">Hospitalista Neuro (ARPEN) recebe</h5>
+              <ul>
+                <li>Avalia o paciente (presencial/telemedicina)</li>
+                <li>Aplica NIHSS</li>
+                <li>Confirma janela terapêutica</li>
+                <li>Define indicação de trombólise ou transferência</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FASE 3 -->
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-neuro">3</div>
+        <div>
+          <div class="stage-title">Neuroimagem e Decisão Terapêutica</div>
+          <div class="stage-subtitle">Meta: TC ≤ 25 min porta-imagem · Decisão pelo Hospitalista Neurologia</div>
+        </div>
+        <span class="stage-badge badge-neuro">Hospitalista Neurologia (ARPEN)</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="arpen-actor">🔵 Hospitalista Neurologia — ARPEN</div>
+
+        <div class="info-box">
+          <strong>TC de crânio sem contraste — exame de eleição na fase aguda</strong>
+          Diferencia AVCi (normal ou hipodensidade) de AVCh (hiperdensidade = sangramento). Nenhum tratamento específico pode ser iniciado antes da neuroimagem. A instituição <strong>não dispõe de RM na emergência</strong> — casos que necessitam de RM são encaminhados externamente fora da situação de emergência aguda.
+        </div>
+
+        <div class="cols cols-2" style="margin-top:14px">
+          <div class="col-box">
+            <h4 style="color:#1d4ed8">Janela Convencional (0–4h30min)</h4>
+            <ul>
+              <li>TC de crânio sem contraste</li>
+              <li>Se NIHSS ≥ 6 + janela até 24h: + AngioTC crânio e pescoço</li>
+            </ul>
+          </div>
+          <div class="col-box">
+            <h4 style="color:#1d4ed8">Janela Desconhecida (acordou com déficit)</h4>
+            <ul>
+              <li>RM protocolo WAKE-UP — <strong>não disponível internamente</strong></li>
+              <li>Sem RM: considerar "último visto bem" como tempo zero</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cols cols-2" style="margin-top:10px">
+          <div class="col-box">
+            <h4 style="color:#1d4ed8">Fora de Janela (&gt; 4h30min visualizado)</h4>
+            <ul>
+              <li>TC de crânio sem contraste</li>
+              <li>Conduta conservadora conforme tipo de AVC</li>
+            </ul>
+          </div>
+          <div class="col-box">
+            <h4 style="color:#b91c1c">Stroke Mimics — excluir</h4>
+            <ul>
+              <li>Sepse / distúrbio metabólico</li>
+              <li>Hipoglicemia (corrigir e reavalilar)</li>
+              <li>Paralisia pós-ictal (Todd)</li>
+              <li>Intoxicação medicamentosa</li>
+              <li>Distúrbio funcional</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="margin-top:16px;font-weight:700;font-size:.84rem;color:#1a2535">Após a TC — Caminhos por Tipo de AVC:</div>
+
+        <div class="protocol-grid" style="margin-top:10px">
+          <div class="protocol-card">
+            <div class="protocol-card-header" style="background:#1d4ed8">AVCi + Trombólise indicada</div>
+            <div class="protocol-card-body">
+              <ul>
+                <li>Janela ≤ 4h30min + elegibilidade confirmada</li>
+                <li><strong>Alteplase 0,9 mg/kg</strong> (máx 90mg)</li>
+                <li>10% bolus + 90% em 1 hora</li>
+                <li>Meta porta-agulha: <strong>≤ 60 min</strong></li>
+                <li>PA &lt; 185x110 antes do bolus</li>
+                <li>PA a cada 5 min durante a infusão</li>
+                <li>Leito monitorizado mínimo 24h</li>
+              </ul>
+            </div>
+          </div>
+          <div class="protocol-card">
+            <div class="protocol-card-header" style="background:#4b5563">AVCi Conservador / AIT</div>
+            <div class="protocol-card-body">
+              <ul>
+                <li>Sem critérios de trombólise</li>
+                <li>PA permissiva &lt; 220x120 mmHg (24-48h)</li>
+                <li>Antiagregante + Estatina</li>
+                <li>DAPT se NIHSS &lt; 5 ou AIT com ABCD² ≥ 4</li>
+                <li>Leito monitorizado 24-48h</li>
+                <li>Encaminhar à U-AVC</li>
+              </ul>
+            </div>
+          </div>
+          <div class="protocol-card">
+            <div class="protocol-card-header" style="background:#92400e">AVCh Intraparenquimatoso</div>
+            <div class="protocol-card-body">
+              <ul>
+                <li>Meta PA: <strong>PAS ~140 mmHg</strong> com IV</li>
+                <li>Reversão de discrasias imediata</li>
+                <li>Sem antiagregante / sem anticoagulante</li>
+                <li>Se &gt; 1/3 ACM ou desvio de linha média → <strong>SAMU VZ</strong></li>
+                <li>Avaliar neurocirurgia (hematoma &gt; 15mL cerebelar)</li>
+              </ul>
+            </div>
+          </div>
+          <div class="protocol-card">
+            <div class="protocol-card-header" style="background:#7b2d2d">HSA — Hemorragia Subaracnóidea</div>
+            <div class="protocol-card-body">
+              <ul>
+                <li>Cefaleia thunderclap → TC → angioTC</li>
+                <li>TC negativa + alta suspeita → punção lombar</li>
+                <li>PA: PAS ~140 mmHg com IV</li>
+                <li>Nimodipina imediatamente (manter 21 dias)</li>
+                <li><strong>SAMU VZ obrigatório</strong> → NCI alta complexidade</li>
+                <li>Prioridade nas primeiras 24h para clipagem/coiling</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:18px;font-weight:700;font-size:.84rem;color:#1a2535">Contraindicações para Trombólise — Hospitalista decide <span class="source-tag src-pdf">PDF SC</span></div>
+
+        <table class="ci-table">
+          <tr><th>Período</th><th>Situação clínica impeditiva</th></tr>
+          <tr><td>Qualquer época</td><td>História de AVC hemorrágico</td></tr>
+          <tr><td>Últimos 3 meses</td><td>AVC isquêmico, TCE ou neurocirurgia</td></tr>
+          <tr><td>Últimos 21 dias</td><td>Hemorragia gastrointestinal</td></tr>
+          <tr><td>Últimos 7 dias</td><td>IAM com supra de ST (evolução &gt; 6h)</td></tr>
+          <tr><td>Atual</td><td>PA &gt; 185x110 · Sangramento ativo · Endocardite · Neoplasia cerebral/intestinal · Dissecção de aorta · Warfarin + INR &gt; 1,7 · DOAC nas últimas 48h · Isquemia &gt; 1/3 ACM · Plaquetas &lt; 100.000</td></tr>
+        </table>
+
+        <div class="warn-box" style="margin-top:12px">
+          <strong>Situações de risco — avaliar risco-benefício com Neurologia:</strong>
+          Déficits muito leves / melhora rápida · Glicose &lt; 50 mg/dL · PA &gt; 185x110 · Cirurgia ou trauma nos últimos 14 dias · IAM com supra 3 meses · Gravidez · Aneurisma &gt; 10mm · Malformação AV sem tratamento · Crise epiléptica na apresentação
+        </div>
+      </div>
+    </div>
+
+    <!-- FASE 4 -->
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-neuro">4</div>
+        <div>
+          <div class="stage-title">Cuidados durante a Trombólise</div>
+          <div class="stage-subtitle">Monitorização rigorosa durante e após a infusão de Alteplase</div>
+        </div>
+        <span class="stage-badge badge-neuro">Neurologia + Enfermagem</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="arpen-actor">🔵 Hospitalista Neurologia (ARPEN) + Enfermagem</div>
+
+        <div class="cols cols-2">
+          <div class="col-box">
+            <h4>Durante a infusão</h4>
+            <ul>
+              <li>PA a cada 5 min — meta &lt; 180x105 mmHg</li>
+              <li>Não puncionar novas vias</li>
+              <li>Não administrar AAS nem heparina</li>
+              <li>Evitar sondagem vesical</li>
+              <li>Observar sinais de sangramento (gengiva, acesso, hematomas)</li>
+              <li>Se alteração neurológica súbita → parar imediatamente</li>
+            </ul>
+          </div>
+          <div class="col-box">
+            <h4>Monitorização pós-trombólise</h4>
+            <ul>
+              <li>Sinais vitais: 5 min (1h) → 30 min (2–6h) → 1h (até 24h)</li>
+              <li>Pupilas, nível de consciência, paresias, fala</li>
+              <li>TC de controle: após 24h ou se piora (NIHSS +4)</li>
+              <li>Sacar acesso venoso somente após 24h da infusão</li>
+              <li>Farmácia: reposição da Stroke Bag em ≤ 30 min</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="alert-box">
+          <strong>⚠ Suspeita de transformação hemorrágica — agir imediatamente:</strong>
+          NIHSS piora ≥ 4 pontos · rebaixamento de consciência · cefaleia nova · pico hipertensivo → Pausar Alteplase → TC urgente → Hemograma, plaquetas, TP/INR, KTTP, fibrinogênio → Se confirmado: crioprecipitado 10U + considerar ácido tranexâmico → Acionar neurocirurgia se indicado.
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /stage-grid -->
+</div>
+
+<!-- ═══════════════════════ TAB: INTERNAÇÃO ═══════════════════════ -->
+<div id="view-internacao" class="view">
+
+  <div class="intro-box">
+    <strong>Internação Hospitalar — Hospitalista Neurologia (ARPEN)</strong>
+    <span class="source-tag src-arpen">ARPEN</span>
+    O Hospitalista assume integralmente a condução do paciente na internação: visitas diárias, manejo específico por tipo de AVC, investigação etiológica (TOAST), prevenção secundária, round multidisciplinar e alta. Todos os pacientes devem ficar na <strong>Unidade de AVC</strong> com monitorização mínima de 24–48h.
+  </div>
+
+  <div class="info-box" style="margin-bottom:18px">
+    <strong>Leitos U-AVC — São Cristóvão</strong>
+    Semi-privativos: quartos 127, 128, 129 · Privativos: quartos 107, 108, 109, 110 (1º andar)
+  </div>
+
+  <div class="stage-grid">
+
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-neuro">1</div>
+        <div>
+          <div class="stage-title">Manejo Clínico por Tipo de AVC — Primeiras 24–48h</div>
+          <div class="stage-subtitle">Condutas específicas conforme o tipo e o tratamento recebido no PA</div>
+        </div>
+        <span class="stage-badge badge-neuro">Hospitalista Neurologia (ARPEN)</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="arpen-actor">🔵 Hospitalista Neurologia — ARPEN</div>
+        <div class="protocol-grid">
+          <div class="protocol-card">
+            <div class="protocol-card-header" style="background:#1d4ed8">AVCi Trombolisado</div>
+            <div class="protocol-card-body">
+              <ul>
+                <li>NPO por 24h</li>
+                <li>PA &lt; 180x105 mmHg</li>
+                <li><strong>Sem</strong> antiagregante por 24h</li>
+                <li><strong>Sem</strong> heparina (profilática ou terapêutica) por 24h</li>
+                <li>Evitar acessos arteriais e venosos profundos</li>
+                <li>TC de controle após 24h (ou antes se piora)</li>
+                <li>Glicemia meta: 80–180 mg/dL</li>
+              </ul>
+            </div>
+          </div>
+          <div class="protocol-card">
+            <div class="protocol-card-header" style="background:#4b5563">AVCi Conservador / AIT</div>
+            <div class="protocol-card-body">
+              <ul>
+                <li>Dieta após triagem de disfagia</li>
+                <li>PA permissiva &lt; 220x120 mmHg nas 24–48h</li>
+                <li>Antiagregante: AAS + Clopidogrel (DAPT) se NIHSS &lt; 5 por 21 dias, ou AAS isolado</li>
+                <li>Estatina de alta potência (Sinvastatina 40mg)</li>
+                <li>Profilaxia TVP/TEP com heparina profilática</li>
+                <li>Reabilitação precoce</li>
+                <li>Glicemia meta: 80–180 mg/dL</li>
+              </ul>
+            </div>
+          </div>
+          <div class="protocol-card">
+            <div class="protocol-card-header" style="background:#92400e">AVCh Intraparenquimatoso</div>
+            <div class="protocol-card-body">
+              <ul>
+                <li>NPO por 24h</li>
+                <li>Meta PA: PAS ≤ 140 mmHg com IV</li>
+                <li>Sem antiagregante; sem anticoagulante</li>
+                <li>Nova TC se piora clínica</li>
+                <li>Avaliar neurocirurgia se: hematoma cerebelar &gt; 15mL · AVCh com efeito de massa · hidrocefalia obstrutiva</li>
+                <li>Hematoma supratentorial 30–60mL: avaliar individualmente</li>
+                <li>Se &gt; 1/3 ACM ou herniação → SAMU VZ</li>
+              </ul>
+            </div>
+          </div>
+          <div class="protocol-card">
+            <div class="protocol-card-header" style="background:#2b7a4b">Todos os AVC — Medidas Gerais</div>
+            <div class="protocol-card-body">
+              <ul>
+                <li>Monitorização contínua 24h mínimo</li>
+                <li>Controle glicêmico: 80–180 mg/dL</li>
+                <li>Cabeceira 30°</li>
+                <li>Avaliação de disfagia (Fono) nas primeiras 24h</li>
+                <li>Fisioterapia: reabilitação precoce em 24h</li>
+                <li>Prevenção de queda, escaras, pneumonia aspirativa</li>
+                <li>Mudança de decúbito a cada 2h</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="alert-box">
+          <strong>Hemicraniectomia Descompressiva — avaliar sempre em AVCi extenso</strong>
+          Indicada quando isquemia compromete &gt; 1/3 do território da ACM. Preferência para pacientes &lt; 60 anos. Deve ser realizada antes de 48h do início dos sintomas. Reduz mortalidade — mas mantém níveis moderados a graves de incapacidade. Decisão multidisciplinar considerando contexto social do paciente.
+        </div>
+      </div>
+    </div>
+
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-neuro">2</div>
+        <div>
+          <div class="stage-title">Investigação Etiológica — Classificação TOAST</div>
+          <div class="stage-subtitle">Todos os AVCi e AIT devem ter investigação completa para definir prevenção secundária</div>
+        </div>
+        <span class="stage-badge badge-neuro">Hospitalista Neurologia (ARPEN)</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="arpen-actor">🔵 Hospitalista Neurologia — ARPEN</div>
+
+        <div class="cols cols-2">
+          <div class="col-box">
+            <h4>Investigação básica — todos os pacientes</h4>
+            <ul>
+              <li>Hemograma, plaquetas, lipidograma (LDL, HDL, TG)</li>
+              <li>Ácido úrico, glicemia de jejum, EQU</li>
+              <li>Ureia, creatinina, coagulograma (TP, TTPA)</li>
+              <li>VDRL e FTA-ABS, VSG/VHS, PCR</li>
+              <li>Anti-HIV, vitamina B12, TSH</li>
+              <li>Eletrocardiograma</li>
+              <li>Ecocardiograma transtorácico</li>
+              <li>Holter 24h (se ECG sinusal + alta suspeita de FA)</li>
+              <li>Doppler de carótidas/vertebrais ou AngioTC de pescoço</li>
+            </ul>
+          </div>
+          <div class="col-box">
+            <h4>Investigação adicional — pacientes jovens (&lt; 50 anos)</h4>
+            <ul>
+              <li>AngioTC intra e extracraniana</li>
+              <li>Ecocardiograma transesofágico (FOP, cardioembolia)</li>
+              <li>Alfa-1-glicoproteína</li>
+              <li>Anticorpo anticardiolipina + anticoagulante lúpico</li>
+              <li>Homocisteína</li>
+              <li>Fator V de Leiden, antitrombina III, Proteína C e S</li>
+              <li>FAN, fator reumatoide, ANCA (suspeita de vasculite)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="margin-top:16px;font-weight:700;font-size:.84rem;color:#1a2535">Prevenção Secundária por Etiologia TOAST</div>
+
+        <div class="toast-grid">
+          <div class="toast-row">
+            <div class="toast-etiologia" style="background:#4b5563">Lacunar</div>
+            <div class="toast-conduta">
+              <span class="toast-drug">AAS 100mg/dia + Sinvastatina 40mg/dia</span>
+              <span class="toast-sub">Controle rigoroso de PA e DM · Lesão isquêmica TC &lt; 25mm em núcleos da base, tronco ou cápsula interna</span>
+            </div>
+          </div>
+          <div class="toast-row">
+            <div class="toast-etiologia" style="background:#1d4ed8">Cardioembólico</div>
+            <div class="toast-conduta">
+              <span class="toast-drug">Anticoagulação: DOAC (preferencial) ou VKA se FA valvar</span>
+              <span class="toast-sub">FA, cardiopatia com FE ≤ 35%, trombo intracavitário · Iniciar 3–14 dias após AVC conforme risco hemorrágico</span>
+            </div>
+          </div>
+          <div class="toast-row">
+            <div class="toast-etiologia" style="background:#b45309">Aterosclerose Grandes Vasos</div>
+            <div class="toast-conduta">
+              <span class="toast-drug">AAS 100mg/dia + Sinvastatina 40mg/dia</span>
+              <span class="toast-sub">Estenose carotídea &gt; 50%: avaliar endarterectomia ou angioplastia com stent (GERINT) · Meta LDL &lt; 70 mg/dL</span>
+            </div>
+          </div>
+          <div class="toast-row">
+            <div class="toast-etiologia" style="background:#6b21a8">Indeterminado</div>
+            <div class="toast-conduta">
+              <span class="toast-drug">Avaliar neurologia vascular · Considerar ecocardiograma TEE + trombofilia</span>
+              <span class="toast-sub">Investigação incompleta ou mais de uma causa possível · AAS provisório até definição</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-multi">3</div>
+        <div>
+          <div class="stage-title">Equipe Multidisciplinar e Round</div>
+          <div class="stage-subtitle">Acionamento via prescrição padrão nas primeiras 24h · Round mínimo semanal</div>
+        </div>
+        <span class="stage-badge badge-multi">Equipe Multidisciplinar</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="cols cols-3">
+          <div class="col-box" style="border-top:3px solid #1d4ed8">
+            <h4 style="color:#1d4ed8">Neurologia (ARPEN)</h4>
+            <ul>
+              <li>Coordenação do cuidado</li>
+              <li>Decisão terapêutica</li>
+              <li>Investigação etiológica</li>
+              <li>Prevenção secundária</li>
+              <li>Alta e plano ambulatorial</li>
+            </ul>
+          </div>
+          <div class="col-box" style="border-top:3px solid #6b21a8">
+            <h4 style="color:#6b21a8">Fonoaudiologia</h4>
+            <ul>
+              <li><strong>Nas primeiras 24h</strong></li>
+              <li>Avaliação de disfagia</li>
+              <li>Protocolo de reintrodução alimentar</li>
+              <li>Acompanhamento até alta</li>
+            </ul>
+          </div>
+          <div class="col-box" style="border-top:3px solid #6b21a8">
+            <h4 style="color:#6b21a8">Fisioterapia</h4>
+            <ul>
+              <li><strong>Nas primeiras 24h</strong></li>
+              <li>Reabilitação motora precoce</li>
+              <li>Prevenção de TVP</li>
+              <li>Mobilização e fisio respiratória</li>
+            </ul>
+          </div>
+          <div class="col-box" style="border-top:3px solid #6b21a8">
+            <h4 style="color:#6b21a8">Nutrição</h4>
+            <ul>
+              <li>Adequação da dieta (disfagia)</li>
+              <li>Suporte nutricional se necessário</li>
+              <li>Controle glicêmico dietético</li>
+            </ul>
+          </div>
+          <div class="col-box" style="border-top:3px solid #6b21a8">
+            <h4 style="color:#6b21a8">Farmácia</h4>
+            <ul>
+              <li>Conciliação medicamentosa</li>
+              <li>Gestão da Stroke Bag</li>
+              <li>Orientação sobre anticoagulantes</li>
+            </ul>
+          </div>
+          <div class="col-box" style="border-top:3px solid #6b21a8">
+            <h4 style="color:#6b21a8">Serviço Social + Psicologia</h4>
+            <ul>
+              <li>Avaliação da rede de suporte</li>
+              <li>Encaminhamentos pós-alta</li>
+              <li>Suporte emocional (depressão pós-AVC)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="success-box">
+          <strong>Round Multidisciplinar — mínimo semanal</strong>
+          Organiza plano terapêutico unificado · Integra informações de todas as equipes · Define e prepara o processo de desospitalização segura
+        </div>
+      </div>
+    </div>
+
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-neuro">4</div>
+        <div>
+          <div class="stage-title">Critérios de Alta Hospitalar</div>
+          <div class="stage-subtitle">Alta apenas com retorno ambulatorial agendado e cuidador orientado</div>
+        </div>
+        <span class="stage-badge badge-neuro">Hospitalista Neurologia (ARPEN)</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="arpen-actor">🔵 Hospitalista Neurologia — ARPEN</div>
+
+        <div class="cols cols-3">
+          <div class="col-box">
+            <h4 style="color:#1d4ed8">Critérios clínicos</h4>
+            <ul>
+              <li>Estabilidade neurológica ≥ 24h</li>
+              <li>Sem novas indicações de intervenção aguda</li>
+              <li>PA, glicemia, temperatura controladas</li>
+              <li>NIHSS e mRS da alta documentados</li>
+            </ul>
+          </div>
+          <div class="col-box">
+            <h4 style="color:#1d4ed8">Critérios de tratamento</h4>
+            <ul>
+              <li>Investigação etiológica iniciada ou completa</li>
+              <li>Prevenção secundária iniciada e documentada</li>
+              <li>TC de controle realizada (trombolisados: após 24h)</li>
+              <li>Disfagia avaliada + manejo definido</li>
+            </ul>
+          </div>
+          <div class="col-box">
+            <h4 style="color:#1d4ed8">Critérios de continuidade</h4>
+            <ul>
+              <li>Necessidades de reabilitação identificadas e encaminhadas</li>
+              <li>Medicações orientadas ao paciente/cuidador</li>
+              <li><strong>Consulta ambulatorial agendada antes da alta</strong></li>
+              <li>Cuidador orientado sobre sinais de alerta</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="warn-box">
+          <strong>Atenção:</strong> O risco de recorrência é mais alto nos primeiros 90 dias. Nunca dar alta sem garantir continuidade do seguimento. AIT: primeira consulta em até 7 dias.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════ TAB: AMBULATÓRIO ═══════════════════════ -->
+<div id="view-ambulatorio" class="view">
+
+  <div class="intro-box">
+    <strong>Ambulatório Pós-AVC — Hospitalista Neurologia (ARPEN)</strong>
+    <span class="source-tag src-arpen">ARPEN</span>
+    O seguimento ambulatorial é parte integral da linha de cuidado e não pode ser tratado como opcional. O risco de recorrência é máximo nos primeiros 90 dias. O objetivo é completar a investigação, consolidar a prevenção secundária, controlar fatores de risco e monitorar a reabilitação — com critério claro de quando devolver o paciente ao Clínico Geral.
+  </div>
+
+  <div class="stage-grid">
+
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-ambul">1</div>
+        <div>
+          <div class="stage-title">Frequência de Consultas</div>
+          <div class="stage-subtitle">Retorno mais precoce para AIT — risco alto de AVC precoce</div>
+        </div>
+        <span class="stage-badge badge-ambul">Hospitalista Neurologia (ARPEN)</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="arpen-actor">🔵 Hospitalista Neurologia — ARPEN</div>
+
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-time" style="background:#b91c1c">≤ 7 dias</div>
+            <div class="tl-content"><strong>AIT</strong> — 1ª consulta urgente. Alto risco de AVC precoce (ABCD² ≥ 4). Completar investigação etiológica. Confirmar DAPT e adesão.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-time">≤ 30 dias</div>
+            <div class="tl-content"><strong>AVCi / AVCh leve (mRS 0–2)</strong> — 1ª consulta. Avaliar recuperação neurológica (NIHSS, mRS). Revisar investigação e prevenção secundária.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-time">3 meses</div>
+            <div class="tl-content"><strong>Todos</strong> — 2ª consulta. LDL, glicemia, HbA1c (se DM). Decisão sobre manutenção de DAPT → AAS isolado. Avaliar FA paroxística (Holter se ainda pendente).</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-time">6 meses</div>
+            <div class="tl-content"><strong>Todos</strong> — 3ª consulta. Controle de fatores de risco. Revisão de anticoagulação (INR se Warfarin). Avaliar depressão pós-AVC.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-time">12 meses</div>
+            <div class="tl-content"><strong>Todos</strong> — 4ª consulta. Lipidograma, ECG. Avaliar elegibilidade para alta para Clínico Geral. Doppler carotídeo anual se aterosclerose.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-time">Anual (anos 2–3)</div>
+            <div class="tl-content">Manutenção. A partir de 2–3 anos sem recorrência e mRS 0–1: avaliar alta para Clínico Geral com relatório detalhado.</div>
+          </div>
+        </div>
+
+        <div class="info-box">
+          <strong>AVCi/AVCh moderado/grave (mRS ≥ 3):</strong> Acompanhamento multidisciplinar conforme plano definido na internação (fisioterapia, fonoaudiologia, reabilitação). Frequência de consultas individualizada conforme evolução e necessidades.
+        </div>
+      </div>
+    </div>
+
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-ambul">2</div>
+        <div>
+          <div class="stage-title">Avaliação em Cada Consulta Ambulatorial</div>
+          <div class="stage-subtitle">Clínica + exames + prevenção secundária + estilo de vida</div>
+        </div>
+        <span class="stage-badge badge-ambul">Hospitalista Neurologia (ARPEN)</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="arpen-actor">🔵 Hospitalista Neurologia — ARPEN</div>
+
+        <div class="cols cols-2">
+          <div class="col-box">
+            <h4>Avaliação clínica obrigatória</h4>
+            <ul>
+              <li>NIHSS + mRS comparados com alta hospitalar</li>
+              <li>Pressão arterial (meta: ≤ 130x80 mmHg em AVCi)</li>
+              <li>Investigação de novos sintomas ou eventos</li>
+              <li>Rastreio de depressão pós-AVC (PHQ-9 ou equivalente)</li>
+              <li>Aderência medicamentosa</li>
+              <li>Evolução da reabilitação</li>
+            </ul>
+          </div>
+          <div class="col-box">
+            <h4>Prevenção secundária — revisar em toda consulta</h4>
+            <ul>
+              <li>Antiagregante / anticoagulante: aderência + indicação</li>
+              <li>Estatina: LDL atingido (meta &lt; 70 em aterosclerose)</li>
+              <li>Anti-hipertensivo: PA controlada?</li>
+              <li>Antidiabético: glicemia controlada?</li>
+              <li>Tabagismo, sedentarismo, dieta, peso, álcool</li>
+              <li>Rastreio de FA: ECG em consulta</li>
+            </ul>
+          </div>
+        </div>
+
+        <table class="summary-table" style="margin-top:14px">
+          <tr><th>Exame</th><th>Periodicidade</th><th>Observação</th></tr>
+          <tr><td>Lipidograma (LDL)</td><td>3 meses → anual</td><td>Meta LDL &lt; 70 mg/dL em aterosclerose</td></tr>
+          <tr><td>Glicemia / HbA1c</td><td>3 meses (se DM) → semestral</td><td>—</td></tr>
+          <tr><td>INR</td><td>Mensal</td><td>Se em uso de Warfarin</td></tr>
+          <tr><td>Holter 24h</td><td>Conforme indicação</td><td>Se FA paroxística suspeita e investigação pendente</td></tr>
+          <tr><td>Eco transesofágico</td><td>Conforme indicação</td><td>FOP / cardioembolia incompleta</td></tr>
+          <tr><td>Doppler de carótidas</td><td>Anual</td><td>Se aterosclerose cervical conhecida</td></tr>
+          <tr><td>RM de encéfalo</td><td>Conforme indicação clínica</td><td>Não é exame de rotina no follow-up</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-ambul">3</div>
+        <div>
+          <div class="stage-title">Critérios de Alta para o Clínico Geral</div>
+          <div class="stage-subtitle">Quando o neurologista encerra o seguimento especializado</div>
+        </div>
+        <span class="stage-badge badge-ambul">Decisão do Hospitalista (ARPEN)</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="arpen-actor">🔵 Hospitalista Neurologia — ARPEN</div>
+
+        <div class="cols cols-2">
+          <div class="col-box" style="border-top:3px solid #2b7a4b">
+            <h4 style="color:#2b7a4b">Alta para Clínico Geral — quando TODOS os critérios atendidos</h4>
+            <ul>
+              <li>mRS 0–1 (independente para AVD)</li>
+              <li>Sem recorrência em 2–3 anos</li>
+              <li>Prevenção secundária estável e de gestão simples (antiagregante + estatina)</li>
+              <li>Investigação etiológica completa</li>
+              <li>Sem complicações neurológicas ativas</li>
+              <li>Relatório detalhado enviado ao Clínico Geral</li>
+            </ul>
+          </div>
+          <div class="col-box" style="border-top:3px solid #b91c1c">
+            <h4 style="color:#b91c1c">Permanece com Neurologia — qualquer um destes</h4>
+            <ul>
+              <li>Anticoagulação complexa ou de difícil manejo</li>
+              <li>AVC recorrente</li>
+              <li>Etiologia indeterminada em investigação ativa</li>
+              <li>Déficit neurológico residual (mRS ≥ 2) com reabilitação ativa</li>
+              <li>Epilepsia pós-AVC</li>
+              <li>Depressão pós-AVC grave</li>
+              <li>Demência vascular</li>
+              <li>Estenose carotídea pré/pós procedimento</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="success-box">
+          <strong>Alta para o Clínico Geral inclui obrigatoriamente:</strong>
+          Relatório com tipo de AVC, TOAST, prevenção secundária definida, metas de controle (PA, LDL, glicemia) · Orientação sobre sinais de alerta para retorno imediato à emergência · Indicação de manter cardiologista se FA ou cardiopatia
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════ TAB: ESCALAMENTO ═══════════════════════ -->
+<div id="view-escalamento" class="view">
+
+  <div class="intro-box">
+    <strong>Escalamento e Transferência</strong>
+    <span class="source-tag src-pdf">PDF SC</span>
+    O São Cristóvão não dispõe de trombectomia mecânica nem de neurocirurgia para aneurismas. Os critérios de transferência via SAMU Vaga Zero são objetivos e obrigatórios. O Hospitalista Neurologia (ARPEN) é o responsável pela decisão de transferência.
+  </div>
+
+  <div class="stage-grid">
+
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-transfer">1</div>
+        <div>
+          <div class="stage-title">Transferência SAMU Vaga Zero — Critérios Obrigatórios</div>
+          <div class="stage-subtitle">Situações que excedem a capacidade assistencial do São Cristóvão</div>
+        </div>
+        <span class="stage-badge badge-transfer">SAMU VZ</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="arpen-actor">🔵 Decisão do Hospitalista Neurologia — ARPEN</div>
+
+        <div class="transfer-card">
+          <div class="transfer-card-header">⚡ HSA — Hemorragia Subaracnóidea</div>
+          <div class="transfer-card-body">
+            <ul>
+              <li>Transferência obrigatória para NCI alta complexidade com neurocirurgia e neurointervenção</li>
+              <li>~80% das HSA não traumáticas: ruptura de aneurisma — clipagem ou coiling em até 24h</li>
+              <li>Manter nimodipina durante o transporte</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="transfer-card">
+          <div class="transfer-card-header">⚡ AVCi com NIHSS ≥ 6 em janela de até 24h</div>
+          <div class="transfer-card-body">
+            <ul>
+              <li>Candidato a trombectomia mecânica — não disponível no São Cristóvão</li>
+              <li>AngioTC arterial de crânio e pescoço confirma oclusão de grande vaso</li>
+              <li>Não aguardar resposta à trombólise se oclusão de grande vaso confirmada</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="transfer-card">
+          <div class="transfer-card-header">⚡ AVCi com isquemia &gt; 1/3 do território da ACM</div>
+          <div class="transfer-card-body">
+            <ul>
+              <li>Risco de infarto maligno e herniação cerebral</li>
+              <li>Candidato a hemicraniectomia descompressiva (preferência &lt; 60 anos, dentro de 48h)</li>
+              <li>Transferir mesmo que ainda esteja trombolisado — alinhar com centro receptor</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="transfer-card">
+          <div class="transfer-card-header">⚡ AVCh com efeito de massa, hidrocefalia ou desvio de linha média</div>
+          <div class="transfer-card-body">
+            <ul>
+              <li>Hematoma cerebelar &gt; 15mL com risco de herniação</li>
+              <li>Hidrocefalia obstrutiva necessitando derivação</li>
+              <li>Hematoma supratentorial 30–60mL com deterioração clínica</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="warn-box" style="margin-top:14px">
+          <strong>Documentar toda transferência:</strong> Horário da decisão · Justificativa clínica · Centro receptor confirmado · Condição clínica no momento do transporte · Medicações em curso (especialmente Alteplase se em infusão)
+        </div>
+      </div>
+    </div>
+
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-neuro">2</div>
+        <div>
+          <div class="stage-title">Deterioração durante a Internação — Acionamento Imediato</div>
+          <div class="stage-subtitle">Sinais que exigem reavaliação neurológica urgente</div>
+        </div>
+        <span class="stage-badge badge-neuro">Hospitalista Neurologia (ARPEN)</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <table class="summary-table">
+          <tr><th>Sinal de alerta</th><th>Ação imediata</th></tr>
+          <tr><td>NIHSS piora ≥ 4 pontos</td><td>TC de crânio urgente + reavaliação neurológica imediata</td></tr>
+          <tr><td>Rebaixamento do nível de consciência</td><td>Reavaliação neurológica imediata; considerar TC</td></tr>
+          <tr><td>Cefaleia nova intensa</td><td>Suspeitar de transformação hemorrágica ou ressangramento → TC urgente</td></tr>
+          <tr><td>Convulsão nova</td><td>Reavaliação neurológica imediata; considerar EEG</td></tr>
+          <tr><td>Febre &gt; 38°C persistente</td><td>Investigar: pneumonia aspirativa (raio-X), ITU (EAS + urocultura), hemocultura se sepse</td></tr>
+          <tr><td>PA &gt; 185x110 mmHg em trombolisado</td><td>Controle pressórico urgente com IV</td></tr>
+          <tr><td>Queda de saturação &lt; 90%</td><td>O₂ suplementar + investigar causa (aspiração, TEP)</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-pa">3</div>
+        <div>
+          <div class="stage-title">Sinais de Alerta para o Paciente Ambulatorial</div>
+          <div class="stage-subtitle">Orientar paciente e família na alta — retorno imediato à emergência</div>
+        </div>
+        <span class="stage-badge badge-pa">Emergência — SAMU 192</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+
+        <div class="alert-box">
+          <strong>Suspeita de recorrência de AVC ou AIT = emergência absoluta — ligar 192 (SAMU)</strong>
+          Nunca aguardar consulta eletiva. Orientar o paciente, familiar e cuidador a reconhecer os sinais e agir imediatamente.
+        </div>
+
+        <div class="cols cols-2" style="margin-top:14px">
+          <div class="col-box" style="border-left:4px solid #b91c1c">
+            <h4 style="color:#b91c1c">RETORNAR À EMERGÊNCIA IMEDIATAMENTE</h4>
+            <ul>
+              <li>Novo déficit neurológico focal (face, braço, fala)</li>
+              <li>Piora súbita dos déficits já existentes</li>
+              <li>Cefaleia intensa de início súbito</li>
+              <li>Queda súbita do nível de consciência</li>
+              <li>Convulsão</li>
+              <li>Visão dupla ou perda visual súbita</li>
+              <li>Tontura intensa com instabilidade de início agudo</li>
+            </ul>
+          </div>
+          <div class="col-box" style="border-left:4px solid #d69e2e">
+            <h4 style="color:#b7791f">CONTATAR NEUROLOGIA / AGENDAR COM URGÊNCIA</h4>
+            <ul>
+              <li>Queda ou piora funcional progressiva</li>
+              <li>Efeito colateral de medicações (sangramento, queda)</li>
+              <li>Dificuldade de deglutição progressiva</li>
+              <li>Depressão intensa ou alteração comportamental significativa</li>
+              <li>PA sistematicamente elevada (&gt; 160 mmHg) em domicílio</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════ TAB: INDICADORES ═══════════════════════ -->
+<div id="view-indicadores" class="view">
+
+  <div class="intro-box">
+    <strong>Indicadores de Qualidade</strong>
+    <span class="source-tag src-pdf">PDF SC</span>
+    Conforme Portarias Ministeriais nº 664 e 665/GM/MS de 2012 (consolidadas na Portaria GM/MS nº 800 de 17/06/2015) e recomendações da Iniciativa Angels. Registro recomendado nas plataformas internacionais <strong>RES-Q</strong> ou <strong>SITS-QR</strong>.
+  </div>
+
+  <div class="ind-grid">
+    <div class="ind-card" style="border-top:3px solid #b91c1c">
+      <h4>Tempo porta-imagem</h4>
+      <span class="ind-badge ind-badge-r">META ≤ 25 min</span>
+      <div class="ind-meta">TC de crânio sem contraste após chegada ao PA</div>
+    </div>
+    <div class="ind-card" style="border-top:3px solid #b91c1c">
+      <h4>Tempo porta-agulha</h4>
+      <span class="ind-badge ind-badge-r">META ≤ 60 min</span>
+      <div class="ind-meta">Início da infusão de Alteplase</div>
+    </div>
+    <div class="ind-card" style="border-top:3px solid #1d4ed8">
+      <h4>Taxa de trombólise intravenosa</h4>
+      <span class="ind-badge ind-badge-b">META ≥ 15%</span>
+      <div class="ind-meta">% dos AVCi elegíveis que receberam trombólise</div>
+    </div>
+    <div class="ind-card" style="border-top:3px solid #1d4ed8">
+      <h4>NIHSS na admissão</h4>
+      <span class="ind-badge ind-badge-b">META 100%</span>
+      <div class="ind-meta">Documentação obrigatória em todos os AVCi</div>
+    </div>
+    <div class="ind-card" style="border-top:3px solid #1d4ed8">
+      <h4>mRS na alta</h4>
+      <span class="ind-badge ind-badge-b">META 100%</span>
+      <div class="ind-meta">Documentação obrigatória na alta hospitalar</div>
+    </div>
+    <div class="ind-card" style="border-top:3px solid #6b21a8">
+      <h4>Avaliação de disfagia em 24h</h4>
+      <span class="ind-badge ind-badge-b">META 100%</span>
+      <div class="ind-meta">Fonoaudiologia nas primeiras 24h de internação</div>
+    </div>
+    <div class="ind-card" style="border-top:3px solid #6b21a8">
+      <h4>Reabilitação precoce em 24h</h4>
+      <span class="ind-badge ind-badge-g">META &gt; 90%</span>
+      <div class="ind-meta">Fisioterapia iniciada quando clinicamente estável</div>
+    </div>
+    <div class="ind-card" style="border-top:3px solid #2b7a4b">
+      <h4>Antiagregante / anticoag. na alta</h4>
+      <span class="ind-badge ind-badge-g">META &gt; 95%</span>
+      <div class="ind-meta">Conforme TOAST (AVCi) · AAS, DAPT ou anticoagulante</div>
+    </div>
+    <div class="ind-card" style="border-top:3px solid #2b7a4b">
+      <h4>Estatina na alta</h4>
+      <span class="ind-badge ind-badge-g">META &gt; 95%</span>
+      <div class="ind-meta">Para todos os AVCi (exceto contraindicações)</div>
+    </div>
+    <div class="ind-card" style="border-top:3px solid #2b7a4b">
+      <h4>Retorno ambulatorial ≤ 30 dias</h4>
+      <span class="ind-badge ind-badge-g">META &gt; 90%</span>
+      <div class="ind-meta">AIT: ≤ 7 dias · AVCi/AVCh leve: ≤ 30 dias</div>
+    </div>
+    <div class="ind-card" style="border-top:3px solid #4b5563">
+      <h4>Taxa de mortalidade hospitalar</h4>
+      <span class="ind-badge ind-badge-b">Monitorar</span>
+      <div class="ind-meta">Comparar com benchmarks nacionais (Angels/RES-Q)</div>
+    </div>
+    <div class="ind-card" style="border-top:3px solid #4b5563">
+      <h4>Tempo de permanência hospitalar</h4>
+      <span class="ind-badge ind-badge-b">Meta a definir</span>
+      <div class="ind-meta">AVCi isquêmico — definir benchmark institucional</div>
+    </div>
+  </div>
+
+  <div style="margin-top:24px">
+    <div class="warn-box">
+      <strong>NIHSS e mRS — escalas fundamentais para todos os indicadores:</strong>
+      NIHSS documentado na admissão e nas reavaliações · mRS documentado na admissão (funcionalidade prévia) e na alta · Ambas registradas no sistema MV · NIHSS e mRS da alta reportados nas plataformas RES-Q ou SITS-QR
+    </div>
+  </div>
+
+  <table class="summary-table" style="margin-top:20px">
+    <tr><th>Indicador</th><th>Fonte de dados</th><th>Frequência de análise</th></tr>
+    <tr><td>Tempos (porta-imagem, porta-agulha)</td><td>Sistema MV — registros de horário</td><td>Mensal</td></tr>
+    <tr><td>Taxa de trombólise</td><td>Prontuário + Farmácia (Stroke Bag)</td><td>Mensal</td></tr>
+    <tr><td>NIHSS e mRS admissão / alta</td><td>Evolução médica no prontuário</td><td>Mensal</td></tr>
+    <tr><td>Disfagia e reabilitação precoce</td><td>Evolução Fono + Fisio no prontuário</td><td>Mensal</td></tr>
+    <tr><td>Medicações na alta</td><td>Prescrição de alta / resumo de saída</td><td>Mensal</td></tr>
+    <tr><td>Retorno ambulatorial</td><td>Agendamento + presença na consulta</td><td>Trimestral</td></tr>
+    <tr><td>Mortalidade + permanência</td><td>Sistema hospitalar (AIH)</td><td>Mensal</td></tr>
+  </table>
+</div>
+
+</main>
+
+<script>
+function showView(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('view-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function toggleStage(header) {
+  header.parentElement.classList.toggle('open');
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linha de Cuidado — Artrite Psoriásica | São Cristóvão Saúde</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f0f4f8;
+  color: #1a2535;
+  min-height: 100vh;
+}
+
+header {
+  background: linear-gradient(135deg, #004b6e 0%, #006b9e 100%);
+  color: white;
+  padding: 26px 40px 20px;
+  border-bottom: 4px solid #00a8d4;
+}
+header h1 { font-size: 1.45rem; font-weight: 700; }
+header p  { font-size: .82rem; opacity: .8; margin-top: 4px; }
+.header-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.hbadge {
+  display: inline-block;
+  background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 4px;
+  padding: 2px 9px;
+  font-size: .7rem;
+  font-weight: 600;
+}
+
+.tabs {
+  display: flex;
+  background: #e2eaf1;
+  border-bottom: 2px solid #c5d5e4;
+  padding: 0 40px;
+  overflow-x: auto;
+}
+.tab {
+  padding: 11px 20px;
+  cursor: pointer;
+  font-size: .82rem;
+  font-weight: 600;
+  border-bottom: 3px solid transparent;
+  color: #5a7080;
+  white-space: nowrap;
+  transition: all .2s;
+  flex-shrink: 0;
+}
+.tab:hover { color: #004b6e; }
+.tab.active { color: #004b6e; border-bottom-color: #004b6e; background: #f0f4f8; }
+
+.legend {
+  display: flex; gap: 18px; flex-wrap: wrap;
+  padding: 12px 40px;
+  background: white;
+  border-bottom: 1px solid #dce6ef;
+  font-size: .75rem;
+}
+.legend-item { display: flex; align-items: center; gap: 5px; }
+.legend-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+
+main { padding: 28px 40px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.intro-box {
+  background: white;
+  border-left: 5px solid #004b6e;
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  font-size: .83rem;
+  line-height: 1.6;
+  color: #2c3e50;
+}
+.intro-box strong { color: #004b6e; }
+.source-tag {
+  display: inline-block;
+  font-size: .68rem;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 3px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+.src-pdf { background: #bee3f8; color: #2a4365; }
+.src-arpen { background: #c6f6d5; color: #22543d; }
+
+.stage-grid { display: flex; flex-direction: column; gap: 18px; }
+
+.stage {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.07);
+  overflow: hidden;
+}
+.stage-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+  cursor: pointer;
+  user-select: none;
+}
+.stage-header:hover { background: #f7fafc; }
+.stage-num {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: .88rem;
+  color: white; flex-shrink: 0;
+}
+.stage-title { font-weight: 700; font-size: .94rem; flex: 1; }
+.stage-subtitle { font-size: .76rem; color: #637080; margin-top: 2px; }
+.stage-badge {
+  font-size: .7rem; font-weight: 700;
+  padding: 3px 9px; border-radius: 20px; white-space: nowrap;
+}
+.stage-chevron { font-size: .72rem; color: #8a9bb0; transition: transform .25s; }
+.stage.open .stage-chevron { transform: rotate(180deg); }
+.stage-body { display: none; padding: 0 20px 18px; border-top: 1px solid #edf2f7; }
+.stage.open .stage-body { display: block; }
+
+.cols { display: grid; gap: 12px; margin-top: 14px; }
+.cols-2 { grid-template-columns: 1fr 1fr; }
+.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+.col-box {
+  background: #f7fafc;
+  border-radius: 7px;
+  padding: 13px 15px;
+  font-size: .8rem;
+}
+.col-box h4 {
+  font-size: .76rem;
+  font-weight: 700;
+  margin-bottom: 7px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+.col-box ul { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.col-box ul li::before { content: "→ "; color: #8a9bb0; }
+.col-box ul li { line-height: 1.4; }
+
+.drug-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-size: .8rem;
+}
+.drug-card h4 {
+  font-size: .86rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.drug-card ul { list-style: none; display: flex; flex-direction: column; gap: 3px; }
+.drug-card ul li::before { content: "· "; color: #8a9bb0; font-weight: 700; }
+.drug-card ul li { line-height: 1.35; }
+.drug-dose { font-weight: 600; color: #2d3748; }
+.drug-alert { color: #c53030; font-size: .74rem; margin-top: 6px; font-weight: 500; }
+
+.alert-box {
+  background: #fff5f5;
+  border-left: 4px solid #e53e3e;
+  border-radius: 6px;
+  padding: 12px 15px;
+  margin-top: 14px;
+  font-size: .8rem;
+  color: #742a2a;
+  line-height: 1.5;
+}
+.alert-box strong { display: block; margin-bottom: 4px; }
+
+.warn-box {
+  background: #fffbeb;
+  border-left: 4px solid #d69e2e;
+  border-radius: 6px;
+  padding: 12px 15px;
+  margin-top: 12px;
+  font-size: .8rem;
+  color: #744210;
+  line-height: 1.5;
+}
+
+.decision-box {
+  background: #fffbeb;
+  border: 2px dashed #d69e2e;
+  border-radius: 8px;
+  padding: 13px 15px;
+  margin-top: 14px;
+  font-size: .8rem;
+  color: #744210;
+}
+.decision-box strong { color: #b7791f; display: block; margin-bottom: 5px; }
+
+.success-box {
+  background: #f0fff4;
+  border-left: 4px solid #2b7a4b;
+  border-radius: 6px;
+  padding: 12px 15px;
+  margin-top: 12px;
+  font-size: .8rem;
+  color: #22543d;
+  line-height: 1.5;
+}
+
+.arrow-connector {
+  text-align: center; color: #8a9bb0;
+  font-size: 1.2rem; margin: 2px 0 -6px;
+}
+
+/* Colors */
+.c-clinico { background: #2b7a4b; }
+.bg-clinico-light { background: #e6f4ec; }
+.text-clinico { color: #2b7a4b; }
+.badge-clinico { background: #c6f6d5; color: #22543d; }
+.border-clinico { border-color: #2b7a4b; }
+
+.c-reuma { background: #2c5282; }
+.bg-reuma-light { background: #ebf4ff; }
+.text-reuma { color: #2c5282; }
+.badge-reuma { background: #bee3f8; color: #2a4365; }
+
+.c-mista { background: #b7791f; }
+.bg-mista-light { background: #fffbeb; }
+.badge-mista { background: #fefcbf; color: #744210; }
+
+.c-derm { background: #b83280; }
+.bg-derm-light { background: #fff5fb; }
+.text-derm { color: #b83280; }
+.badge-derm { background: #fed7e2; color: #97266d; }
+
+.c-alerta { background: #c53030; }
+.badge-alerta { background: #fed7d7; color: #742a2a; }
+.c-gray { background: #4a5568; }
+.bg-gray-light { background: #f7fafc; }
+
+/* Pills */
+.pill {
+  display: inline-block; padding: 1px 7px;
+  border-radius: 10px; font-size: .68rem;
+  font-weight: 700; margin-right: 3px; vertical-align: middle;
+}
+.pill-g { background: #c6f6d5; color: #22543d; }
+.pill-b { background: #bee3f8; color: #2a4365; }
+.pill-y { background: #fefcbf; color: #744210; }
+.pill-r { background: #fed7d7; color: #742a2a; }
+.pill-p { background: #fed7e2; color: #97266d; }
+
+/* Summary table */
+.summary-table {
+  width: 100%; border-collapse: collapse;
+  margin-top: 14px; font-size: .79rem;
+}
+.summary-table th {
+  background: #2d3748; color: white;
+  padding: 9px 13px; text-align: left;
+  font-size: .75rem; font-weight: 700;
+}
+.summary-table td {
+  padding: 8px 13px;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: top; line-height: 1.4;
+}
+.summary-table tr:nth-child(even) td { background: #f7fafc; }
+
+/* Clinical data table */
+.data-table {
+  width: 100%; border-collapse: collapse;
+  margin-top: 12px; font-size: .78rem;
+}
+.data-table th {
+  background: #2c5282; color: white;
+  padding: 8px 11px; text-align: left;
+  font-size: .74rem; font-weight: 700;
+}
+.data-table td {
+  padding: 7px 11px;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: top; line-height: 1.35;
+}
+.data-table tr:nth-child(even) td { background: #f7fafc; }
+.data-table .row-head { background: #ebf4ff !important; font-weight: 700; color: #2a4365; }
+
+/* Prescription / escalation cards */
+.rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
+.rules-card {
+  background: white; border-radius: 8px;
+  box-shadow: 0 1px 5px rgba(0,0,0,.06);
+  padding: 14px 16px;
+}
+.rules-card h4 {
+  font-size: .82rem; font-weight: 700;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid currentColor;
+}
+.rules-card ul { list-style: none; display: flex; flex-direction: column; gap: 5px; font-size: .79rem; }
+.rules-card ul li::before { content: "→ "; color: #8a9bb0; }
+
+/* Ladder (escalation steps) */
+.ladder { display: flex; flex-direction: column; gap: 0; margin-top: 16px; }
+.ladder-step { display: flex; gap: 0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 5px rgba(0,0,0,.08); margin-bottom: 8px; }
+.ladder-tag { min-width: 92px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: .74rem; font-weight: 800; color: #fff; padding: 8px; line-height: 1.2; flex-shrink: 0; }
+.ladder-body { flex: 1; padding: 13px 16px; background: white; font-size: .8rem; }
+.ladder-body h4 { font-size: .87rem; font-weight: 700; margin-bottom: 6px; color: #2d3748; }
+.ladder-body ul { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.ladder-body ul li::before { content: "· "; color: #8a9bb0; font-weight: 700; }
+.ladder-body ul li { line-height: 1.4; }
+.ladder-arrow { text-align: center; color: #a0aec0; font-size: 1rem; margin: -4px 0 4px; }
+
+/* Domain grid */
+.domain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+.domain-card { background: white; border: 1px solid #e2e8f0; border-left: 4px solid #6b46c1; border-radius: 8px; padding: 12px 15px; font-size: .79rem; }
+.domain-card h4 { font-size: .84rem; font-weight: 700; margin-bottom: 6px; color: #553c9a; }
+.domain-card ul { list-style: none; display: flex; flex-direction: column; gap: 3px; }
+.domain-card ul li::before { content: "▸ "; color: #8a9bb0; }
+
+/* Indicators */
+.ind-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 16px; }
+.ind-card {
+  background: white; border-radius: 8px;
+  box-shadow: 0 1px 5px rgba(0,0,0,.06);
+  padding: 13px 15px;
+}
+.ind-card h4 { font-size: .78rem; font-weight: 700; margin-bottom: 8px; text-transform: uppercase; letter-spacing: .4px; }
+.ind-card ul { list-style: none; font-size: .76rem; display: flex; flex-direction: column; gap: 4px; }
+.ind-card ul li::before { content: "• "; }
+
+@media (max-width: 700px) {
+  header, .tabs, main { padding-left: 16px; padding-right: 16px; }
+  .cols-2, .cols-3, .cols-4 { grid-template-columns: 1fr; }
+  .rules-grid, .ind-grid, .domain-grid { grid-template-columns: 1fr; }
+  .legend { padding: 10px 16px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Linha de Cuidado — Artrite Psoriásica</h1>
+  <p>São Cristóvão Saúde · Arpen · CID-10: L40.5 · Manejo conjunto Reumatologia + Dermatologia</p>
+  <div class="header-badges">
+    <span class="hbadge">Protocolo SC — Jul/2026</span>
+    <span class="hbadge">EULAR 2023 · GRAPPA 2021 · CASPAR</span>
+    <span class="hbadge">PCDT MS 2026 · DUT 65 (ANS)</span>
+    <span class="hbadge">Jornada v1 — Arpen</span>
+  </div>
+</header>
+
+<div class="tabs">
+  <div class="tab active"  onclick="showView('clinico')">🟢 Porta de Entrada — Clínico / Derma</div>
+  <div class="tab"         onclick="showView('reuma')">🔵 Jornada Reumatologia</div>
+  <div class="tab"         onclick="showView('mista')">🟡 Cuidado Compartilhado</div>
+  <div class="tab"         onclick="showView('rx')">💊 Escalonamento por Domínio</div>
+  <div class="tab"         onclick="showView('matriz')">📋 Matriz e Indicadores</div>
+</div>
+
+<div class="legend">
+  <span style="font-weight:700;font-size:.75rem;color:#4a5568">Responsável:</span>
+  <div class="legend-item"><div class="legend-dot" style="background:#2b7a4b"></div> Clínico Geral — porta de entrada e co-gestão</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#2c5282"></div> Reumatologia — coordenador da doença articular</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#b83280"></div> Dermatologia — manejo cutâneo conjunto</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#c53030"></div> Alerta / Urgência</div>
+  <div class="legend-item"><span class="source-tag src-pdf">PDF SC</span> Protocolo São Cristóvão</div>
+  <div class="legend-item"><span class="source-tag src-arpen">ARPEN</span> Contribuição operacional Arpen</div>
+</div>
+
+<!-- ══════════════════ TAB: CLÍNICO — PORTA DE ENTRADA ══════════════════ -->
+<main>
+<div id="view-clinico" class="view active">
+  <div class="intro-box">
+    <strong>Trilha da Porta de Entrada — Clínico Geral e Dermatologia</strong> <span class="source-tag src-arpen">ARPEN</span> — Na artrite psoriásica (APs) <strong>o reumatologista é o coordenador da doença articular</strong>: confirmação diagnóstica e indicação de csDMARD/bDMARD/tsDMARD são <strong>exclusivas do especialista</strong>. A porta de entrada é dupla: <strong>o dermatologista</strong> (paciente já em acompanhamento por psoríase cutânea que desenvolve sintomas articulares) e <strong>o Clínico Geral</strong>. A ambos cabe reconhecer o quadro articular e encaminhar prontamente. O <strong>manejo conjunto com a Dermatologia</strong> é recomendado sempre que houver acometimento cutâneo relevante.
+  </div>
+
+  <div class="stage-grid">
+
+    <!-- ESTÁGIO 0 -->
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-clinico">0</div>
+        <div>
+          <div class="stage-title">Reconhecimento da Suspeita de Artrite Psoriásica</div>
+          <div class="stage-subtitle">Psoríase (atual/pregressa/familiar) + sintomas musculoesqueléticos · atenção ao paciente dermatológico</div>
+        </div>
+        <span class="stage-badge badge-clinico">Clínico / Derma</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="cols cols-2">
+          <div class="col-box bg-clinico-light">
+            <h4 class="text-clinico">Quadro suspeito — encaminhar à Reumatologia <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li><strong>Psoríase cutânea</strong> (atual ou pregressa; pessoal ou familiar) associada a:</li>
+              <li>Dor e edema articular periférico</li>
+              <li>Dor lombar inflamatória</li>
+              <li>Entesite · Dactilite ("dedo em salsicha")</li>
+              <li>Alterações ungueais sugestivas: <strong>pitting, onicólise</strong></li>
+              <li style="color:#637080;font-style:italic">Em ~15% dos casos a artrite precede a psoríase cutânea</li>
+            </ul>
+          </div>
+          <div class="col-box bg-derm-light">
+            <h4 class="text-derm">Rastreamento ativo no paciente com psoríase <span class="source-tag src-arpen">ARPEN</span></h4>
+            <ul>
+              <li>20–30% dos pacientes com psoríase desenvolvem APs (geralmente 5–10 anos após as lesões de pele)</li>
+              <li>O dermatologista deve <strong>perguntar ativamente sobre dor/edema articular, dor lombar, entesite e dactilite</strong> nas consultas de rotina</li>
+              <li>Sintoma musculoesquelético em paciente com psoríase = encaminhar à Reumatologia</li>
+              <li>&gt; 40% têm história familiar de psoríase/APs em 1º grau</li>
+            </ul>
+          </div>
+        </div>
+        <div class="decision-box">
+          <strong>⏱ Diagnóstico e tratamento precoces previnem dano estrutural irreversível</strong>
+          A APs pode evoluir para artrite mutilante. O reconhecimento ágil de sintomas musculoesqueléticos em paciente com psoríase — ou de psoríase/alterações ungueais em paciente com queixa articular — é a chave para não perder a janela terapêutica.
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <!-- ESTÁGIO 1 -->
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-clinico">1</div>
+        <div>
+          <div class="stage-title">Exames de Apoio e Racionalização Diagnóstica</div>
+          <div class="stage-subtitle">Diagnóstico clínico (CASPAR) · FR/anti-CCP habitualmente negativos · avaliar domínios</div>
+        </div>
+        <span class="stage-badge badge-clinico">Clínico / Derma</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="cols cols-2">
+          <div class="col-box bg-clinico-light">
+            <h4 class="text-clinico">Exames complementares úteis <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li><strong>FR e anti-CCP</strong> — habitualmente negativos; positividade não exclui, mas motiva diferencial com AR</li>
+              <li><strong>PCR e VHS</strong> — podem ser normais mesmo com doença ativa (oligoarticular/entesítico/axial)</li>
+              <li><strong>Radiografia de mãos e pés</strong> — neoformação óssea justa-articular, erosões, artrite mutilante</li>
+              <li>Ultrassonografia com Doppler — sinovite, entesite e dactilite subclínicas</li>
+            </ul>
+          </div>
+          <div class="col-box bg-gray-light">
+            <h4>Critérios CASPAR — apoio (≥ 3 pontos) <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Psoríase cutânea atual (2) · história pessoal/familiar (1)</li>
+              <li>Distrofia ungueal típica — pitting, onicólise (1)</li>
+              <li>Fator reumatoide negativo (1)</li>
+              <li>Dactilite atual ou pregressa (1)</li>
+              <li>Neoformação óssea justa-articular na RX de mãos/pés (1)</li>
+              <li style="color:#637080;font-style:italic">≥ 3/9 classifica como APs (sensib. ~91%, espec. ~98%)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="warn-box">
+          <strong>Diagnóstico diferencial a considerar:</strong> artrite reumatoide (sobretudo em quadros poliarticulares simétricos), gota, osteoartrite, outras espondiloartrites e fibromialgia associada à psoríase (sem sinovite objetiva).
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <!-- ESTÁGIO 2 -->
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-clinico">2</div>
+        <div>
+          <div class="stage-title">Medidas de Ponte e Não Medicamentosas pelo Clínico</div>
+          <div class="stage-subtitle">AINE em doença leve · cautela com corticoide sistêmico · controle de peso e comorbidades</div>
+        </div>
+        <span class="stage-badge badge-mista">Clínico → Reumato</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="cols cols-2">
+          <div class="col-box bg-clinico-light">
+            <h4 class="text-clinico">Medidas seguras enquanto aguarda o especialista <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li><strong>AINE</strong> pode ser usado em doença leve, predominantemente entesítica ou oligoarticular, por tempo limitado</li>
+              <li>Controle de peso (obesidade → pior resposta e menor remissão)</li>
+              <li>Cessação do tabagismo; exercício físico regular</li>
+              <li>Rastrear e apoiar sintomas depressivos/ansiosos (associação bem documentada)</li>
+            </ul>
+          </div>
+          <div class="col-box" style="background:#fff5f5;border:1px solid #fc8181">
+            <h4 style="color:#c53030">🚫 Cautela — corticoide sistêmico <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Uso sistêmico deve ser <strong>cauteloso</strong>: risco de <strong>fenômeno rebote de psoríase</strong> (inclusive pustulosa) à retirada</li>
+              <li>Evitar suspensão abrupta de corticoide sistêmico</li>
+              <li>csDMARD/bDMARD/tsDMARD são indicação exclusiva do reumatologista — <strong>não iniciar</strong> na atenção primária</li>
+            </ul>
+          </div>
+        </div>
+        <div class="success-box">
+          <strong>Manejo conjunto com a Dermatologia:</strong> quando houver acometimento cutâneo relevante, mantenha o paciente também vinculado à Dermatologia. A escolha terapêutica futura pelo reumatologista buscará, sempre que possível, <strong>um único agente que controle simultaneamente pele e articulações</strong> — a articulação entre as duas especialidades otimiza esse objetivo.
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <!-- ESTÁGIO 3 -->
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-clinico">3</div>
+        <div>
+          <div class="stage-title">Encaminhamento Qualificado à Reumatologia</div>
+          <div class="stage-subtitle">Com informações mínimas e articulação com a Dermatologia</div>
+        </div>
+        <span class="stage-badge badge-clinico">Clínico / Derma</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="cols cols-2">
+          <div class="col-box bg-reuma-light">
+            <h4 class="text-reuma">Conteúdo do encaminhamento qualificado <span class="source-tag src-arpen">ARPEN</span></h4>
+            <ul>
+              <li>Domínios acometidos: periférico, axial, entesite, dactilite, unhas</li>
+              <li>Extensão/gravidade da psoríase e alterações ungueais</li>
+              <li>FR, anti-CCP, PCR, VHS (se disponíveis)</li>
+              <li>Radiografia de mãos e pés, se realizada</li>
+              <li>Tratamento dermatológico atual (tópico/sistêmico/biológico)</li>
+              <li>Comorbidades cardiometabólicas, peso/IMC, tabagismo</li>
+            </ul>
+          </div>
+          <div class="col-box bg-clinico-light">
+            <h4 class="text-clinico">Papel continuado do Clínico após o encaminhamento <span class="source-tag src-arpen">ARPEN</span></h4>
+            <ul>
+              <li>Manter o paciente vinculado às três frentes (Clínico, Reumato, Derma)</li>
+              <li>Manejar comorbidades cardiometabólicas (frequentes na psoríase/APs)</li>
+              <li>Reforçar controle de peso e cessação do tabagismo</li>
+              <li>Rastrear e apoiar depressão/ansiedade</li>
+              <li>Atualizar calendário vacinal antes de eventual bDMARD/tsDMARD</li>
+            </ul>
+          </div>
+        </div>
+        <div class="alert-box">
+          <strong>🚨 Sinais de alerta — avaliação prioritária</strong>
+          <strong>Psoríase pustulosa generalizada ou eritrodérmica em atividade</strong> (não suspender corticoide abruptamente; risco cutâneo grave) → dermatologia de urgência · Poliartrite grave/rapidamente destrutiva (risco de artrite mutilante) · Suspeita de infecção em paciente imunossuprimido → encaminhamento prioritário à especialidade correspondente e à Reumatologia.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════ TAB: REUMATOLOGIA ══════════════════ -->
+<div id="view-reuma" class="view">
+  <div class="intro-box">
+    <strong>Trilha da Reumatologia — Coordenador da Doença Articular, em Articulação com a Dermatologia</strong> <span class="source-tag src-pdf">PDF SC</span> — O ambulatório <strong>confirma o diagnóstico</strong> (CASPAR), avalia sistematicamente <strong>todos os domínios</strong> (articular periférico, axial, entesite, dactilite, pele/unhas) e conduz o tratamento <strong>orientado pelo domínio predominante</strong> (abordagem "domain-based"), buscando um agente que controle múltiplos domínios. Toda indicação de csDMARD, bDMARD ou tsDMARD é exclusiva do reumatologista. O especialista mantém o vínculo longitudinal; Clínico e Dermatologia co-gerenciam.
+  </div>
+
+  <div class="stage-grid">
+
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-reuma">R1</div>
+        <div>
+          <div class="stage-title">1ª Consulta — Confirmação e Avaliação por Domínios</div>
+          <div class="stage-subtitle">CASPAR · mapear os 5 domínios · DAPSA / PASI / MDA · plano domain-based</div>
+        </div>
+        <span class="stage-badge badge-reuma">Reumatologia</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="domain-grid">
+          <div class="domain-card">
+            <h4>1 · Articular periférico</h4>
+            <ul>
+              <li>Artrite oligoarticular assimétrica (ou poliarticular simétrica, símile AR)</li>
+              <li>Avaliar por <strong>DAPSA</strong> ou contagem de articulações + PCR/VHS</li>
+            </ul>
+          </div>
+          <div class="domain-card">
+            <h4>2 · Axial</h4>
+            <ul>
+              <li>Dor lombar inflamatória, sacroiliíte</li>
+              <li>Avaliar por <strong>BASDAI/ASDAS</strong> (ver protocolo de Espondiloartrites)</li>
+            </ul>
+          </div>
+          <div class="domain-card">
+            <h4>3 · Entesite</h4>
+            <ul>
+              <li>Calcânea (tendão de Aquiles, fáscia plantar), epicondiliana</li>
+            </ul>
+          </div>
+          <div class="domain-card">
+            <h4>4 · Dactilite</h4>
+            <ul>
+              <li>"Dedo em salsicha" — edema difuso de todo o dedo</li>
+            </ul>
+          </div>
+          <div class="domain-card" style="border-left-color:#b83280">
+            <h4 style="color:#97266d">5 · Cutâneo / ungueal</h4>
+            <ul>
+              <li>Extensão/gravidade da psoríase (<strong>PASI</strong>) e alterações ungueais</li>
+              <li>Avaliar <strong>em conjunto com a Dermatologia</strong></li>
+            </ul>
+          </div>
+          <div class="domain-card" style="border-left-color:#2b7a4b">
+            <h4 style="color:#2b7a4b">Meta composta</h4>
+            <ul>
+              <li><strong>MDA</strong> — Mínima Atividade de Doença: ≥ 5 de 7 critérios</li>
+              <li>Remissão ou MDA sustentada em todos os domínios</li>
+            </ul>
+          </div>
+        </div>
+        <div class="warn-box">
+          <strong>Índices de atividade:</strong> DAPSA — remissão ≤ 4; baixa &gt; 4–14; moderada &gt; 14–28; alta &gt; 28. MDA atingida com ≥ 5 dos 7 critérios (≤ 1 articulação dolorosa; ≤ 1 edemaciada; PASI ≤ 1 ou BSA ≤ 3%; dor EVA ≤ 15; avaliação global EVA ≤ 20; HAQ ≤ 0,5; ≤ 1 sítio de entesite dolorosa). Falha terapêutica: sem melhora relevante em até 3 meses, ou não atingir remissão/MDA em até 6 meses de tratamento otimizado.
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-reuma">R2</div>
+        <div>
+          <div class="stage-title">Condução e Escalonamento por Domínio</div>
+          <div class="stage-subtitle">Abordagem domain-based · MTX preferencial no periférico · axial segue algoritmo de EpA</div>
+        </div>
+        <span class="stage-badge badge-reuma">Reumatologia</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="cols cols-2">
+          <div class="col-box bg-reuma-light">
+            <h4 class="text-reuma">Estratégia terapêutica <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Escolha orientada pelo <strong>domínio predominante</strong>; buscar agente que controle múltiplos domínios</li>
+              <li>Objetivo: remissão ou MDA sustentada em todos os domínios</li>
+              <li>Reavaliação a cada 1–3 meses com doença ativa (DAPSA/MDA)</li>
+              <li>Controle simultâneo das manifestações cutâneas em articulação com a Dermatologia</li>
+              <li>Detalhe do algoritmo por domínio na aba <strong>💊 Escalonamento por Domínio</strong></li>
+            </ul>
+          </div>
+          <div class="col-box bg-gray-light">
+            <h4>Regras por domínio <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li><strong>Periférico:</strong> csDMARD (MTX preferencial, também atua na pele)</li>
+              <li><strong>Axial:</strong> segue algoritmo de EpA — AINE 1ª linha; csDMARD NÃO tem eficácia axial; bDMARD após falha a AINE</li>
+              <li><strong>Entesite/dactilite:</strong> csDMARD limitados; bDMARD/tsDMARD conforme resposta</li>
+              <li><strong>Pele extensa:</strong> preferir anti-IL-17 ou anti-IL-23</li>
+            </ul>
+          </div>
+        </div>
+        <div class="warn-box">
+          <strong>Monitorização de segurança (partilhada com o Clínico):</strong> em uso de csDMARD (MTX, leflunomida, sulfassalazina), bDMARD ou tsDMARD — hemograma, transaminases e creatinina a cada 2–4 semanas até 3 meses; 8–12 semanas dos 3–6 meses; a cada 12 semanas após 6 meses. Rastrear comorbidades cardiometabólicas, frequentemente associadas à psoríase.
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-reuma">R3</div>
+        <div>
+          <div class="stage-title">Remissão / MDA Sustentada — Espaçamento e Co-gestão</div>
+          <div class="stage-subtitle">Doença crônica multidomínio · vínculo mantido com Reumato e Dermatologia</div>
+        </div>
+        <span class="stage-badge badge-reuma">Reumatologia</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="cols cols-2">
+          <div class="col-box bg-reuma-light">
+            <h4 class="text-reuma">Ao atingir e sustentar a meta <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Espaçar consultas de reavaliação (DAPSA/MDA) após meta sustentada</li>
+              <li>Manter controle simultâneo de todos os domínios, inclusive cutâneo (com a Derma)</li>
+              <li>Considerar otimização do bDMARD/tsDMARD conforme resposta sustentada (individualizado)</li>
+              <li>Reintensificar terapia diante de reativação de qualquer domínio</li>
+            </ul>
+          </div>
+          <div class="col-box bg-clinico-light">
+            <h4 class="text-clinico">O que passa a ser co-gerido <span class="source-tag src-arpen">ARPEN</span></h4>
+            <ul>
+              <li>Clínico: continuidade de prescrição em fase estável, segurança laboratorial, comorbidades cardiometabólicas, vacinação, peso, humor</li>
+              <li>Dermatologia: seguimento cutâneo/ungueal e ajuste do tratamento dermatológico conjunto</li>
+              <li>Ambos: reconhecer reativação e reencaminhar sem demora</li>
+            </ul>
+          </div>
+        </div>
+        <div class="success-box">
+          <strong>Vínculo longitudinal:</strong> o reumatologista permanece coordenando a doença articular; a Dermatologia acompanha o componente cutâneo; e o Clínico é o co-gestor permanente da segurança e da saúde global entre as consultas especializadas.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════ TAB: CUIDADO COMPARTILHADO ══════════════════ -->
+<div id="view-mista" class="view">
+  <div class="intro-box">
+    <strong>Jornada Mista — Modelo Cíclico Especialista-liderado, com Manejo Conjunto</strong> <span class="source-tag src-arpen">ARPEN</span> — Princípio: <strong>um responsável por fase</strong>. A porta de entrada é o Clínico ou o Dermatologista; o Reumatologista assume a condução da doença articular; a Dermatologia acompanha o componente cutâneo; e o ciclo alterna entre <strong>doença ativa</strong> (reumato conduz por domínios) e <strong>remissão/MDA sustentada</strong> (consultas espaçadas + co-gestão). A cada reavaliação: <em>"há remissão/MDA sustentada em todos os domínios, ou é preciso escalonar mais um ciclo?"</em> Não há alta definitiva.
+  </div>
+
+  <style>
+    .seq-flow { display:flex; flex-direction:column; gap:0; max-width:900px; margin:0 auto; }
+    .seq-step { display:flex; gap:0; border-radius:8px; overflow:hidden; box-shadow:0 1px 5px rgba(0,0,0,.1); margin-bottom:6px; }
+    .seq-num  { min-width:50px; display:flex; align-items:center; justify-content:center; font-size:1.15rem; font-weight:800; color:#fff; flex-shrink:0; }
+    .seq-body { flex:1; padding:14px 18px; }
+    .seq-actor-badge { display:inline-block; padding:2px 11px; border-radius:20px; font-size:.7rem; font-weight:700; margin-bottom:7px; color:#fff; }
+    .seq-title { font-weight:700; font-size:.92rem; margin-bottom:6px; }
+    .seq-body ul { margin:4px 0 0 0; padding-left:16px; }
+    .seq-body ul li { font-size:.81rem; margin-bottom:4px; color:#2d3748; line-height:1.4; }
+    .seq-note  { font-size:.76rem; color:#718096; margin-top:8px; font-style:italic; border-top:1px dashed #e2e8f0; padding-top:6px; }
+    .seq-tags  { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+    .seq-tag   { display:inline-flex; align-items:center; gap:4px; background:rgba(0,0,0,.07); border-radius:4px; padding:3px 9px; font-size:.73rem; font-weight:700; }
+    .seq-arrow { text-align:center; padding:4px 0; margin:0; }
+    .seq-arrow-inner { display:inline-flex; align-items:center; gap:10px; font-size:.76rem; font-weight:700; color:#4a5568; }
+    .seq-arrow-line { width:60px; height:2px; }
+    .seq-trigger { background:#fffbeb; border:2px solid #d69e2e; border-radius:8px; padding:13px 16px; margin:6px 0; }
+    .seq-trigger-title { font-weight:700; font-size:.86rem; color:#744210; margin-bottom:10px; }
+    .seq-trigger-cols { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .seq-trigger-col { background:white; border-radius:6px; padding:11px 13px; font-size:.79rem; line-height:1.45; }
+    .seq-trigger-col strong { display:block; font-size:.78rem; margin-bottom:6px; }
+    .cycle-wrapper { position:relative; border:2px dashed #2c5282; border-radius:12px; padding:14px 14px 14px 20px; margin:8px 0; background:rgba(235,244,255,.4); }
+    .cycle-label { position:absolute; top:-12px; left:20px; background:#2c5282; color:white; font-size:.72rem; font-weight:800; padding:2px 12px; border-radius:20px; letter-spacing:.5px; white-space:nowrap; }
+    .decision-wrapper { margin:10px 0 6px; }
+    .decision-header { background:#2c5282; color:white; border-radius:8px 8px 0 0; padding:11px 16px; font-weight:700; font-size:.88rem; display:flex; align-items:center; gap:8px; }
+    .decision-criteria { background:#ebf4ff; border:1px solid #2c5282; border-top:none; padding:12px 16px; font-size:.79rem; }
+    .decision-criteria-title { font-weight:700; font-size:.78rem; color:#2a4365; margin-bottom:8px; }
+    .criteria-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; margin-bottom:10px; }
+    .criteria-item { background:white; border-radius:5px; padding:7px 10px; font-size:.77rem; display:flex; align-items:flex-start; gap:6px; line-height:1.35; }
+    .criteria-check { font-size:.85rem; flex-shrink:0; margin-top:1px; }
+    .decision-branches { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
+    .branch-yes { background:#f0fff4; border:2px solid #68d391; border-radius:8px; padding:13px 15px; font-size:.8rem; color:#276749; line-height:1.5; }
+    .branch-no { background:#fff5f5; border:2px solid #fc8181; border-radius:8px; padding:13px 15px; font-size:.8rem; color:#9b2c2c; line-height:1.5; }
+    .branch-yes strong, .branch-no strong { display:block; font-size:.85rem; margin-bottom:8px; }
+    .branch-tag { display:inline-block; border-radius:4px; padding:2px 8px; font-size:.71rem; font-weight:700; margin:3px 2px 3px 0; }
+    .branch-tag-g { background:#c6f6d5; color:#22543d; }
+    .branch-tag-r { background:#fed7d7; color:#742a2a; }
+    .branch-tag-b { background:#bee3f8; color:#2a4365; }
+    .loop-back { display:flex; align-items:center; gap:10px; background:#fff5f5; border:1px dashed #fc8181; border-radius:6px; padding:9px 14px; margin-top:8px; font-size:.78rem; font-weight:700; color:#9b2c2c; }
+    .loop-icon { font-size:1.1rem; }
+    .seq-outros { background:#e6f4ec; border:1px solid #9ae6b4; border-radius:8px; padding:13px 16px; margin:6px 0; }
+    .seq-outros-title { font-size:.8rem; font-weight:700; color:#2b7a4b; margin-bottom:10px; }
+    .seq-outros-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; }
+    .seq-outros-item { font-size:.78rem; color:#22543d; background:white; border-radius:6px; padding:9px 11px; }
+    .seq-outros-item strong { display:block; font-size:.76rem; margin-bottom:3px; color:#2b7a4b; }
+    .seq-outros-when { font-size:.71rem; color:#2b7a4b; margin-top:4px; font-style:italic; }
+    @media(max-width:700px){ .seq-trigger-cols,.decision-branches,.criteria-grid,.seq-outros-grid{ grid-template-columns:1fr; } }
+  </style>
+
+  <div class="seq-flow">
+
+    <!-- FASE 1: CLÍNICO / DERMA -->
+    <div class="seq-step">
+      <div class="seq-num" style="background:#2b7a4b;">1</div>
+      <div class="seq-body" style="background:#f0fff4; border-left:3px solid #2b7a4b;">
+        <span class="seq-actor-badge" style="background:#2b7a4b;">🟢 CLÍNICO GERAL</span>
+        <span class="seq-actor-badge" style="background:#b83280;">🟣 DERMATOLOGIA — porta de entrada dupla</span>
+        <div class="seq-title">Reconhecimento, Ponte e Encaminhamento</div>
+        <ul>
+          <li>Reconhece psoríase (atual/pregressa/familiar) + sintomas articulares, dor lombar inflamatória, entesite, dactilite, unhas</li>
+          <li>Dermatologista rastreia ativamente sintomas musculoesqueléticos em pacientes com psoríase</li>
+          <li>Solicita FR, anti-CCP, PCR, VHS, RX de mãos/pés; inicia AINE em doença leve (cautela com corticoide sistêmico)</li>
+          <li>Encaminha à Reumatologia com informações mínimas e tratamento dermatológico atual</li>
+        </ul>
+        <div class="seq-tags">
+          <span class="seq-tag" style="color:#c53030;">⏱ Prevenir dano estrutural: encaminhar precocemente</span>
+          <span class="seq-tag" style="color:#b83280;">🔗 Manter vínculo com a Dermatologia</span>
+        </div>
+        <p class="seq-note">Confirmação diagnóstica e indicação de csDMARD/bDMARD/JAK são exclusivas do reumatologista.</p>
+      </div>
+    </div>
+
+    <!-- GATILHO -->
+    <div class="seq-trigger">
+      <div class="seq-trigger-title">🔀 Momento do Encaminhamento — quando e com que prioridade</div>
+      <div class="seq-trigger-cols">
+        <div class="seq-trigger-col" style="border-left:3px solid #c53030;">
+          <strong style="color:#c53030;">⚡ Prioritário / urgente</strong>
+          Poliartrite grave/rapidamente destrutiva (risco de artrite mutilante) · Psoríase pustulosa generalizada ou eritrodérmica → dermatologia de urgência · Suspeita de infecção em imunossuprimido → encaminhamento prioritário
+        </div>
+        <div class="seq-trigger-col" style="border-left:3px solid #d69e2e;">
+          <strong style="color:#b7791f;">📋 Padrão</strong>
+          Psoríase + sintomas musculoesqueléticos sem gravidade — encaminhar com agilidade à Reumatologia, mantendo o manejo conjunto com a Dermatologia. <strong>Encaminhamento é a regra.</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="seq-arrow">
+      <div class="seq-arrow-inner">
+        <div class="seq-arrow-line" style="background:#2c5282;"></div>
+        <span style="color:#2c5282;">📋 Encaminhamento qualificado com domínios acometidos e tratamento dermatológico atual</span>
+        <div class="seq-arrow-line" style="background:#2c5282;"></div>
+      </div>
+    </div>
+
+    <!-- FASE 2: REUMATO -->
+    <div class="seq-step">
+      <div class="seq-num" style="background:#2c5282;">2</div>
+      <div class="seq-body" style="background:#ebf4ff; border-left:3px solid #2c5282;">
+        <span class="seq-actor-badge" style="background:#2c5282;">🔵 REUMATOLOGIA — único responsável nesta fase</span>
+        <div class="seq-title">1ª Consulta — Confirmação e Avaliação por Domínios</div>
+        <ul>
+          <li>Confirma diagnóstico (CASPAR) e avalia os 5 domínios (periférico, axial, entesite, dactilite, pele/unhas)</li>
+          <li>Estratifica atividade (DAPSA/MDA; PASI com a Derma; BASDAI/ASDAS se axial) e define a meta</li>
+          <li>Escolhe terapia orientada pelo domínio predominante, buscando controle multidomínio</li>
+          <li>Articula manejo conjunto com a Dermatologia para o componente cutâneo</li>
+          <li>Emite <strong>contrarreferência qualificada</strong> e agenda retorno</li>
+        </ul>
+        <div class="seq-tags">
+          <span class="seq-tag" style="color:#2c5282;">⏱ Reavaliação: a cada 1–3 meses com doença ativa</span>
+          <span class="seq-tag" style="color:#2c5282;">🎯 Meta: remissão ou MDA em todos os domínios</span>
+        </div>
+        <p class="seq-note">Indicação/troca de csDMARD, bDMARD e JAK são exclusivas do reumatologista.</p>
+      </div>
+    </div>
+
+    <div class="seq-arrow">
+      <div class="seq-arrow-inner">
+        <div class="seq-arrow-line" style="background:#2b7a4b;"></div>
+        <span style="color:#2b7a4b;">📄 Contrarreferência: domínios · atividade · plano · monitorização · sinais de retorno</span>
+        <div class="seq-arrow-line" style="background:#2b7a4b;"></div>
+      </div>
+    </div>
+
+    <!-- CICLO ITERATIVO -->
+    <div class="cycle-wrapper">
+      <div class="cycle-label">🔄 CICLO POR DOMÍNIO — Reumato conduz · Clínico + Derma co-gerenciam · repete até MDA sustentada</div>
+
+      <!-- FASE 3: REUMATO conduz -->
+      <div class="seq-step" style="margin-top:10px;">
+        <div class="seq-num" style="background:#2c5282;">3</div>
+        <div class="seq-body" style="background:#ebf4ff; border-left:3px solid #2c5282;">
+          <span class="seq-actor-badge" style="background:#2c5282;">🔵 REUMATOLOGIA — conduz a doença nesta fase</span>
+          <div class="seq-title">Condução Ativa e Escalonamento por Domínio</div>
+          <ul>
+            <li>Reavalia DAPSA/MDA a cada 1–3 meses; falha em 3 meses (melhora) ou 6 meses (meta)</li>
+            <li>Escalona conforme domínio: csDMARD (MTX no periférico) → bDMARD (anti-TNF / anti-IL-17 / anti-IL-23) → JAK → troca</li>
+            <li>Solicita rastreamento pré-biológico e submete autorização (DUT 65)</li>
+            <li>Sincroniza escolha terapêutica com a Dermatologia (pele extensa → anti-IL-17/anti-IL-23)</li>
+          </ul>
+          <div class="seq-tags">
+            <span class="seq-tag" style="color:#2c5282;">⏱ Reavaliação: 1–3 meses</span>
+            <span class="seq-tag" style="color:#2c5282;">🧪 Monitorização laboratorial: conforme fármaco</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CO-GESTÃO Clínico + Derma -->
+      <div class="seq-outros" style="margin-top:8px;">
+        <div class="seq-outros-title">🟢 Co-gestão simultânea — Clínico Geral e 🟣 Dermatologia, sem conduzir o escalonamento articular</div>
+        <div class="seq-outros-grid">
+          <div class="seq-outros-item" style="border-left:3px solid #b83280">
+            <strong style="color:#97266d">Dermatologia</strong>
+            Seguimento cutâneo/ungueal (PASI); ajuste conjunto do tratamento dermatológico
+            <div class="seq-outros-when">Quando: acometimento cutâneo relevante</div>
+          </div>
+          <div class="seq-outros-item">
+            <strong>Segurança laboratorial</strong>
+            Hemograma, transaminases, creatinina nos intervalos
+            <div class="seq-outros-when">Quando: conforme cronograma do fármaco</div>
+          </div>
+          <div class="seq-outros-item">
+            <strong>Comorbidades cardiometabólicas</strong>
+            HAS, DM, dislipidemia, controle de peso (obesidade piora resposta)
+            <div class="seq-outros-when">Quando: continuamente</div>
+          </div>
+          <div class="seq-outros-item">
+            <strong>Saúde mental</strong>
+            Rastrear e apoiar depressão/ansiedade (associadas à psoríase/APs)
+            <div class="seq-outros-when">Quando: em toda consulta de rotina</div>
+          </div>
+          <div class="seq-outros-item">
+            <strong>Vacinação e infecções</strong>
+            Calendário vacinal antes de bDMARD/tsDMARD; vigilância
+            <div class="seq-outros-when">Quando: antes e durante a imunossupressão</div>
+          </div>
+          <div class="seq-outros-item">
+            <strong>Sinais de reativação</strong>
+            Reconhecer piora articular ou cutânea e reencaminhar
+            <div class="seq-outros-when">Quando: a qualquer momento do ciclo</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="seq-arrow" style="margin:8px 0;">
+        <div class="seq-arrow-inner">
+          <div class="seq-arrow-line" style="background:#2c5282;"></div>
+          <span style="color:#2c5282;">📊 Dados de co-gestão (labs, pele/PASI, comorbidades) retornam ao reumatologista</span>
+          <div class="seq-arrow-line" style="background:#2c5282;"></div>
+        </div>
+      </div>
+
+      <!-- FASE 4: REUMATO — DECISÃO -->
+      <div class="decision-wrapper">
+        <div class="decision-header">
+          ⚖️ FASE 4 — Reumatologia: Reavaliação → DECISÃO: remissão/MDA sustentada em todos os domínios?
+        </div>
+        <div class="decision-criteria">
+          <div class="decision-criteria-title">Critérios avaliados em cada reavaliação <span class="source-tag src-pdf">PDF SC</span></div>
+          <div class="criteria-grid">
+            <div class="criteria-item"><span class="criteria-check">☐</span> DAPSA em remissão/baixa atividade ou MDA atingida</div>
+            <div class="criteria-item"><span class="criteria-check">☐</span> Meta sustentada ao longo do seguimento</div>
+            <div class="criteria-item"><span class="criteria-check">☐</span> Domínio cutâneo controlado (PASI, com a Derma)</div>
+            <div class="criteria-item"><span class="criteria-check">☐</span> Entesite/dactilite/axial controlados</div>
+            <div class="criteria-item"><span class="criteria-check">☐</span> Monitorização laboratorial estável, sem toxicidade</div>
+            <div class="criteria-item"><span class="criteria-check">☐</span> Comorbidades cardiometabólicas controladas</div>
+          </div>
+
+          <div class="decision-branches">
+            <div class="branch-yes">
+              <strong>✅ Remissão/MDA sustentada → Espaçamento (não é alta)</strong>
+              Reumatologista espaça consultas e intensifica a co-gestão:<br>
+              <span class="branch-tag branch-tag-g">Consultas Reumato espaçadas</span>
+              <span class="branch-tag branch-tag-g">Labs de segurança mantidos</span>
+              <span class="branch-tag branch-tag-g">Possível otimização do bDMARD/tsDMARD (individualizada)</span><br><br>
+              Clínico + Dermatologia assumem co-gestão mais ativa.<br>
+              <span class="branch-tag branch-tag-g">🔗 Vínculo com Reumato e Derma permanece</span>
+            </div>
+            <div class="branch-no">
+              <strong>❌ Meta não atingida em algum domínio → Novo ciclo</strong>
+              Reumatologista escalona conforme o domínio ativo e emite nova contrarreferência:<br>
+              <span class="branch-tag branch-tag-b">Próxima etapa (bDMARD/anti-IL-23/JAK/troca)</span>
+              <span class="branch-tag branch-tag-b">Metas do próximo período</span>
+              <span class="branch-tag branch-tag-b">Novo retorno agendado</span><br><br>
+              Razões para escalonar:<br>
+              <span class="branch-tag branch-tag-r">Periférico ativo (DAPSA)</span>
+              <span class="branch-tag branch-tag-r">Pele/unha não controladas (PASI)</span>
+              <span class="branch-tag branch-tag-r">Entesite/dactilite/axial persistentes</span>
+              <div class="loop-back" style="margin-top:10px;">
+                <span class="loop-icon">↩</span>
+                <span>Retorna à Fase 3 — Reumato conduz novo ciclo por domínio; Clínico e Derma seguem co-gerindo</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- fim cycle-wrapper -->
+
+    <div class="seq-arrow">
+      <div class="seq-arrow-inner">
+        <div class="seq-arrow-line" style="background:#2b7a4b;"></div>
+        <span style="color:#2b7a4b;">🔗 Remissão/MDA sustentada → co-gestão intensificada, com vínculo mantido</span>
+        <div class="seq-arrow-line" style="background:#2b7a4b;"></div>
+      </div>
+    </div>
+
+    <div class="seq-step">
+      <div class="seq-num" style="background:#2b7a4b;">5</div>
+      <div class="seq-body" style="background:#f0fff4; border-left:3px solid #2b7a4b;">
+        <span class="seq-actor-badge" style="background:#2b7a4b;">🟢 CLÍNICO GERAL — co-gestor permanente</span>
+        <span class="seq-actor-badge" style="background:#b83280;">🟣 DERMATOLOGIA — seguimento cutâneo</span>
+        <div class="seq-title">Co-gestão Longitudinal na Remissão</div>
+        <ul>
+          <li>Clínico: continuidade de prescrição em fase estável; segurança laboratorial; comorbidades cardiometabólicas; peso; humor; vacinação</li>
+          <li>Dermatologia: seguimento cutâneo/ungueal e ajuste do tratamento dermatológico</li>
+          <li>Ambos reencaminham à Reumatologia diante de reativação articular ou cutânea</li>
+        </ul>
+        <div class="seq-tags">
+          <span class="seq-tag" style="color:#2b7a4b;">⏱ Consultas de rotina do Clínico: conforme comorbidades</span>
+          <span class="seq-tag" style="color:#2c5282;">🗓 Retorno Reumato: espaçado (na remissão)</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- fim seq-flow -->
+
+  <div class="alert-box" style="margin-top:20px">
+    <strong>🚨 Gatilhos de reativação / urgência — válidos em qualquer fase do ciclo <span class="source-tag src-pdf">PDF SC</span></strong>
+    Reativação articular (aumento do DASPA) ou entesítica/dactilítica/axial · Piora cutânea importante ou <strong>psoríase pustulosa/eritrodérmica</strong> (dermatologia de urgência; não suspender corticoide abruptamente) · Febre ou infecção grave em imunossuprimido · Citopenias/elevação de transaminases (toxicidade) → <strong>reencaminhamento prioritário à Reumatologia ou à Dermatologia</strong>
+  </div>
+</div>
+
+<!-- ══════════════════ TAB: ESCALONAMENTO POR DOMÍNIO ══════════════════ -->
+<div id="view-rx" class="view">
+  <div class="intro-box">
+    <strong>Escalonamento Terapêutico por Domínio — Referência do Reumatologista</strong> <span class="source-tag src-pdf">PDF SC</span> — Abordagem <em>domain-based</em> conforme item 4.7 do Protocolo São Cristóvão (EULAR 2023 · GRAPPA 2021 · PCDT MS 2026). Busca-se, sempre que possível, <strong>um único agente que controle múltiplos domínios</strong>. <strong>Toda esta seção é de indicação exclusiva do reumatologista</strong>, em articulação com a Dermatologia para o componente cutâneo. Apresentada para transparência do fluxo e apoio à co-gestão.
+  </div>
+
+  <div class="ladder">
+    <div class="ladder-step">
+      <div class="ladder-tag" style="background:#2b7a4b;">DOENÇA LEVE</div>
+      <div class="ladder-body">
+        <h4>AINE e glicocorticoide local</h4>
+        <ul>
+          <li>AINE isolado em doença leve, predominantemente entesítica ou oligoarticular, por tempo limitado</li>
+          <li>Infiltração local de glicocorticoide em artrite/entesite localizada</li>
+          <li style="color:#c53030">Glicocorticoide sistêmico com cautela — risco de rebote de psoríase (inclusive pustulosa) à retirada</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ladder-arrow">↓ acometimento periférico ativo (sobretudo com mau prognóstico)</div>
+    <div class="ladder-step">
+      <div class="ladder-tag" style="background:#38618f;">PERIFÉRICO<br>csDMARD</div>
+      <div class="ladder-body">
+        <h4>csDMARD — metotrexato preferencial (1ª linha periférico)</h4>
+        <ul>
+          <li><strong>Metotrexato</strong> preferido — atua também sobre o componente cutâneo</li>
+          <li>Leflunomida e sulfassalazina como alternativas (contraindicação/intolerância ao MTX)</li>
+          <li style="color:#c53030">Sem eficácia sobre componente axial e entesítico isolados</li>
+          <li>Mau prognóstico (poliartrite, dano estrutural, PCR elevada, dactilite) reforça a indicação</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ladder-arrow">↓ falha a ≥ 1 csDMARD (ou doença muito ativa com mau prognóstico → bDMARD precoce)</div>
+    <div class="ladder-step">
+      <div class="ladder-tag" style="background:#2c5282;">2ª etapa<br>bDMARD</div>
+      <div class="ladder-body">
+        <h4>bDMARD — escolha guiada pelo domínio predominante e extra-articulares</h4>
+        <ul>
+          <li><strong>Anti-TNF:</strong> preferir se DII ou uveíte associadas</li>
+          <li><strong>Anti-IL-17</strong> (secuquinumabe, ixequizumabe, bimequizumabe): preferir se psoríase cutânea extensa/grave; evitar se DII ativa/recente</li>
+          <li><strong>Anti-IL-12/23 e anti-IL-23</strong> (ustequinumabe, guselcumabe, risanquizumabe): boa opção para pele importante; eficácia axial menos estabelecida</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ladder-arrow">↓ falha ao 1º agente de 2ª etapa</div>
+    <div class="ladder-step">
+      <div class="ladder-tag" style="background:#1a365d;">2ª/3ª etapa<br>JAK / troca</div>
+      <div class="ladder-body">
+        <h4>tsDMARD (JAK) ou troca entre bDMARD/tsDMARD</h4>
+        <ul>
+          <li><strong>JAK</strong> (tofacitinibe, upadacitinibe): após ≥ 1 csDMARD; podem ser antes ou depois de bDMARD, a critério clínico</li>
+          <li>Avaliar risco CV/tromboembólico/neoplásico (alerta de classe, ≥ 65 anos, tabagistas)</li>
+          <li>Troca: outro bDMARD de mecanismo distinto ou tsDMARD, reavaliando o domínio predominante a cada troca</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="warn-box">
+    <strong>Acometimento axial na APs (25–70% dos casos):</strong> segue o algoritmo de Espondiloartrites — <strong>AINE em dose plena como 1ª escolha</strong>; csDMARDs (MTX, sulfassalazina) <strong>não</strong> têm eficácia axial; bDMARD anti-TNF ou anti-IL-17 diretamente após falha a AINE, sem necessidade de falha prévia a csDMARD quando o axial for predominante/exclusivo. Anti-IL-12/23 (ustequinumabe) têm eficácia axial menos estabelecida. Estratificar o axial por BASDAI/ASDAS (ver protocolo de Espondiloartrites).
+  </div>
+
+  <div class="rules-grid">
+    <div class="rules-card" style="color:#c53030">
+      <h4>Rastreamento antes de bDMARD / tsDMARD <span class="source-tag src-pdf" style="font-size:.62rem">PDF SC</span></h4>
+      <ul style="color:#2d3748">
+        <li>TB ativa e latente (RX tórax; PPD ou IGRA) — tratar ILTB ≥ 4 semanas antes</li>
+        <li>Sorologias para hepatites B e C</li>
+        <li>Avaliação e atualização vacinal</li>
+        <li>Rastrear doença inflamatória intestinal — orienta a escolha da classe</li>
+      </ul>
+    </div>
+    <div class="rules-card" style="color:#2c5282">
+      <h4>Monitorização laboratorial de rotina <span class="source-tag src-pdf" style="font-size:.62rem">PDF SC</span></h4>
+      <ul style="color:#2d3748">
+        <li>Hemograma, transaminases, creatinina (MTX, leflunomida, sulfassalazina, bDMARD, tsDMARD)</li>
+        <li>Até 3 meses: a cada 2–4 semanas</li>
+        <li>3–6 meses: a cada 8–12 semanas</li>
+        <li>Após 6 meses: a cada 12 semanas</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top:22px;font-weight:700;font-size:.85rem;color:#2d3748;margin-bottom:8px">Posologia usual dos principais fármacos <span class="source-tag src-pdf">PDF SC</span></div>
+  <table class="data-table">
+    <tr><th>Classe</th><th>Medicamento</th><th>Via</th><th>Posologia usual</th></tr>
+    <tr class="row-head"><td colspan="4">csDMARD</td></tr>
+    <tr><td>csDMARD</td><td>Metotrexato</td><td>VO/SC</td><td>7,5–25 mg, 1×/semana</td></tr>
+    <tr><td>csDMARD</td><td>Leflunomida</td><td>VO</td><td>20 mg, 1×/dia</td></tr>
+    <tr><td>csDMARD</td><td>Sulfassalazina</td><td>VO</td><td>1–3 g/dia, 2–3×/dia</td></tr>
+    <tr class="row-head"><td colspan="4">tsDMARD (JAK)</td></tr>
+    <tr><td>JAK</td><td>Tofacitinibe</td><td>VO</td><td>5 mg, 2×/dia</td></tr>
+    <tr><td>JAK</td><td>Upadacitinibe</td><td>VO</td><td>15 mg, 1×/dia</td></tr>
+    <tr class="row-head"><td colspan="4">bDMARD anti-TNF</td></tr>
+    <tr><td>anti-TNF</td><td>Adalimumabe</td><td>SC</td><td>40 mg a cada 2 semanas</td></tr>
+    <tr><td>anti-TNF</td><td>Certolizumabe pegol</td><td>SC</td><td>400 mg (0, 2, 4 sem.); manut. 200 mg/2 sem. ou 400 mg/4 sem.</td></tr>
+    <tr><td>anti-TNF</td><td>Etanercepte</td><td>SC</td><td>50 mg, 1×/semana</td></tr>
+    <tr><td>anti-TNF</td><td>Golimumabe</td><td>SC</td><td>50 mg a cada 4 semanas</td></tr>
+    <tr><td>anti-TNF</td><td>Infliximabe</td><td>IV</td><td>5 mg/kg (0, 2, 6 sem.); manut. a cada 6–8 semanas</td></tr>
+    <tr class="row-head"><td colspan="4">bDMARD anti-IL-17</td></tr>
+    <tr><td>anti-IL-17</td><td>Secuquinumabe</td><td>SC</td><td>150–300 mg (0,1,2,3,4 sem.); manut. mensal</td></tr>
+    <tr><td>anti-IL-17</td><td>Ixequizumabe</td><td>SC</td><td>160 mg (sem. 0); manut. 80 mg a cada 4 semanas</td></tr>
+    <tr><td>anti-IL-17</td><td>Bimequizumabe</td><td>SC</td><td>320 mg (0,4,8,12,16 sem.); manut. a cada 8 semanas</td></tr>
+    <tr class="row-head"><td colspan="4">bDMARD anti-IL-12/23 e anti-IL-23</td></tr>
+    <tr><td>anti-IL-12/23</td><td>Ustequinumabe</td><td>SC</td><td>45–90 mg (sem. 0 e 4); manut. a cada 12 semanas</td></tr>
+    <tr><td>anti-IL-23</td><td>Guselcumabe</td><td>SC</td><td>100 mg (sem. 0 e 4); manut. a cada 8 semanas</td></tr>
+  </table>
+  <p style="margin-top:6px;font-size:.72rem;color:#637080;font-style:italic">Posologias de referência; ajustes individuais seguem bula vigente e julgamento clínico.</p>
+
+  <div style="margin-top:22px;font-weight:700;font-size:.85rem;color:#2d3748;margin-bottom:8px">Cobertura — DUT 65 (Artrite Psoriásica) · Convênio Hospital São Cristóvão <span class="source-tag src-pdf">PDF SC</span></div>
+  <table class="data-table">
+    <tr><th>Medicamento(s)</th><th>Classe</th><th>Situação perante a DUT 65 / Rol ANS</th></tr>
+    <tr><td>Adalimumabe, certolizumabe, etanercepte, golimumabe, infliximabe</td><td>Anti-TNF</td><td>Cobertura obrigatória consolidada (Grupo I)</td></tr>
+    <tr><td>Secuquinumabe, ixequizumabe</td><td>Anti-IL-17</td><td>Constam da DUT, mas cobertura frequentemente contestada; confirmar com auditoria/jurídico</td></tr>
+    <tr><td>Ustequinumabe, guselcumabe</td><td>Anti-IL-12/23 e anti-IL-23</td><td>Mesma situação: constam da DUT, cobertura frequentemente contestada</td></tr>
+    <tr><td>Bimequizumabe</td><td>Anti-IL-17A/F</td><td>Rol (RN 628/2025) cobre só psoríase cutânea; uso reumatológico via negociação/judicial</td></tr>
+    <tr><td>Tofacitinibe, upadacitinibe</td><td>tsDMARD (JAK)</td><td>Fora do Rol/DUT; via negociação/judicial</td></tr>
+  </table>
+  <div class="cols cols-3" style="margin-top:12px">
+    <div class="col-box bg-gray-light">
+      <h4 style="color:#2b7a4b">Grupo I — Inclusão (anti-TNF)</h4>
+      <ul>
+        <li>Diagnóstico de APs (CASPAR, item 4.2)</li>
+        <li>Atividade: DAPSA &gt; 14 ou ausência de MDA</li>
+        <li>Falha a ≥ 1 csDMARD (preferencialmente MTX), ≥ 3 meses, otimizado</li>
+      </ul>
+    </div>
+    <div class="col-box bg-gray-light">
+      <h4 style="color:#c53030">Grupo II — Exclusão</h4>
+      <ul>
+        <li>Contraindicação/hipersensibilidade/intolerância absoluta</li>
+        <li>Infecção ativa não controlada, TB ativa não tratada ou neoplasia em atividade &lt; 5 anos (exceto CBC tratado)</li>
+      </ul>
+    </div>
+    <div class="col-box bg-gray-light">
+      <h4 style="color:#b7791f">Grupo III — Suspensão da obrigatoriedade</h4>
+      <ul>
+        <li>Efeitos adversos intoleráveis mesmo após mitigação</li>
+        <li>Falha ao esquema em curso → troca dentro do algoritmo (item 4.6)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="warn-box">
+    <strong>Anti-IL-17, anti-IL-23, bimequizumabe (reumatológico), apremilaste e JAK:</strong> apenas os anti-TNF têm cobertura obrigatória consolidada. Diante de indicação clínica formal, submeter à auditoria médica/jurídica, fundamentando no registro ANVISA e no STJ (Tema 990) / Lei nº 14.454/2022 (Rol exemplificativo). Documentação: relatório com CID-10 (L40.5), critérios CASPAR, DAPSA/MDA na solicitação, csDMARDs prévios (fármaco, dose, período, motivo) e exames pertinentes.
+  </div>
+
+  <div style="margin-top:18px;font-weight:700;font-size:.85rem;color:#2d3748;margin-bottom:8px">Principais contraindicações aos bDMARDs — destaques por classe <span class="source-tag src-pdf">PDF SC</span></div>
+  <table class="data-table">
+    <tr><th>Situação de risco</th><th>Classe implicada</th><th>Conduta</th></tr>
+    <tr><td>Infecção ativa não controlada</td><td>Todas</td><td>Adiar início até resolução completa</td></tr>
+    <tr><td>TB ativa ou ILTB não tratada</td><td>Todas (maior risco anti-TNF)</td><td>Rastrear e tratar ILTB ≥ 4 semanas antes</td></tr>
+    <tr><td>ICC classes III/IV (NYHA)</td><td>Anti-TNF</td><td>Contraindicado; considerar outra classe + avaliação cardiológica</td></tr>
+    <tr><td>Doença desmielinizante</td><td>Anti-TNF</td><td>Contraindicado; preferir outra classe</td></tr>
+    <tr><td>Doença inflamatória intestinal ativa/recente</td><td>Anti-IL-17</td><td>Contraindicação relativa; preferir anti-TNF ou anti-IL-23</td></tr>
+    <tr><td>Psoríase pustulosa/eritrodérmica em atividade</td><td>Corticoide sistêmico</td><td>Evitar suspensão abrupta de corticoide sistêmico</td></tr>
+    <tr><td>Neoplasia em atividade / &lt; 5 anos</td><td>Todas</td><td>Exceto CBC tratado; avaliação oncológica</td></tr>
+    <tr><td>Hepatite B ativa (HBsAg+)</td><td>Todas</td><td>Carga viral + profilaxia antiviral antes do início</td></tr>
+    <tr><td>Gestação e lactação</td><td>Todas (perfil variável)</td><td>Bula vigente; certolizumabe com menor transferência placentária</td></tr>
+    <tr><td>Vacina de vírus vivo recente</td><td>Todas</td><td>Aguardar intervalo mínimo antes de iniciar</td></tr>
+  </table>
+</div>
+
+<!-- ══════════════════ TAB: MATRIZ E INDICADORES ══════════════════ -->
+<div id="view-matriz" class="view">
+  <div class="intro-box">
+    <strong>Matriz de Responsabilidade e Indicadores</strong> — Síntese de quem faz o quê em cada domínio, no modelo <strong>especialista-liderado com manejo conjunto Reumatologia + Dermatologia e co-gestão do Clínico</strong>, conforme o Protocolo São Cristóvão e a contribuição operacional Arpen.
+  </div>
+
+  <table class="summary-table">
+    <thead>
+      <tr>
+        <th style="width:15%">Domínio</th>
+        <th style="width:28%">🟢 Clínico Geral <span class="source-tag src-arpen" style="font-size:.6rem">porta / co-gestão</span></th>
+        <th style="width:29%">🔵 Reumatologia <span class="source-tag src-pdf" style="font-size:.6rem">coordenador articular</span></th>
+        <th style="width:28%">🟣 Dermatologia <span class="source-tag src-pdf" style="font-size:.6rem">manejo cutâneo</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Reconhecimento / diagnóstico</strong></td>
+        <td>Reconhecer psoríase + sintomas articulares; solicitar FR, anti-CCP, PCR, RX; encaminhar</td>
+        <td>Confirmar (CASPAR); avaliar os 5 domínios; excluir diferenciais (AR)</td>
+        <td>Rastrear ativamente sintomas musculoesqueléticos no paciente com psoríase; encaminhar</td>
+      </tr>
+      <tr>
+        <td><strong>Início do tratamento</strong></td>
+        <td>AINE em doença leve; cautela com corticoide sistêmico</td>
+        <td>Definir e escalonar por domínio (csDMARD → bDMARD → JAK); indicação exclusiva</td>
+        <td>Tratamento cutâneo (tópico/sistêmico/biológico) articulado com o reumatologista</td>
+      </tr>
+      <tr>
+        <td><strong>Avaliação de atividade</strong></td>
+        <td>—</td>
+        <td>DAPSA/MDA (articular); BASDAI/ASDAS (axial); coordenar meta composta</td>
+        <td>PASI e componente ungueal, em conjunto com a Reumatologia</td>
+      </tr>
+      <tr>
+        <td><strong>Escolha do biológico</strong></td>
+        <td>—</td>
+        <td>Anti-TNF (DII/uveíte) · anti-IL-17/anti-IL-23 (pele extensa) · buscar agente multidomínio</td>
+        <td>Contribuir com a gravidade cutânea para a decisão compartilhada do agente</td>
+      </tr>
+      <tr>
+        <td><strong>Monitorização de segurança</strong></td>
+        <td>Coletar/ler hemograma, transaminases, creatinina nos intervalos</td>
+        <td>Definir cronograma; interpretar no contexto do escalonamento</td>
+        <td>Vigilância de eventos cutâneos e adesão à terapia sistêmica</td>
+      </tr>
+      <tr>
+        <td><strong>Comorbidades / saúde mental</strong></td>
+        <td>HAS, DM, dislipidemia, controle de peso; rastrear depressão/ansiedade</td>
+        <td>Considerar comorbidades cardiometabólicas na escolha terapêutica</td>
+        <td>Reforço da adesão; impacto psicossocial da psoríase</td>
+      </tr>
+      <tr>
+        <td><strong>Vacinação / infecções</strong></td>
+        <td>Atualizar calendário vacinal antes de bDMARD/tsDMARD; vigiar infecções</td>
+        <td>Rastreamento pré-biológico (TB, hepatites); conduzir profilaxias</td>
+        <td>Comunicar terapias sistêmicas em curso para evitar sobreposição de risco</td>
+      </tr>
+      <tr>
+        <td><strong>Autorização de biológicos</strong></td>
+        <td>—</td>
+        <td>Submeter à auditoria (DUT 65); documentar critérios; conduzir via fora do Rol</td>
+        <td>Fornecer dados cutâneos (PASI) que sustentam a solicitação</td>
+      </tr>
+      <tr>
+        <td><strong>Vínculo longitudinal</strong></td>
+        <td><strong>Co-gestor permanente</strong> — segurança e saúde global</td>
+        <td><strong>Coordenador da doença articular</strong> — sem alta definitiva</td>
+        <td><strong>Seguimento cutâneo contínuo</strong> — manejo conjunto</td>
+      </tr>
+      <tr>
+        <td><strong>Reativação / urgência</strong></td>
+        <td>Reconhecer reativação articular/cutânea; reencaminhar</td>
+        <td>Reavaliar prioritariamente; ajustar por domínio</td>
+        <td>Psoríase pustulosa/eritrodérmica → dermatologia de urgência</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:28px;font-weight:700;font-size:.9rem;color:#2d3748;margin-bottom:12px">Indicadores de Monitoramento do Protocolo <span class="source-tag src-arpen">ARPEN</span></div>
+  <div class="ind-grid">
+    <div class="ind-card" style="border-top:3px solid #2b7a4b">
+      <h4 style="color:#2b7a4b">Processo / Acesso</h4>
+      <ul>
+        <li>Tempo entre suspeita e 1ª consulta na Reumatologia</li>
+        <li>% pacientes dermatológicos com rastreio articular documentado</li>
+        <li>% encaminhamentos com informações mínimas completas</li>
+        <li>% pacientes com manejo conjunto Reumato–Derma registrado</li>
+        <li>% pacientes com os 5 domínios avaliados na 1ª consulta</li>
+      </ul>
+    </div>
+    <div class="ind-card" style="border-top:3px solid #c53030">
+      <h4 style="color:#c53030">Qualidade e Segurança</h4>
+      <ul>
+        <li>% pacientes com monitorização laboratorial em dia</li>
+        <li>% pacientes com rastreamento pré-biológico completo</li>
+        <li>% escolha de bDMARD coerente com domínio e extra-articulares</li>
+        <li>% pacientes com calendário vacinal atualizado antes de imunossupressor</li>
+        <li>% autorizações de anti-TNF dentro da DUT 65</li>
+      </ul>
+    </div>
+    <div class="ind-card" style="border-top:3px solid #2c5282">
+      <h4 style="color:#2c5282">Resultados</h4>
+      <ul>
+        <li>% pacientes atingindo MDA ou remissão (DAPSA)</li>
+        <li>Controle cutâneo (redução do PASI)</li>
+        <li>Tempo médio até atingir a meta composta</li>
+        <li>Taxa de reativação após espaçamento</li>
+        <li>Capacidade funcional e comorbidades cardiometabólicas ao longo do seguimento</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</main>
+
+<script>
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+function toggleStage(header) {
+  header.parentElement.classList.toggle('open');
+}
+</script>
+</body>
+</html>
