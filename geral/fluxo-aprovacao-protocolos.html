@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fluxo de Aprovação de Protocolos v3 | São Cristóvão Saúde</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f0f4f8;
+  color: #1a2535;
+  min-height: 100vh;
+}
+
+header {
+  background: linear-gradient(135deg, #004b6e 0%, #006b9e 100%);
+  color: white;
+  padding: 26px 40px 20px;
+  border-bottom: 4px solid #00a8d4;
+}
+header h1 { font-size: 1.45rem; font-weight: 700; }
+header p  { font-size: .82rem; opacity: .85; margin-top: 4px; }
+.header-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.hbadge {
+  display: inline-block;
+  background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 4px;
+  padding: 2px 9px;
+  font-size: .7rem;
+  font-weight: 600;
+}
+
+.legend {
+  display: flex; gap: 18px; flex-wrap: wrap;
+  padding: 12px 40px;
+  background: white;
+  border-bottom: 1px solid #dce6ef;
+  font-size: .75rem;
+}
+.legend-item { display: flex; align-items: center; gap: 6px; }
+.legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+
+main { padding: 28px 40px 60px; max-width: 1100px; margin: 0 auto; }
+
+.intro-box {
+  background: white;
+  border-left: 5px solid #004b6e;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin-bottom: 30px;
+  font-size: .85rem;
+  line-height: 1.65;
+  color: #2c3e50;
+}
+.intro-box strong { color: #004b6e; }
+
+.section-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #004b6e;
+  margin: 34px 0 16px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #cfe0ec;
+}
+
+/* ---- Portas de entrada (duas vias) ---- */
+.lanes { display: flex; gap: 20px; align-items: stretch; }
+.lane {
+  flex: 1;
+  background: #eef3f8;
+  border: 1px solid #d3e0ec;
+  border-radius: 10px;
+  padding: 14px 14px 16px;
+}
+.lane.b-lane { background: #f3edf8; border-color: #e0d0ee; }
+.lane-head {
+  font-size: .82rem;
+  font-weight: 700;
+  color: #004b6e;
+  margin-bottom: 4px;
+}
+.lane.b-lane .lane-head { color: #6a2f92; }
+.lane-sub { font-size: .72rem; color: #52616f; margin-bottom: 12px; line-height: 1.45; }
+
+@media (max-width: 760px) { .lanes { flex-direction: column; } }
+
+/* Impressão/PDF em paisagem: mantém as duas vias lado a lado como na tela */
+@media print {
+  @page { size: A4 landscape; margin: 10mm; }
+  main { max-width: none; padding: 10px 24px 30px; }
+  header, .legend { padding-left: 24px; padding-right: 24px; }
+  .step { box-shadow: none; }
+  .lanes { flex-direction: row !important; flex-wrap: nowrap; gap: 16px; }
+  .lane { flex: 1 1 0; min-width: 0; }
+}
+
+/* ---- Fluxo sequencial ---- */
+.flow { position: relative; }
+.step {
+  background: white;
+  border-radius: 8px;
+  padding: 14px 16px 14px 14px;
+  margin-bottom: 6px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.07);
+  border-left: 6px solid #94a3b8;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.step-num {
+  flex-shrink: 0;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: #004b6e;
+  color: white;
+  font-weight: 700;
+  font-size: .82rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.step-body { flex: 1; }
+.step-title { font-size: .92rem; font-weight: 700; color: #1a2535; margin-bottom: 4px; }
+.step-desc  { font-size: .8rem; line-height: 1.5; color: #3a4a5a; }
+.actor-badge {
+  display: inline-block;
+  font-size: .64rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 20px;
+  color: white;
+  margin-bottom: 6px;
+  letter-spacing: .3px;
+}
+.sla-pill {
+  display: inline-block;
+  font-size: .66rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 20px;
+  margin: 6px 0 0 6px;
+  background: #eef6fb;
+  color: #006b9e;
+  border: 1px solid #b8dced;
+}
+.sla-pill.big { background: #eaf5ee; color: #2b7a4b; border-color: #b6ddc2; }
+.arrow {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 1.05rem;
+  line-height: 1;
+  margin: 2px 0 8px;
+}
+.arrow small { font-size: .7rem; }
+
+/* cores por responsável */
+.a-coord{ background: #2b7a4b; }  .b-coord{ border-left-color: #2b7a4b; }
+.a-analytics{ background: #2c5282; }  .b-analytics{ border-left-color: #2c5282; }
+.a-oper { background: #0d7490; }  .b-oper { border-left-color: #0d7490; }
+.a-qual { background: #004b6e; }  .b-qual { border-left-color: #004b6e; }
+.a-edu  { background: #b7791f; }  .b-edu  { border-left-color: #b7791f; }
+.a-med  { background: #7b3f9e; }  .b-med  { border-left-color: #7b3f9e; }
+
+.converge {
+  text-align: center;
+  font-size: .8rem;
+  font-weight: 700;
+  color: #004b6e;
+  background: #dcecf6;
+  border: 1px dashed #7fb2d0;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 16px 0 10px;
+}
+
+.decision {
+  background: #fff8ec;
+  border: 1px dashed #b7791f;
+  border-radius: 8px;
+  padding: 12px 18px;
+  margin: 6px 0;
+  font-size: .8rem;
+  color: #7a5a10;
+}
+.decision b { color: #b7791f; }
+
+/* ---- Tabelas ---- */
+table { width: 100%; border-collapse: collapse; margin: 8px 0 6px; font-size: .8rem; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+th { background: #004b6e; color: white; text-align: left; padding: 10px 12px; font-size: .76rem; }
+td { padding: 9px 12px; border-top: 1px solid #e6eef4; vertical-align: top; }
+tr:nth-child(even) td { background: #f7fafc; }
+
+.principle {
+  background: #eef6fb;
+  border-left: 4px solid #00a8d4;
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  font-size: .82rem;
+  line-height: 1.5;
+  color: #234;
+}
+.principle b { color: #004b6e; }
+
+.note-priority {
+  background: #fdf6ec;
+  border-left: 4px solid #d99a2b;
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  font-size: .82rem;
+  line-height: 1.5;
+  color: #6b4e14;
+}
+.note-priority b { color: #b7791f; }
+
+footer { text-align: center; font-size: .72rem; color: #7a8a9a; padding: 24px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Fluxo de Aprovação de Protocolos</h1>
+  <p>Projeto São Cristóvão · Linhas de Cuidado · Arpen</p>
+  <div class="header-badges">
+    <span class="hbadge">Canal oficial: e-mail</span>
+    <span class="hbadge">Duas portas de entrada</span>
+    <span class="hbadge">1 protocolo / especialidade / mês</span>
+    <span class="hbadge">Atualizado 13/08/2026 · v3</span>
+  </div>
+</header>
+
+<div class="legend">
+  <div class="legend-item"><span class="legend-dot" style="background:#2b7a4b"></span> Coordenador da especialidade <small>(e-mail por especialidade)</small></div>
+  <div class="legend-item"><span class="legend-dot" style="background:#7b3f9e"></span> Médica de Protocolos (SC) — Dra. Natália Gouveia</div>
+  <div class="legend-item"><span class="legend-dot" style="background:#2c5282"></span> Head de Analytics — Dra. Natália Saraceni</div>
+  <div class="legend-item"><span class="legend-dot" style="background:#0d7490"></span> Head de Operação — Dr. Matheus Leite</div>
+  <div class="legend-item"><span class="legend-dot" style="background:#b7791f"></span> EducaDoc/Academy — Anna Paula Jorge</div>
+</div>
+
+<main>
+
+  <div class="intro-box">
+    Processo único, centralizado e <strong>rastreável por e-mail</strong> para elaborar, aprovar, publicar e treinar os protocolos das linhas de cuidado.
+    O fluxo tem <strong>duas portas de entrada</strong> que convergem no mesmo trecho final (publicação e treinamento):
+    <strong>Via A — origem Arpen/Coordenador</strong> e <strong>Via B — origem Área de Protocolos do São Cristóvão</strong>.
+    Cada etapa tem um <strong>SLA de entrega</strong> (prazo de conclusão), em dias úteis.
+    Regra de ouro: <strong>um protocolo por especialidade por mês</strong> — entregar → treinar → medir → avançar.
+  </div>
+
+  <!-- ================= PORTAS DE ENTRADA ================= -->
+  <div class="section-title">Portas de entrada — escolha a via conforme a origem</div>
+
+  <div class="lanes">
+
+    <!-- ===== VIA A ===== -->
+    <div class="lane">
+      <div class="lane-head">Via A — Origem: Arpen / Coordenador</div>
+      <div class="lane-sub">Ciclo padrão, disparado pela Operação. O coordenador elabora o protocolo assistencial e o pacote passa pela validação da Médica de Protocolos do São Cristóvão.</div>
+
+      <div class="step b-oper">
+        <div class="step-num">A0</div>
+        <div class="step-body">
+          <span class="actor-badge a-oper">HEAD DE OPERAÇÃO · MATHEUS</span>
+          <span class="sla-pill">cronograma mensal</span>
+          <div class="step-title">Disparo do ciclo</div>
+          <div class="step-desc">Solicita aos coordenadores a criação/atualização do protocolo, conforme dados <b>epidemiológicos, analíticos e/ou estratégicos</b>. Inicia o relógio da etapa A1.</div>
+        </div>
+      </div>
+      <div class="arrow">▼ &nbsp;<small>solicita ao coordenador</small></div>
+
+      <div class="step b-coord">
+        <div class="step-num">A1</div>
+        <div class="step-body">
+          <span class="actor-badge a-coord">COORDENADOR DA ESPECIALIDADE</span>
+          <span class="sla-pill">10 dias úteis</span>
+          <div class="step-title">Protocolo assistencial</div>
+          <div class="step-desc"><b>Elabora o texto clínico</b> e <b>envia por e-mail</b> à Natália, com cópia ao Matheus.</div>
+        </div>
+      </div>
+      <div class="arrow">▼ &nbsp;<small>e-mail p/ Natália · c/c Matheus</small></div>
+
+      <div class="step b-analytics">
+        <div class="step-num">A2</div>
+        <div class="step-body">
+          <span class="actor-badge a-analytics">HEAD DE ANALYTICS · NATÁLIA</span>
+          <span class="sla-pill">3 dias úteis</span>
+          <div class="step-title">Fluxo operacional</div>
+          <div class="step-desc"><b>Desenha e valida o fluxo operacional</b> a partir do assistencial e <b>envia por e-mail</b> à Médica de Protocolos do São Cristóvão.</div>
+        </div>
+      </div>
+      <div class="arrow">▼ &nbsp;<small>e-mail p/ Médica de Protocolos — Dra. Natália Gouveia</small></div>
+
+      <div class="step b-med">
+        <div class="step-num">A3</div>
+        <div class="step-body">
+          <span class="actor-badge a-med">MÉDICA DE PROTOCOLOS · DRA. NATÁLIA GOUVEIA</span>
+          <span class="sla-pill">5 dias úteis</span>
+          <div class="step-title">Validação da Médica de Protocolos</div>
+          <div class="step-desc"><b>Avalia e valida</b> o pacote e responde <b>por e-mail</b>.</div>
+          <div class="decision"><b>Validado</b> → tronco comum &nbsp;·&nbsp; <b>Ajustes</b> → volta à origem <span class="sla-pill" style="margin:0">rodada: 3 d.ú.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== VIA B ===== -->
+    <div class="lane b-lane">
+      <div class="lane-head">Via B — Origem: Área de Protocolos do São Cristóvão</div>
+      <div class="lane-sub">Materiais produzidos pela própria área de Protocolos do SC entram <b>já com a elaboração e a validação interna concluídas</b> pela Médica de Protocolos (Dra. Natália Gouveia). A validação de mérito é feita pelo coordenador/especialista da área (equivale à etapa de validação do SC).</div>
+
+      <div class="step b-med">
+        <div class="step-num">B1</div>
+        <div class="step-body">
+          <span class="actor-badge a-med">MÉDICA DE PROTOCOLOS · DRA. NATÁLIA GOUVEIA</span>
+          <span class="sla-pill">concluído na entrada</span>
+          <div class="step-title">Elaboração + validação interna</div>
+          <div class="step-desc">A Médica de Protocolos <b>elabora e valida internamente</b> o material. Ao entrar no fluxo, esta etapa já é <b>considerada concluída</b>.</div>
+        </div>
+      </div>
+      <div class="arrow">▼ &nbsp;<small>encaminha ao coordenador/especialista da área</small></div>
+
+      <div class="step b-coord">
+        <div class="step-num">B2</div>
+        <div class="step-body">
+          <span class="actor-badge a-coord">COORDENADOR / ESPECIALISTA DA ÁREA</span>
+          <span class="sla-pill">até 3 dias úteis</span>
+          <div class="step-title">Avaliação e validação do coordenador</div>
+          <div class="step-desc"><b>Avalia e valida</b> o material (equivale à validação do São Cristóvão, aqui feita pelo coordenador da área). Responde <b>por e-mail</b>.</div>
+          <div class="decision"><b>Validado</b> → tronco comum &nbsp;·&nbsp; <b>Ajustes</b> → volta à Médica de Protocolos</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="converge">▼ &nbsp; As duas vias convergem para o tronco comum &nbsp; ▼</div>
+
+  <!-- ================= TRONCO COMUM ================= -->
+  <div class="section-title">Tronco comum — após aprovação/validação</div>
+
+  <div class="principle" style="border-left-color:#0d7490;background:#e9f4f7">
+    🧭 <b>Head de Operação (Matheus) acompanha o processo</b> como apoio e fecha o loop comunicando o coordenador quando a linha é publicada.
+  </div>
+
+  <div class="flow">
+
+    <div class="step b-analytics">
+      <div class="step-num">C1</div>
+      <div class="step-body">
+        <span class="actor-badge a-analytics">HEAD DE ANALYTICS · NATÁLIA</span>
+        <span class="sla-pill">1 dia útil</span>
+        <div class="step-title">Encaminhamento para publicação</div>
+        <div class="step-desc">Com o aprovado/validado em mãos, <b>encaminha por e-mail</b> para a Anna subir a linha de cuidado na plataforma.</div>
+      </div>
+    </div>
+    <div class="arrow">▼ &nbsp;<small>e-mail p/ EducaDoc — Anna Paula Jorge</small></div>
+
+    <div class="step b-edu">
+      <div class="step-num">C2</div>
+      <div class="step-body">
+        <span class="actor-badge a-edu">EDUCADOC / ACADEMY · ANNA PAULA</span>
+        <span class="sla-pill">3 dias úteis</span>
+        <div class="step-title">Publicação na plataforma</div>
+        <div class="step-desc"><b>Sobe a linha de cuidado</b> no EducaDoc/Academy e <b>sinaliza o Head de Operação</b> (Matheus).</div>
+      </div>
+    </div>
+    <div class="arrow">▼ &nbsp;<small>sinaliza Head de Operação — Matheus</small></div>
+
+    <div class="step b-oper">
+      <div class="step-num">C3</div>
+      <div class="step-body">
+        <span class="actor-badge a-oper">HEAD DE OPERAÇÃO · MATHEUS</span>
+        <span class="sla-pill">1 dia útil</span>
+        <div class="step-title">Comunicação ao coordenador</div>
+        <div class="step-desc"><b>Comunica o coordenador</b> da especialidade de que a linha está publicada e liberada para treinamento.</div>
+      </div>
+    </div>
+    <div class="arrow">▼ &nbsp;<small>mês subsequente</small></div>
+
+    <div class="step b-coord">
+      <div class="step-num">C4</div>
+      <div class="step-body">
+        <span class="actor-badge a-coord">COORDENADOR DA ESPECIALIDADE</span>
+        <span class="sla-pill big">1 mês</span>
+        <div class="step-title">Treinamento e certificação</div>
+        <div class="step-desc"><b>Gerencia os treinamentos</b> e a <b>entrega de certificados</b> (educação continuada). Mede o resultado — só então libera o próximo protocolo.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="decision" style="margin-top:14px">
+    🔒 <b>Ciclo fechado:</b> um protocolo só é concluído quando a etapa C4 é cumprida (equipe treinada + certificados + resultado medido). Só aí a especialidade recebe o próximo.
+  </div>
+
+  <!-- ================= SLA CONSOLIDADO ================= -->
+  <div class="section-title">SLA consolidado</div>
+  <table>
+    <tr><th>Via</th><th>#</th><th>Etapa</th><th>Responsável</th><th>SLA de entrega</th></tr>
+    <tr><td>A</td><td>A0</td><td>Disparo do ciclo</td><td>Head de Operação</td><td>cronograma mensal</td></tr>
+    <tr><td>A</td><td>A1</td><td>Protocolo assistencial</td><td>Coordenador</td><td><b>10 d.ú.</b></td></tr>
+    <tr><td>A</td><td>A2</td><td>Fluxo operacional</td><td>Head de Analytics</td><td><b>3 d.ú.</b></td></tr>
+    <tr><td>A</td><td>A3</td><td>Validação da Médica de Protocolos</td><td>Médica de Protocolos (N. Gouveia)</td><td><b>5 d.ú.</b></td></tr>
+    <tr><td>A</td><td>—</td><td>Rodada de ajustes (se devolver)</td><td>Origem</td><td><b>3 d.ú.</b></td></tr>
+    <tr><td>B</td><td>B1</td><td>Elaboração + validação interna</td><td>Médica de Protocolos (N. Gouveia)</td><td>concluído na entrada</td></tr>
+    <tr><td>B</td><td>B2</td><td>Avaliação e validação do coordenador</td><td>Coordenador/especialista</td><td><b>até 3 d.ú.</b></td></tr>
+    <tr><td>Comum</td><td>C1</td><td>Encaminhar p/ publicação</td><td>Head de Analytics</td><td><b>1 d.ú.</b></td></tr>
+    <tr><td>Comum</td><td>C2</td><td>Publicação na plataforma</td><td>Anna (EducaDoc)</td><td><b>3 d.ú.</b></td></tr>
+    <tr><td>Comum</td><td>C3</td><td>Comunicação ao coordenador</td><td>Head de Operação</td><td><b>1 d.ú.</b></td></tr>
+    <tr><td>Comum</td><td>C4</td><td>Treinamento + certificados</td><td>Coordenador</td><td><b>1 mês</b></td></tr>
+  </table>
+  <div class="principle" style="margin-top:12px">
+    <b>Via A (A1→C3) ≈ 23 dias úteis ≈ 1 mês (no limite).</b> Ocupa quase todo o mês útil (~22 d.ú.); como o treinamento é no mês N+1, ainda cabe na regra de 1 protocolo/especialidade/mês — mas sem folga. <b>Via B é mais curta</b> (validação em até 3 d.ú.), por já entrar com a elaboração e a validação interna concluídas.
+  </div>
+
+  <!-- ================= REGRAS DE GOVERNANÇA ================= -->
+  <div class="section-title">Regras de governança do SLA</div>
+  <div class="principle"><b>Relógio começa no e-mail.</b> O carimbo do e-mail é o marco oficial de cada handoff.</div>
+  <div class="principle"><b>Ciclo fechado.</b> A especialidade só recebe o próximo protocolo após a etapa C4 concluída.</div>
+  <div class="principle"><b>Um por vez.</b> 1 protocolo por especialidade por mês — não aprovar pacotes.</div>
+  <div class="note-priority">⚑ <b>E-mails de validação sinalizados como prioritários.</b> Todo encaminhamento que exija validação (Médica de Protocolos na Via A; coordenador/especialista na Via B) é enviado com marcação de <b>prioridade</b>, para não se perder no volume de mensagens e preservar o SLA.</div>
+
+  <!-- ================= CADÊNCIA ================= -->
+  <div class="section-title">Cadência — 1 protocolo por especialidade por mês</div>
+  <div class="principle">
+    <b>Periodicidade definida:</b> cada especialidade entrega <b>1 protocolo por mês</b> (Neuro, Reumato, Cardio, Endócrino e Clínica Médica). A Clínica Médica é o funil contínuo — trata as linhas que a envolvem e os protocolos das doenças básicas mais prevalentes.
+    <br><b>Mês N</b> → produção/aprovação (Via A ou Via B) &nbsp;|&nbsp; <b>Mês N+1</b> → treinamento + certificação (etapa C4) &nbsp;|&nbsp; <b>Mês N+2</b> → próximo protocolo da especialidade.
+  </div>
+
+</main>
+
+<footer>
+  Arpen — Projeto São Cristóvão · Fluxo de Aprovação de Protocolos v3 · 2026-08-13<br>
+  Substitui a v2 (03/08). Inclui a Via B (Área de Protocolos do SC), cadência de 1/especialidade/mês e sinalização de e-mails prioritários.
+</footer>
+
+</body>
+</html>
