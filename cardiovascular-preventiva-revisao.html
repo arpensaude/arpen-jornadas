@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linha de Cuidado — Avaliação Cardiovascular Preventiva | São Cristóvão Saúde</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f0f4f8;
+  color: #1a2535;
+  min-height: 100vh;
+}
+
+header {
+  background: linear-gradient(135deg, #004b6e 0%, #006b9e 100%);
+  color: white;
+  padding: 26px 40px 20px;
+  border-bottom: 4px solid #00a8d4;
+}
+header h1 { font-size: 1.45rem; font-weight: 700; }
+header p  { font-size: .82rem; opacity: .8; margin-top: 4px; }
+.header-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.hbadge {
+  display: inline-block;
+  background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 4px;
+  padding: 2px 9px;
+  font-size: .7rem;
+  font-weight: 600;
+}
+
+.tabs {
+  display: flex;
+  background: #e2eaf1;
+  border-bottom: 2px solid #c5d5e4;
+  padding: 0 40px;
+  overflow-x: auto;
+}
+.tab {
+  padding: 11px 20px;
+  cursor: pointer;
+  font-size: .82rem;
+  font-weight: 600;
+  border-bottom: 3px solid transparent;
+  color: #5a7080;
+  white-space: nowrap;
+  transition: all .2s;
+  flex-shrink: 0;
+}
+.tab:hover { color: #004b6e; }
+.tab.active { color: #004b6e; border-bottom-color: #004b6e; background: #f0f4f8; }
+
+.legend {
+  display: flex; gap: 18px; flex-wrap: wrap;
+  padding: 12px 40px;
+  background: white;
+  border-bottom: 1px solid #dce6ef;
+  font-size: .75rem;
+}
+.legend-item { display: flex; align-items: center; gap: 5px; }
+.legend-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+
+main { padding: 28px 40px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.intro-box {
+  background: white;
+  border-left: 5px solid #004b6e;
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  font-size: .83rem;
+  line-height: 1.6;
+  color: #2c3e50;
+}
+.intro-box strong { color: #004b6e; }
+.source-tag {
+  display: inline-block;
+  font-size: .68rem;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 3px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+.src-pdf { background: #bee3f8; color: #2a4365; }
+.src-arpen { background: #c6f6d5; color: #22543d; }
+
+.stage-grid { display: flex; flex-direction: column; gap: 18px; }
+
+.stage {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.07);
+  overflow: hidden;
+}
+.stage-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+  cursor: pointer;
+  user-select: none;
+}
+.stage-header:hover { background: #f7fafc; }
+.stage-num {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: .88rem;
+  color: white; flex-shrink: 0;
+}
+.stage-title { font-weight: 700; font-size: .94rem; flex: 1; }
+.stage-subtitle { font-size: .76rem; color: #637080; margin-top: 2px; }
+.stage-badge {
+  font-size: .7rem; font-weight: 700;
+  padding: 3px 9px; border-radius: 20px; white-space: nowrap;
+}
+.stage-chevron { font-size: .72rem; color: #8a9bb0; transition: transform .25s; }
+.stage.open .stage-chevron { transform: rotate(180deg); }
+.stage-body { display: none; padding: 0 20px 18px; border-top: 1px solid #edf2f7; }
+.stage.open .stage-body { display: block; }
+
+.cols { display: grid; gap: 12px; margin-top: 14px; }
+.cols-2 { grid-template-columns: 1fr 1fr; }
+.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+.col-box {
+  background: #f7fafc;
+  border-radius: 7px;
+  padding: 13px 15px;
+  font-size: .8rem;
+}
+.col-box h4 {
+  font-size: .76rem;
+  font-weight: 700;
+  margin-bottom: 7px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+.col-box ul { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.col-box ul li::before { content: "→ "; color: #8a9bb0; }
+.col-box ul li { line-height: 1.4; }
+
+.alert-box {
+  background: #fff5f5;
+  border-left: 4px solid #e53e3e;
+  border-radius: 6px;
+  padding: 12px 15px;
+  margin-top: 14px;
+  font-size: .8rem;
+  color: #742a2a;
+  line-height: 1.5;
+}
+.alert-box strong { display: block; margin-bottom: 4px; }
+
+.warn-box {
+  background: #fffbeb;
+  border-left: 4px solid #d69e2e;
+  border-radius: 6px;
+  padding: 12px 15px;
+  margin-top: 12px;
+  font-size: .8rem;
+  color: #744210;
+  line-height: 1.5;
+}
+
+.decision-box {
+  background: #fffbeb;
+  border: 2px dashed #d69e2e;
+  border-radius: 8px;
+  padding: 13px 15px;
+  margin-top: 14px;
+  font-size: .8rem;
+  color: #744210;
+}
+.decision-box strong { color: #b7791f; display: block; margin-bottom: 5px; }
+
+.success-box {
+  background: #f0fff4;
+  border-left: 4px solid #2b7a4b;
+  border-radius: 6px;
+  padding: 12px 15px;
+  margin-top: 12px;
+  font-size: .8rem;
+  color: #22543d;
+  line-height: 1.5;
+}
+
+.arrow-connector {
+  text-align: center; color: #8a9bb0;
+  font-size: 1.2rem; margin: 2px 0 -6px;
+}
+
+/* Colors */
+.c-clinico { background: #2b7a4b; }
+.bg-clinico-light { background: #e6f4ec; }
+.text-clinico { color: #2b7a4b; }
+.badge-clinico { background: #c6f6d5; color: #22543d; }
+.border-clinico { border-color: #2b7a4b; }
+
+.c-cardio { background: #2c5282; }
+.bg-cardio-light { background: #ebf4ff; }
+.text-cardio { color: #2c5282; }
+.badge-cardio { background: #bee3f8; color: #2a4365; }
+
+.c-mista { background: #b7791f; }
+.bg-mista-light { background: #fffbeb; }
+.badge-mista { background: #fefcbf; color: #744210; }
+
+.c-alerta { background: #c53030; }
+.badge-alerta { background: #fed7d7; color: #742a2a; }
+.c-gray { background: #4a5568; }
+.bg-gray-light { background: #f7fafc; }
+
+/* Pills */
+.pill {
+  display: inline-block; padding: 1px 7px;
+  border-radius: 10px; font-size: .68rem;
+  font-weight: 700; margin-right: 3px; vertical-align: middle;
+}
+.pill-g { background: #c6f6d5; color: #22543d; }
+.pill-b { background: #bee3f8; color: #2a4365; }
+.pill-y { background: #fefcbf; color: #744210; }
+.pill-r { background: #fed7d7; color: #742a2a; }
+
+/* Summary table */
+.summary-table {
+  width: 100%; border-collapse: collapse;
+  margin-top: 14px; font-size: .79rem;
+}
+.summary-table th {
+  background: #2d3748; color: white;
+  padding: 9px 13px; text-align: left;
+  font-size: .75rem; font-weight: 700;
+}
+.summary-table td {
+  padding: 8px 13px;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: top; line-height: 1.4;
+}
+.summary-table tr:nth-child(even) td { background: #f7fafc; }
+
+/* Clinical data table */
+.data-table {
+  width: 100%; border-collapse: collapse;
+  margin-top: 12px; font-size: .78rem;
+}
+.data-table th {
+  background: #2c5282; color: white;
+  padding: 8px 11px; text-align: left;
+  font-size: .74rem; font-weight: 700;
+}
+.data-table td {
+  padding: 7px 11px;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: top; line-height: 1.35;
+}
+.data-table tr:nth-child(even) td { background: #f7fafc; }
+.data-table .row-head { background: #ebf4ff !important; font-weight: 700; color: #2a4365; }
+
+.rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
+.rules-card {
+  background: white; border-radius: 8px;
+  box-shadow: 0 1px 5px rgba(0,0,0,.06);
+  padding: 14px 16px;
+}
+.rules-card h4 {
+  font-size: .82rem; font-weight: 700;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid currentColor;
+}
+.rules-card ul { list-style: none; display: flex; flex-direction: column; gap: 5px; font-size: .79rem; }
+.rules-card ul li::before { content: "→ "; color: #8a9bb0; }
+
+/* Ladder (escalation steps) */
+.ladder { display: flex; flex-direction: column; gap: 0; margin-top: 16px; }
+.ladder-step { display: flex; gap: 0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 5px rgba(0,0,0,.08); margin-bottom: 8px; }
+.ladder-tag { min-width: 100px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: .74rem; font-weight: 800; color: #fff; padding: 8px; line-height: 1.2; flex-shrink: 0; }
+.ladder-body { flex: 1; padding: 13px 16px; background: white; font-size: .8rem; }
+.ladder-body h4 { font-size: .87rem; font-weight: 700; margin-bottom: 6px; color: #2d3748; }
+.ladder-body ul { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.ladder-body ul li::before { content: "· "; color: #8a9bb0; font-weight: 700; }
+.ladder-body ul li { line-height: 1.4; }
+.ladder-arrow { text-align: center; color: #a0aec0; font-size: 1rem; margin: -4px 0 4px; }
+
+/* Indicators */
+.ind-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 16px; }
+.ind-card {
+  background: white; border-radius: 8px;
+  box-shadow: 0 1px 5px rgba(0,0,0,.06);
+  padding: 13px 15px;
+}
+.ind-card h4 { font-size: .78rem; font-weight: 700; margin-bottom: 8px; text-transform: uppercase; letter-spacing: .4px; }
+.ind-card ul { list-style: none; font-size: .76rem; display: flex; flex-direction: column; gap: 4px; }
+.ind-card ul li::before { content: "• "; }
+
+@media (max-width: 700px) {
+  header, .tabs, main { padding-left: 16px; padding-right: 16px; }
+  .cols-2, .cols-3, .cols-4 { grid-template-columns: 1fr; }
+  .rules-grid, .ind-grid { grid-template-columns: 1fr; }
+  .legend { padding: 10px 16px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Linha de Cuidado — Avaliação Cardiovascular Preventiva</h1>
+  <p>São Cristóvão Saúde · Arpen · Prevenção primária e secundária · Ambulatório de Cardiologia</p>
+  <div class="header-badges">
+    <span class="hbadge">Protocolo SC — 2026</span>
+    <span class="hbadge">ERG-SBC · ESC 2021</span>
+    <span class="hbadge">Dislipidemias SBC 2025 · HAS SBC 2025</span>
+    <span class="hbadge">ADA 2026 · USPSTF</span>
+    <span class="hbadge">Jornada v3 — Arpen (rastreamento seletivo)</span>
+  </div>
+</header>
+
+<div class="tabs">
+  <div class="tab active"  onclick="showView('clinico')">🟢 Porta de Entrada — Clínico</div>
+  <div class="tab"         onclick="showView('cardio')">🔵 Ambulatório de Cardiologia</div>
+  <div class="tab"         onclick="showView('mista')">🟡 Cuidado Compartilhado</div>
+  <div class="tab"         onclick="showView('rx')">💊 Escalonamento Terapêutico</div>
+  <div class="tab"         onclick="showView('matriz')">📋 Matriz e Indicadores</div>
+</div>
+
+<div class="legend">
+  <span style="font-weight:700;font-size:.75rem;color:#4a5568">Responsável:</span>
+  <div class="legend-item"><div class="legend-dot" style="background:#2b7a4b"></div> Clínico Geral — coordenador permanente (rastreamento e baixo risco)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#2c5282"></div> Cardiologia — ambulatório do alto risco</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#b7791f"></div> Compartilhado</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#c53030"></div> Alerta / Urgência</div>
+  <div class="legend-item"><span class="source-tag src-pdf">PDF SC</span> Protocolo São Cristóvão</div>
+  <div class="legend-item"><span class="source-tag src-arpen">ARPEN</span> Contribuição operacional Arpen</div>
+</div>
+
+<main>
+
+<!-- ══════════════════ TAB: CLÍNICO — PORTA DE ENTRADA ══════════════════ -->
+<div id="view-clinico" class="view active">
+  <div class="intro-box">
+    <strong>Trilha do Clínico Geral — Coordenador Permanente do Rastreamento</strong> <span class="source-tag src-arpen">ARPEN</span> — Nesta linha de cuidado <strong>o Clínico é o coordenador longitudinal</strong>: conduz o rastreamento cardiovascular preventivo <strong>seletivo por faixa etária e risco</strong> (a idade isolada não indica exames), calcula o <strong>Escore de Risco Global (ERG) da SBC</strong>, estratifica o paciente e <strong>mantém sob seu cuidado todo paciente de baixo risco</strong>, com periodicidade definida. O ambulatório de Cardiologia é acionado apenas para <strong>risco intermediário/alto/muito alto, comorbidades de difícil controle ou exames alterados</strong>. Objetivo institucional: padronizar condutas, otimizar recursos de imagem/laboratório e reduzir eventos por meio de prevenção primária e secundária baseada em evidência.
+  </div>
+
+  <div class="stage-grid">
+
+    <!-- ESTÁGIO 0 -->
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-clinico">0</div>
+        <div>
+          <div class="stage-title">Rastreamento Cardiovascular Seletivo por Faixa Etária e Risco</div>
+          <div class="stage-subtitle">A idade isolada não indica exames · avaliação clínica para todos; exames complementares por indicação (padrão USPSTF)</div>
+        </div>
+        <span class="stage-badge badge-clinico">Clínico</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="decision-box" style="margin-bottom:14px">
+          <strong>⚠ Princípio do rastreamento seletivo</strong>
+          O rastreamento cardiovascular preventivo é orientado por <b>história clínica, exame físico e fatores de risco</b>. A <b>idade, isoladamente, não constitui indicação</b> para ECG, ecocardiograma, teste ergométrico, Holter, MAPA, Doppler de carótidas ou ultrassonografia abdominal. A avaliação clínica é <b>universal</b>; os exames complementares entram <b>por indicação</b>.
+        </div>
+        <table class="data-table">
+          <tr><th style="width:14%">Faixa etária</th><th style="width:28%">Avaliação para todos</th><th style="width:29%">Exames laboratoriais</th><th style="width:29%">Exames cardiológicos</th></tr>
+          <tr>
+            <td class="row-head">Adolescentes<br>13–19 anos</td>
+            <td>História pessoal e familiar; PA; FC; IMC; avaliação de tabagismo, atividade física e sintomas</td>
+            <td>Perfil lipídico <strong>uma vez</strong>, se ainda não realizado na infância/adolescência. Glicemia/HbA1c e função hepática <em>somente se</em> sobrepeso/obesidade ou fatores de risco metabólico</td>
+            <td><strong>Nenhum exame de rotina.</strong> ECG somente se sintomas, sopro/achado anormal, história familiar de morte súbita/cardiomiopatia, HAS relevante ou avaliação esportiva com indicação clínica</td>
+          </tr>
+          <tr>
+            <td class="row-head">Adultos jovens<br>20–39 anos</td>
+            <td>PA; IMC/circunferência abdominal; tabagismo; história familiar; hábitos de vida</td>
+            <td>Perfil lipídico inicial, repetido em geral a cada <strong>4–6 anos</strong> se normal e baixo risco. Glicemia/HbA1c <em>somente se</em> sobrepeso/obesidade ou outros fatores de risco. Creatinina/eTFG e albuminúria <em>apenas se</em> HAS, DM, doença renal possível ou medicação que exija controle</td>
+            <td><strong>Não solicitar de rotina</strong> ECG, ECO, teste ergométrico, Holter, MAPA ou ultrassonografia. Solicitar conforme sintomas, exame físico, suspeita de HAS ou condição clínica específica</td>
+          </tr>
+          <tr>
+            <td class="row-head">Adultos<br>40–64 anos</td>
+            <td>Avaliação dos fatores de risco e <strong>cálculo do risco cardiovascular global (ERG)</strong></td>
+            <td>Perfil lipídico conforme risco e tratamento. Rastreamento de diabetes principalmente entre <strong>35–70 anos</strong> se sobrepeso/obesidade ou outros fatores de risco. Função renal/albuminúria nos pacientes com HAS, DM, DRC possível ou risco renal</td>
+            <td><strong>Nenhum exame de imagem ou funcional de rotina</strong> no assintomático de baixo risco. ECG, ECO, TE, Holter e MAPA somente se houver indicação clínica. <strong>Não</strong> realizar Doppler de carótidas como rastreamento de rotina</td>
+          </tr>
+          <tr>
+            <td class="row-head">Idosos<br>65+ anos</td>
+            <td>Avaliação funcional, fragilidade, PA (inclusive ortostática quando indicada), ritmo cardíaco, fatores de risco e expectativa de benefício</td>
+            <td>Perfil lipídico, glicemia/HbA1c e função renal conforme comorbidades, tratamento e expectativa de benefício. TSH <em>somente se</em> sintomas, achados clínicos, fibrilação atrial ou medicamentos que alterem a tireoide</td>
+            <td>ECG se sintomas, pulso irregular, síncope, suspeita de arritmia ou cardiopatia. ECO, Holter e TE somente por indicação. <strong>Ultrassom de aorta abdominal 1×</strong> em homens de 65–75 anos que já fumaram; considerar individualmente nos demais grupos de risco</td>
+          </tr>
+        </table>
+
+        <div class="cols cols-2" style="margin-top:14px">
+          <div class="col-box bg-cardio-light">
+            <h4 class="text-cardio">🔓 Critérios que justificam ampliação da investigação <span class="source-tag src-pdf">PDF SC</span></h4>
+            <p style="font-size:.76rem;margin-bottom:6px">Independentemente da idade, exames adicionais <strong>podem e devem</strong> ser solicitados diante de:</p>
+            <ul>
+              <li>Dor torácica, dispneia desproporcional, palpitações, síncope ou redução inexplicada da capacidade funcional</li>
+              <li>Sopro, pulso irregular, alteração de pulsos, sinais de IC ou PA persistentemente elevada</li>
+              <li>História familiar de morte súbita, cardiomiopatia, hipercolesterolemia familiar ou DCV prematura</li>
+              <li>Diabetes, DRC, HAS de difícil controle, LDL-C ≥ 190 mg/dL ou risco CV alto/muito alto</li>
+              <li>Alteração prévia em ECG ou outro exame</li>
+              <li>Avaliação antes de exercício vigoroso em pessoa com sintomas, doença conhecida ou múltiplos fatores de risco</li>
+            </ul>
+          </div>
+          <div class="col-box bg-gray-light">
+            <h4>🔁 Periodicidade — não determinada por idade isolada <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Resultados normais e baixo risco: reavaliar clinicamente conforme rotina de prevenção</li>
+              <li>Alteração laboratorial ou início/ajuste de tratamento: repetir conforme o objetivo terapêutico</li>
+              <li>Risco alto ou DCV estabelecida: acompanhamento conforme protocolo específico</li>
+              <li>Exames de imagem e funcionais: <strong>não repetir</strong> periodicamente sem indicação clínica documentada</li>
+            </ul>
+          </div>
+        </div>
+        <p style="margin-top:8px;font-size:.75rem;color:#637080;font-style:italic">Base de evidência: USPSTF — contra ECG de repouso/esforço em assintomáticos de baixo risco; contra Doppler de carótidas como rastreamento populacional; USG abdominal dirigida ao aneurisma de aorta (homens 65–75 anos com tabagismo prévio); rastreio de diabetes em adultos 35–70 anos com sobrepeso/obesidade. A avaliação clínica universal + critérios de ampliação preservam a segurança assistencial e evitam sobreutilização.</p>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <!-- ESTÁGIO 1 -->
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-clinico">1</div>
+        <div>
+          <div class="stage-title">Estratificação de Risco — Escore de Risco Global (ERG-SBC)</div>
+          <div class="stage-subtitle">O ERG direciona metas terapêuticas, periodicidade e a decisão de encaminhamento</div>
+        </div>
+        <span class="stage-badge badge-clinico">Clínico</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="cols cols-2">
+          <div class="col-box bg-clinico-light">
+            <h4 class="text-clinico">Base da estratificação <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Aplicar o <strong>Escore de Risco Global (ERG) da SBC</strong> para direcionar o paciente, a agressividade das metas e a periodicidade do acompanhamento</li>
+              <li>Integrar fatores de risco modificáveis: <strong>HAS, dislipidemia, diabetes</strong>, tabagismo, obesidade, sedentarismo</li>
+              <li>Prevenção primária: identificar e estratificar precocemente os fatores modificáveis</li>
+              <li>Prevenção secundária: detectar cardiopatia assintomática/subclínica antes do evento (IAM, AVC)</li>
+            </ul>
+          </div>
+          <div class="col-box bg-gray-light">
+            <h4>Categorias de risco → destino do paciente <span class="source-tag src-arpen">ARPEN</span></h4>
+            <ul>
+              <li><span class="pill pill-g">BAIXO</span> permanece com o <strong>Clínico</strong> — seguimento por faixa etária</li>
+              <li><span class="pill pill-y">INTERMEDIÁRIO</span> encaminhar à Cardiologia</li>
+              <li><span class="pill pill-r">ALTO</span> encaminhar à Cardiologia</li>
+              <li><span class="pill pill-r">MUITO ALTO</span> encaminhar à Cardiologia (prioritário)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="success-box">
+          <strong>Princípio de eficiência:</strong> evitar solicitação excessiva de exames de alta complexidade em população de baixo risco. O paciente de baixo risco é acompanhado integralmente pelo Clínico — encaminhar não é a regra, é a exceção justificada pelo risco.
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <!-- ESTÁGIO 2 -->
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-mista">2</div>
+        <div>
+          <div class="stage-title">Decisão de Encaminhamento à Cardiologia</div>
+          <div class="stage-subtitle">Quem realmente precisa do ambulatório especializado — critérios objetivos</div>
+        </div>
+        <span class="stage-badge badge-mista">Clínico → Cardiologia</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="cols cols-2">
+          <div class="col-box bg-cardio-light">
+            <h4 class="text-cardio">Encaminhar à Cardiologia se <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li><strong>ERG intermediário, alto ou muito alto</strong></li>
+              <li><strong>Doença aterosclerótica estabelecida (ASCVD):</strong> IAM prévio, angina crônica, revascularização, AVC/AIT isquêmico, doença arterial periférica, aterosclerose carotídea/coronariana documentada</li>
+              <li><strong>Dislipidemia grave:</strong> LDL-C ≥ 190 mg/dL, suspeita de hipercolesterolemia familiar, triglicerídeos ≥ 500 mg/dL</li>
+              <li><strong>HAS de difícil controle</strong>, suspeita de hipertensão secundária ou lesão de órgão-alvo</li>
+              <li><strong>Diabetes</strong> com múltiplos fatores de risco, DRC, albuminúria ou ASCVD</li>
+              <li>Comorbidades de base de <strong>difícil controle</strong>; <strong>exames complementares alterados</strong></li>
+            </ul>
+          </div>
+          <div class="col-box bg-gray-light">
+            <h4>Condições modificadoras de risco (reforçam encaminhamento) <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>História familiar de DCV prematura (homens &lt; 55 anos, mulheres &lt; 65 anos)</li>
+              <li>DRC, doença inflamatória crônica, HIV, apneia obstrutiva do sono</li>
+              <li>Menopausa precoce, pré-eclâmpsia, diabetes gestacional</li>
+              <li>Obesidade, esteatose hepática metabólica, disfunção erétil, tabagismo ativo</li>
+            </ul>
+          </div>
+        </div>
+        <div class="decision-box">
+          <strong>⏱ Como a decisão é tomada</strong>
+          A avaliação clínica e os exames realizados <b>conforme indicação</b> (Estágio 0) fornecem os dados para calcular o Escore de Risco Global (ERG) (Estágio 1) — e é o ERG que define o destino: baixo risco permanece com o Clínico; risco elevado é encaminhado à Cardiologia. Ao encaminhar, anexe os exames já realizados — o especialista não os repete e a 1ª consulta já sai com conduta.
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <!-- ESTÁGIO 3 -->
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-clinico">3</div>
+        <div>
+          <div class="stage-title">Encaminhamento Qualificado e Papel Continuado</div>
+          <div class="stage-subtitle">O Clínico não "transfere e esquece" — segue como coordenador do cuidado</div>
+        </div>
+        <span class="stage-badge badge-clinico">Clínico</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="cols cols-2">
+          <div class="col-box bg-cardio-light">
+            <h4 class="text-cardio">Conteúdo do encaminhamento qualificado <span class="source-tag src-arpen">ARPEN</span></h4>
+            <ul>
+              <li>Motivo do encaminhamento e categoria de risco (ERG)</li>
+              <li>Exames já realizados conforme indicação (ECG, ECO, TE, doppler etc., quando houver)</li>
+              <li>Perfil lipídico, glicemia/HbA1c e função renal (conforme solicitados)</li>
+              <li>PA (medidas repetidas / MAPA-MRPA se disponíveis), IMC, circunferência abdominal</li>
+              <li>Comorbidades, tabagismo, história familiar e medicamentos em uso</li>
+            </ul>
+          </div>
+          <div class="col-box bg-clinico-light">
+            <h4 class="text-clinico">Papel continuado do Clínico após o encaminhamento <span class="source-tag src-arpen">ARPEN</span></h4>
+            <ul>
+              <li>Manter o paciente vinculado e assegurar comparecimento à 1ª consulta</li>
+              <li>Seguir manejando fatores de risco modificáveis em paralelo</li>
+              <li>Reforçar cessação do tabagismo, dieta cardioprotetora e atividade física</li>
+              <li>Reassumir integralmente o paciente na alta compartilhada (baixo/moderado risco controlado)</li>
+              <li>Reconhecer sinais de alerta e acionar urgência quando necessário</li>
+            </ul>
+          </div>
+        </div>
+        <div class="alert-box">
+          <strong>🚨 Encaminhamento à emergência / avaliação rápida <span class="source-tag src-pdf">PDF SC</span></strong>
+          Dor torácica sugestiva de síndrome coronariana · Dispneia progressiva, síncope ou sinais de IC descompensada · PA ≥ 180/120 mmHg com sintomas ou lesão de órgão-alvo · Déficit neurológico focal · Claudicação crítica, dor em repouso ou lesão isquêmica · Triglicerídeos &gt; 1.000 mg/dL com dor abdominal (risco de pancreatite) · LDL-C extremamente elevado com xantomas (suspeita de HF grave) · Hipercalemia relevante após IECA/BRA/espironolactona/finerenona.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════ TAB: CARDIOLOGIA PREVENTIVA ══════════════════ -->
+<div id="view-cardio" class="view">
+  <div class="intro-box">
+    <strong>Trilha da Cardiologia — Ambulatório do Alto Risco</strong> <span class="source-tag src-pdf">PDF SC</span> — O ambulatório especializado recebe o paciente de risco elevado, faz a <strong>avaliação padronizada</strong>, classifica em categoria de risco (A–D), define <strong>metas terapêuticas individualizadas</strong> e conduz o <strong>seguimento intensivo até as metas</strong>, com abordagem escalonada e equipe multiprofissional (diretrizes ESC/SBC). Ao estabilizar (baixo/moderado risco, metas sustentadas), devolve o paciente ao Clínico em <strong>alta compartilhada</strong>, mantendo reavaliação cardiológica conforme necessidade.
+  </div>
+
+  <div class="stage-grid">
+
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-cardio">C1</div>
+        <div>
+          <div class="stage-title">1ª Consulta — Avaliação Padronizada</div>
+          <div class="stage-subtitle">Anamnese, exame físico e exames iniciais estruturados</div>
+        </div>
+        <span class="stage-badge badge-cardio">Cardiologia</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="cols cols-3">
+          <div class="col-box bg-cardio-light">
+            <h4 class="text-cardio">Anamnese obrigatória <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Idade, sexo, raça/cor autodeclarada</li>
+              <li>História CV pessoal e familiar (DCV prematura)</li>
+              <li>Tabagismo (atual/prévio, carga tabágica), álcool</li>
+              <li>Atividade física, sono, alimentação, trajetória ponderal</li>
+              <li>Comorbidades: HAS, DM, DRC, obesidade, dislipidemia, esteatose, autoimunes, HIV</li>
+              <li>Mulher: menopausa precoce, pré-eclâmpsia, DMG, SOP · Homem: disfunção erétil</li>
+              <li>Saúde mental e determinantes sociais</li>
+            </ul>
+          </div>
+          <div class="col-box bg-gray-light">
+            <h4>Exame físico obrigatório <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>PA em ambos os braços; repetir após 1–2 min; usar a média</li>
+              <li>Frequência cardíaca</li>
+              <li>Peso, altura, IMC, circunferência abdominal</li>
+              <li>Pulsos periféricos; ausculta cardíaca e carotídea</li>
+              <li>Xantomas, xantelasmas, arco corneano precoce</li>
+              <li>Sinais de IC ou doença vascular periférica</li>
+            </ul>
+          </div>
+          <div class="col-box bg-gray-light">
+            <h4>Exames — núcleo mínimo + painel condicionado ao risco <span class="source-tag src-arpen">ARPEN</span></h4>
+            <p style="font-size:.74rem;font-weight:700;color:#2b7a4b;margin-bottom:4px">Núcleo mínimo universal (todos)</p>
+            <ul>
+              <li>Perfil lipídico completo (com não-HDL-C)</li>
+              <li>Glicemia de jejum</li>
+              <li><em>+ anamnese, exame físico e cálculo de risco (obrigatórios)</em></li>
+            </ul>
+            <p style="font-size:.74rem;font-weight:700;color:#2c5282;margin:8px 0 4px">Painel ampliado — por indicação (2.2 / critérios de ampliação)</p>
+            <ul>
+              <li>HbA1c; creatinina c/ eTFG; relação albumina/creatinina</li>
+              <li>TGO, TGP; hemograma; TSH; ácido úrico (se HAS/DRC/gota)</li>
+              <li>ApoB e Lp(a): considerar 1×/vida se risco interm./alto ou HF de DCV prematura/hipercolesterolemia</li>
+              <li>ECG de repouso: somente pelos critérios do rastreamento seletivo</li>
+              <li>MAPA/MRPA se dúvida diagnóstica de HAS</li>
+            </ul>
+            <p style="font-size:.72rem;color:#c53030;margin-top:6px"><strong>Segurança:</strong> o painel ampliado é obrigatório diante de qualquer critério de ampliação ou risco alto/estrutural.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-cardio">C2</div>
+        <div>
+          <div class="stage-title">Estratificação de Risco (A–D) e Metas Terapêuticas</div>
+          <div class="stage-subtitle">Categoria prática de risco define a intensidade das metas de LDL, PA e HbA1c</div>
+        </div>
+        <span class="stage-badge badge-cardio">Cardiologia</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <table class="data-table">
+          <tr><th style="width:26%">Categoria</th><th>Definição prática</th></tr>
+          <tr><td class="row-head">A · Prevenção secundária / risco muito alto</td><td>ASCVD documentada: IAM, angina, DAC obstrutiva ou revascularização; AVC/AIT isquêmico; doença arterial periférica; aterosclerose relevante em imagem</td></tr>
+          <tr><td class="row-head">B · Muito alto sem evento prévio</td><td>DM com lesão de órgão-alvo ou múltiplos FR; DRC com eTFG &lt; 30 ou albuminúria importante; hipercolesterolemia familiar com fator adicional; escore muito alto</td></tr>
+          <tr><td class="row-head">C · Alto risco</td><td>HAS importante; LDL-C ≥ 190 mg/dL; DM de longa duração ou com fatores adicionais; DRC moderada; escore alto</td></tr>
+          <tr><td class="row-head">D · Moderado ou baixo</td><td>Sem DCV estabelecida, sem diabetes complicado, sem DRC relevante e sem fatores maiores isolados</td></tr>
+        </table>
+
+        <div class="cols cols-2" style="margin-top:16px">
+          <div class="col-box bg-gray-light">
+            <h4>Metas de LDL-colesterol <span class="source-tag src-pdf">PDF SC</span></h4>
+            <table class="data-table" style="margin-top:6px">
+              <tr><th>Categoria</th><th>Meta de LDL-C</th></tr>
+              <tr><td>Baixo risco</td><td>&lt; 116 mg/dL</td></tr>
+              <tr><td>Moderado risco</td><td>&lt; 100 mg/dL</td></tr>
+              <tr><td>Alto risco</td><td>&lt; 70 mg/dL e redução ≥ 50%</td></tr>
+              <tr><td>Muito alto / prev. secundária</td><td>&lt; 55 mg/dL e redução ≥ 50%</td></tr>
+              <tr><td>Risco extremo / eventos recorrentes</td><td>considerar &lt; 40 mg/dL</td></tr>
+            </table>
+          </div>
+          <div class="col-box bg-gray-light">
+            <h4>Metas de pressão arterial <span class="source-tag src-pdf">PDF SC</span></h4>
+            <table class="data-table" style="margin-top:6px">
+              <tr><th>Grupo</th><th>Meta inicial</th><th>Meta ideal se tolerada</th></tr>
+              <tr><td>Adultos em geral</td><td>&lt; 140/90</td><td>120–129/70–79 em selecionados</td></tr>
+              <tr><td>Idosos ≥ 65 anos</td><td>&lt; 140/90</td><td>PAS 130–139 se tolerado</td></tr>
+              <tr><td>DRC, DM ou ASCVD</td><td>&lt; 130/80 se tolerado</td><td>individualizar</td></tr>
+              <tr><td>Frágil / quedas</td><td>individualizar</td><td>evitar overtreatment</td></tr>
+            </table>
+            <p style="margin-top:8px;font-size:.77rem"><strong>HbA1c:</strong> geral &lt; 7,0%; mais rigorosa &lt; 6,5% (jovem, baixo risco de hipoglicemia); menos rigorosa 7,5–8,5% (idoso frágil, multimorbidade).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-cardio">C3</div>
+        <div>
+          <div class="stage-title">Seguimento Intensivo até as Metas</div>
+          <div class="stage-subtitle">Fluxo: Entrada → Estratificação → Plano individualizado → Seguimento até metas → Manutenção</div>
+        </div>
+        <span class="stage-badge badge-cardio">Cardiologia</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="cols cols-3">
+          <div class="col-box bg-cardio-light">
+            <h4 class="text-cardio">Após 1ª consulta ou ajuste <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Retorno em 4–12 semanas</li>
+              <li>Reavaliar PA, adesão, eventos adversos, sintomas musculares, hipoglicemia, tabagismo</li>
+              <li>Repetir perfil lipídico 4–12 semanas após início/ajuste de hipolipemiante</li>
+              <li>Creatinina e potássio 1–2 semanas após IECA/BRA/espironolactona/finerenona</li>
+            </ul>
+          </div>
+          <div class="col-box bg-mista-light">
+            <h4 style="color:#b7791f">Paciente fora da meta <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Retornos a cada <strong>4–8 semanas até o controle</strong></li>
+              <li>Intensificar tratamento sistematicamente (escalonar — ver aba 💊)</li>
+              <li>Reforçar estilo de vida por escrito, adesão e metas atualizadas</li>
+            </ul>
+          </div>
+          <div class="col-box bg-clinico-light">
+            <h4 class="text-clinico">Paciente em meta <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Alto/muito alto risco: retorno a cada <strong>3–6 meses</strong></li>
+              <li>Risco moderado estável: <strong>6–12 meses</strong></li>
+              <li>Baixo risco: <strong>anual ou cuidado compartilhado</strong> com a Clínica Médica</li>
+            </ul>
+          </div>
+        </div>
+        <div class="warn-box">
+          <strong>Reabilitação cardiovascular estruturada:</strong> indicar programa multidisciplinar para pós-IAM, pós-angioplastia/revascularização, angina crônica, IC estável, doença arterial periférica e alto risco com múltiplos fatores não controlados (com opção de telerreabilitação para adesão).
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════ TAB: CUIDADO COMPARTILHADO — TRILHAS A/B ══════════════════ -->
+<div id="view-mista" class="view">
+  <div class="intro-box">
+    <strong>Cuidado Compartilhado Coordenado por Risco</strong> <span class="source-tag src-arpen">ARPEN</span> — Os dois serviços participam sempre; o que muda entre as trilhas é <strong>quem coordena</strong> e a cadência do outro. <strong>Princípio de cadência:</strong> a <strong>Cardiologia</strong> segue o ritmo do <strong>risco cardiovascular</strong>; a <strong>Clínica Médica</strong> segue o ritmo das <strong>comorbidades e linhas de cuidado</strong> do paciente — nunca um intervalo fixo.
+  </div>
+
+  <!-- Conceito-chave: meta ≠ risco -->
+  <div class="warn-box" style="max-width:900px;margin:0 auto 22px;">
+    <strong>⚠️ Meta atingida ≠ risco reduzido.</strong> A categoria de risco vem, em boa parte, de fatores <strong>estruturais / irreversíveis</strong> — doença aterosclerótica estabelecida (pós-IAM, pós-AVC, revascularização), DM com lesão de órgão-alvo, DRC grave, insuficiência cardíaca, hipercolesterolemia familiar — que <strong>não desaparecem</strong> quando o LDL e a PA entram na meta. Um pós-IAM com LDL &lt; 55 mg/dL está na meta e <strong>continua muito alto risco</strong>. Já o risco puxado por <strong>fatores modificáveis</strong> (escore ERG) pode cair ao controlá-los. É essa distinção que define quem permanece na Cardiologia e quem volta à Clínica Médica.
+  </div>
+
+  <!-- Diagrama das duas trilhas por coordenador -->
+  <div style="display:flex;align-items:stretch;gap:8px;flex-wrap:wrap;margin-bottom:22px;max-width:900px;margin-left:auto;margin-right:auto;">
+    <div style="flex:1;min-width:230px;background:#f0fff4;border:2px solid #2b7a4b;border-radius:10px;padding:14px 16px;">
+      <div style="font-weight:800;color:#22543d;font-size:.9rem;margin-bottom:6px;">🟢 Trilha A — Clínica Médica coordena</div>
+      <div style="font-size:.79rem;color:#276749;line-height:1.45;">Risco <strong>baixo ou moderado</strong> (na meta). A CM conduz no ritmo das comorbidades/linhas de cuidado; a Cardiologia entra <strong>anual</strong> (moderado) ou <strong>conforme necessidade</strong> (baixo).</div>
+    </div>
+    <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;min-width:170px;gap:8px;">
+      <div style="font-size:.72rem;font-weight:700;color:#2c5282;background:#ebf4ff;border:1px solid #bee3f8;border-radius:8px;padding:5px 12px;text-align:center;line-height:1.35;">A ▶ B<br>risco sobe / sai da meta</div>
+      <div style="font-size:.72rem;font-weight:700;color:#2b7a4b;background:#f0fff4;border:1px solid #c6f6d5;border-radius:8px;padding:5px 12px;text-align:center;line-height:1.35;">◀ B ▶ A<br>só risco modificável que cai<br>(estrutural não volta)</div>
+    </div>
+    <div style="flex:1;min-width:230px;background:#ebf4ff;border:2px solid #2c5282;border-radius:10px;padding:14px 16px;">
+      <div style="font-weight:800;color:#2a4365;font-size:.9rem;margin-bottom:6px;">🔵 Trilha B — Cardiologia coordena</div>
+      <div style="font-size:.79rem;color:#2a4365;line-height:1.45;">Risco <strong>alto/muito alto estrutural</strong> — mesmo na meta. A Cardiologia conduz (<strong>semestral</strong> quando estável); a CM co-gere comorbidades. <strong>Sem alta definitiva.</strong></div>
+    </div>
+  </div>
+
+  <!-- Cards de critério das trilhas -->
+  <div class="cols cols-2" style="max-width:900px;margin:0 auto 22px;">
+    <div class="col-box" style="background:#f7fafc;border-left:4px solid #2b7a4b;">
+      <h4 style="color:#2b7a4b;">Trilha A · quem entra</h4>
+      <ul>
+        <li><strong>Baixo risco</strong> na meta, sem terapia complexa → CM conduz; cardio <strong>conforme necessidade</strong> (sem rotina)</li>
+        <li><strong>Moderado controlado</strong> com terapia relevante / risco residual → CM conduz; cardio <strong>anual</strong></li>
+        <li>Inclui o paciente cujo risco <strong>era modificável e caiu</strong> ao atingir a meta</li>
+      </ul>
+    </div>
+    <div class="col-box" style="background:#ebf4ff;border-left:4px solid #2c5282;">
+      <h4 style="color:#2c5282;">Trilha B · quem entra</h4>
+      <ul>
+        <li>Risco <strong>alto/muito alto estrutural</strong>: ASCVD (pós-IAM/AVC, revascularização, DAP), DM com lesão de órgão-alvo, DRC grave, IC, hipercolesterolemia familiar</li>
+        <li><strong>Permanece mesmo na meta</strong> — a categoria não cai porque o risco é estrutural</li>
+        <li>Também o paciente <strong>fora da meta</strong> em controle intensivo (até estabilizar)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Cadência -->
+  <div style="background:white;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.07);padding:16px 18px;margin:0 auto 22px;max-width:900px;">
+    <div style="font-weight:700;font-size:.9rem;color:#2d3748;margin-bottom:5px;">⏱ Cadência por trilha e perfil <span class="source-tag src-pdf">PDF SC</span></div>
+    <p style="font-size:.79rem;color:#637080;line-height:1.5;margin-bottom:4px;">A Cardiologia segue o <strong>risco cardiovascular</strong>; a Clínica Médica segue as <strong>comorbidades e linhas de cuidado</strong> — por isso a cadência da CM não é um número fixo.</p>
+    <table class="data-table">
+      <tr><th style="width:30%">Trilha · perfil</th><th style="width:35%">Coordenador (ritmo)</th><th>O outro serviço</th></tr>
+      <tr><td>🟢 A · Baixo risco na meta</td><td>Clínica Médica — conforme comorbidades / linhas de cuidado</td><td>Cardiologia conforme necessidade</td></tr>
+      <tr><td>🟢 A · Moderado controlado</td><td>Clínica Médica — conforme comorbidades / linhas de cuidado</td><td>Cardiologia <strong>anual</strong></td></tr>
+      <tr><td>🔵 B · Fora da meta (intensivo)</td><td>Cardiologia — a cada <strong>4–8 semanas</strong> até a meta</td><td>CM co-gere conforme comorbidades</td></tr>
+      <tr><td>🔵 B · Alto/muito alto estrutural (na meta)</td><td>Cardiologia — <strong>semestral</strong> quando estável (3–6 meses; trimestral se pós-evento/ajuste)</td><td>CM co-gere conforme comorbidades / linhas de cuidado</td></tr>
+    </table>
+  </div>
+
+  <!-- Decisão ao atingir a meta -->
+  <div style="background:white;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.07);padding:16px 18px;margin:0 auto 22px;max-width:900px;">
+    <div style="font-weight:700;font-size:.9rem;color:#2d3748;margin-bottom:5px;">⚖️ Decisão ao atingir a meta — o destino depende da natureza do risco <span class="source-tag src-pdf">PDF SC</span></div>
+    <p style="font-size:.79rem;color:#637080;line-height:1.5;margin:0 0 8px;">Ao atingir e sustentar a meta por ≥ 6 meses, o encaminhamento seguinte é definido pela natureza do risco:</p>
+
+    <div class="cols cols-2" style="margin-top:0;">
+      <div class="col-box" style="background:#ebf4ff;border:2px solid #2c5282;">
+        <h4 style="color:#2c5282;">Risco ESTRUTURAL → permanece na Trilha B</h4>
+        <ul>
+          <li>ASCVD, DM c/ lesão de órgão-alvo, DRC grave, IC, HF familiar</li>
+          <li>🔵 Cardiologia <strong>semestral</strong> (3–6 meses) — sem alta</li>
+          <li>🟢 CM co-gere comorbidades em paralelo</li>
+        </ul>
+      </div>
+      <div class="col-box" style="background:#f0fff4;border:2px solid #2b7a4b;">
+        <h4 style="color:#2b7a4b;">Risco MODIFICÁVEL caiu → migra para a Trilha A</h4>
+        <ul>
+          <li>Escore ERG reduziu para baixo/moderado ao controlar os fatores</li>
+          <li>🟢 Clínica Médica conduz — ritmo das comorbidades/linhas de cuidado</li>
+          <li>🔵 Cardiologia <strong>anual</strong> (moderado) ou <strong>conforme necessidade</strong> (baixo)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Critérios de transição -->
+  <div class="decision-box" style="max-width:900px;margin-left:auto;margin-right:auto;">
+    <strong>Critérios de transição entre as trilhas <span class="source-tag src-pdf">PDF SC</span></strong>
+    <strong style="display:inline;color:#2c5282;">A → B:</b> risco sobe ou paciente sai da meta (a CM encaminha à Cardiologia). &nbsp;·&nbsp; <strong style="display:inline;color:#2b7a4b;">B → A:</b> apenas quando o risco é <b>modificável</b> e cai para baixo/moderado com meta sustentada ≥ 6 meses (a Cardiologia contrarreferencia). O risco <b>estrutural não retorna</b> à Trilha A.
+  </div>
+
+  <div class="alert-box" style="max-width:900px;margin-left:auto;margin-right:auto;">
+    <strong>🚨 Gatilhos de urgência — válidos em qualquer trilha <span class="source-tag src-pdf">PDF SC</span></strong>
+    Dor torácica sugestiva de SCA · Dispneia progressiva, síncope ou IC descompensada · PA ≥ 180/120 mmHg com sintomas ou lesão de órgão-alvo · Déficit neurológico focal · Claudicação crítica, dor em repouso ou lesão isquêmica · TG &gt; 1.000 mg/dL com dor abdominal · Hipercalemia relevante após IECA/BRA/espironolactona/finerenona → <b>encaminhamento imediato ao PA/emergência</b>
+  </div>
+</div>
+
+
+<!-- ══════════════════ TAB: ESCALONAMENTO TERAPÊUTICO ══════════════════ -->
+<div id="view-rx" class="view">
+  <div class="intro-box">
+    <strong>Escalonamento Terapêutico — Referência do Ambulatório</strong> <span class="source-tag src-pdf">PDF SC</span> — Intervenção intensiva sobre os fatores modificáveis, com abordagem escalonada por risco (ESC 2021; Diretriz Brasileira de Dislipidemias 2025; Diretriz Brasileira de HAS 2025; ADA 2026). As <strong>medidas não farmacológicas (dieta, atividade física, cessação do tabagismo) são base de todas as etapas</strong>. Posologias de referência — ajuste individual conforme função renal/hepática, idade e resposta, segundo bula vigente.
+  </div>
+
+  <div style="font-weight:700;font-size:.9rem;color:#2d3748;margin-bottom:8px">1 · LDL-colesterol — escada de intensificação</div>
+  <div class="ladder">
+    <div class="ladder-step">
+      <div class="ladder-tag" style="background:#2b7a4b;">1ª etapa</div>
+      <div class="ladder-body">
+        <h4>Estatina (1ª linha) — intensidade conforme risco e meta</h4>
+        <ul>
+          <li><strong>Alta intensidade:</strong> atorvastatina 40–80 mg/dia · rosuvastatina 20–40 mg/dia</li>
+          <li><strong>Moderada intensidade:</strong> atorvastatina 10–20 mg · rosuvastatina 5–10 mg · sinvastatina 20–40 mg à noite</li>
+          <li>Evitar sinvastatina 80 mg (risco de miopatia)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ladder-arrow">↓ LDL acima da meta apesar de estatina máxima tolerada</div>
+    <div class="ladder-step">
+      <div class="ladder-tag" style="background:#38618f;">2ª etapa</div>
+      <div class="ladder-body">
+        <h4>+ Ezetimiba</h4>
+        <ul>
+          <li>Ezetimiba 10 mg VO 1×/dia — associar à estatina ou usar em intolerância parcial</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ladder-arrow">↓ muito alto risco / prevenção secundária / HF / LDL persistente</div>
+    <div class="ladder-step">
+      <div class="ladder-tag" style="background:#2c5282;">3ª etapa</div>
+      <div class="ladder-body">
+        <h4>+ Inibidor de PCSK9 / Inclisirana / Ácido bempedoico</h4>
+        <ul>
+          <li><strong>Evolocumabe</strong> 140 mg SC a cada 2 sem. ou 420 mg SC 1×/mês</li>
+          <li><strong>Alirocumabe</strong> 75 mg SC a cada 2 sem. (titular a 150 mg)</li>
+          <li><strong>Inclisirana</strong> 284 mg SC dia 0, 3 meses e depois a cada 6 meses (conforme política institucional)</li>
+          <li><strong>Ácido bempedoico</strong> 180 mg VO 1×/dia — intolerância a estatina ou redução adicional</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="warn-box">
+    <strong>Hipertrigliceridemia:</strong> TG 150–499 mg/dL → perda de peso, redução de álcool, controle glicêmico e estatina conforme risco. TG ≥ 500 mg/dL (risco de pancreatite) → fenofibrato 145–160 mg/dia ou bezafibrato; ômega-3 EPA/DHA 2–4 g/dia. Evitar gemfibrozila + estatina (miopatia).
+  </div>
+
+  <div style="margin-top:22px;font-weight:700;font-size:.9rem;color:#2d3748;margin-bottom:8px">2 · Hipertensão arterial — escada de intensificação</div>
+  <div class="ladder">
+    <div class="ladder-step">
+      <div class="ladder-tag" style="background:#2b7a4b;">1ª etapa</div>
+      <div class="ladder-body">
+        <h4>Combinação em baixa dose (se PA ≥ 140/90, sobretudo alto risco)</h4>
+        <ul>
+          <li><strong>IECA</strong> (enalapril, ramipril, lisinopril) <strong>ou BRA</strong> (losartana, valsartana, candesartana, olmesartana)</li>
+          <li><strong>+ Bloqueador de canal de cálcio</strong> (anlodipino, nifedipino OROS)</li>
+          <li><strong>± Diurético tiazídico/tiazídico-like</strong> (hidroclorotiazida, clortalidona, indapamida)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ladder-arrow">↓ PA acima da meta com 3 classes otimizadas (incluindo diurético)</div>
+    <div class="ladder-step">
+      <div class="ladder-tag" style="background:#2c5282;">HAS resistente</div>
+      <div class="ladder-body">
+        <h4>4ª droga + investigação de causas</h4>
+        <ul>
+          <li>Confirmar adesão; excluir avental branco (MAPA/MRPA); reduzir sal/álcool</li>
+          <li>Investigar apneia do sono, hiperaldosteronismo, doença/estenose renal, fármacos interferentes</li>
+          <li><strong>Espironolactona 25 mg/dia</strong> (titular a 50 mg) — monitorar K⁺ e creatinina em 7–14 dias</li>
+          <li>Alternativas: amilorida, bisoprolol, carvedilol, doxazosina</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:22px;font-weight:700;font-size:.9rem;color:#2d3748;margin-bottom:8px">3 · Diabetes, obesidade e antiagregação <span class="source-tag src-pdf">PDF SC</span></div>
+  <table class="data-table">
+    <tr><th style="width:22%">Domínio</th><th>Conduta preferencial</th></tr>
+    <tr class="row-head"><td colspan="2">Diabetes com risco cardiovascular</td></tr>
+    <tr><td>Base</td><td>Metformina (titular até 1.500–2.000 mg/dia; evitar se eTFG &lt; 30)</td></tr>
+    <tr><td>Se IC / DRC / albuminúria / alto risco</td><td><strong>Inibidor de SGLT2</strong>: empagliflozina 10 mg, dapagliflozina 10 mg, canagliflozina 100 mg (benefício CV e renal)</td></tr>
+    <tr><td>Se ASCVD / obesidade / perda ponderal</td><td><strong>Agonista de GLP-1</strong>: semaglutida SC semanal, dulaglutida, liraglutida (benefício aterosclerótico)</td></tr>
+    <tr class="row-head"><td colspan="2">Obesidade (IMC ≥ 30, ou ≥ 27 com comorbidade)</td></tr>
+    <tr><td>Meta</td><td>Perda de 5–10% do peso em 6–12 meses; nutrição + atividade física estruturada</td></tr>
+    <tr><td>Farmacoterapia</td><td>Semaglutida 2,4 mg SC semanal · liraglutida 3,0 mg SC/dia · tirzepatida (se disponível)</td></tr>
+    <tr class="row-head"><td colspan="2">Antiagregação</td></tr>
+    <tr><td>Prevenção primária</td><td><strong>Não usar AAS rotineiramente</strong> (balanço desfavorável); considerar só em risco muito alto e baixo risco de sangramento, após decisão compartilhada</td></tr>
+    <tr><td>Prevenção secundária</td><td>AAS 75–100 mg/dia (clopidogrel 75 mg se intolerância); dupla antiagregação conforme protocolo pós-SCA/angioplastia</td></tr>
+  </table>
+
+  <div class="rules-grid">
+    <div class="rules-card" style="color:#c53030">
+      <h4>Cessação do tabagismo — 5 A's + farmacoterapia <span class="source-tag src-pdf" style="font-size:.62rem">PDF SC</span></h4>
+      <ul style="color:#2d3748">
+        <li><strong>Ask · Advise · Assess · Assist · Arrange</strong> em toda consulta</li>
+        <li>Reposição de nicotina (adesivo 21→14→7 mg; goma/pastilha 2–4 mg)</li>
+        <li>Bupropiona 150 mg (manhã 3 dias → 12/12 h); iniciar 1–2 sem. antes de parar</li>
+        <li>Vareniclina 0,5 mg titulada a 1 mg 12/12 h por 12 semanas</li>
+      </ul>
+    </div>
+    <div class="rules-card" style="color:#2c5282">
+      <h4>DRC e proteção cardiorrenal <span class="source-tag src-pdf" style="font-size:.62rem">PDF SC</span></h4>
+      <ul style="color:#2d3748">
+        <li>eTFG e albuminúria ao menos anuais (3–6 meses se DRC estabelecida)</li>
+        <li>IECA/BRA se albuminúria; evitar AINEs; estatina na maioria dos adultos com DRC</li>
+        <li>SGLT2 se DM2 + DRC e eTFG ≥ 20; finerenona se albuminúria persistente e K⁺ normal</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ TAB: MATRIZ E INDICADORES ══════════════════ -->
+<div id="view-matriz" class="view">
+  <div class="intro-box">
+    <strong>Matriz de Responsabilidade e Indicadores</strong> — Síntese de quem faz o quê em cada domínio, no modelo de <strong>cuidado compartilhado coordenado por risco</strong> (Trilha A — Clínica Médica · Trilha B — Cardiologia), conforme os protocolos São Cristóvão e a contribuição operacional Arpen.
+  </div>
+
+  <table class="summary-table">
+    <thead>
+      <tr>
+        <th style="width:15%">Domínio</th>
+        <th style="width:29%">🟢 Clínico Geral <span class="source-tag src-arpen" style="font-size:.62rem">coordenador / baixo risco</span></th>
+        <th style="width:29%">🔵 Cardiologia <span class="source-tag src-pdf" style="font-size:.62rem">ambulatório do alto risco</span></th>
+        <th style="width:27%">🟣 Equipe multiprofissional</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Rastreamento</strong></td>
+        <td>Conduzir a avaliação clínica por faixa etária; solicitar exames por indicação clínica/risco (não por idade isolada)</td>
+        <td>—</td>
+        <td>Enfermagem: automedida de PA, coleta e educação</td>
+      </tr>
+      <tr>
+        <td><strong>Estratificação de risco</strong></td>
+        <td>Aplicar ERG-SBC; classificar e definir destino do paciente</td>
+        <td>Reclassificar em categoria A–D; definir metas por categoria</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>Definição de metas</strong></td>
+        <td>Metas de LDL/PA/HbA1c no baixo risco</td>
+        <td>Metas intensivas de LDL/PA/HbA1c no alto/muito alto risco</td>
+        <td>Nutrição: metas de peso e circunferência abdominal</td>
+      </tr>
+      <tr>
+        <td><strong>Tratamento farmacológico</strong></td>
+        <td>Iniciar e manter estatina/anti-HAS no baixo risco; continuidade estável na manutenção</td>
+        <td>Escalonar LDL (PCSK9), HAS resistente, SGLT2/GLP-1, antiobesidade; indicação intensiva</td>
+        <td>Farmácia clínica: adesão, interações, dispensação</td>
+      </tr>
+      <tr>
+        <td><strong>Estilo de vida / tabagismo</strong></td>
+        <td>Dieta, atividade física prescrita, 5 A's do tabagismo — continuamente</td>
+        <td>Prescrição estruturada; farmacoterapia de cessação; reabilitação</td>
+        <td>Educação física, nutrição, psicologia: intervenção estruturada</td>
+      </tr>
+      <tr>
+        <td><strong>Monitorização de segurança</strong></td>
+        <td>Coletar/ler labs nos intervalos; vigiar eventos adversos</td>
+        <td>Definir cronograma; interpretar no contexto do escalonamento</td>
+        <td>Laboratório e farmácia: apoio à monitorização</td>
+      </tr>
+      <tr>
+        <td><strong>Reabilitação CV</strong></td>
+        <td>Encaminhar e reforçar adesão ao programa</td>
+        <td>Indicar reabilitação estruturada pós-evento e em alto risco</td>
+        <td>Fisioterapia / educação física: programa multidisciplinar</td>
+      </tr>
+      <tr>
+        <td><strong>Vínculo longitudinal</strong></td>
+        <td><strong>Coordenador permanente</strong> — rastreio, baixo risco e manutenção pós-alta</td>
+        <td><strong>Responsável no controle intensivo</strong> — devolve na alta compartilhada</td>
+        <td>Suporte pontual/programado conforme objetivos</td>
+      </tr>
+      <tr>
+        <td><strong>Descompensação / urgência</strong></td>
+        <td>Reconhecer sinais graves; reencaminhar ou acionar PA</td>
+        <td>Reavaliar prioritariamente; manejar evento; ajustar terapia</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:28px;font-weight:700;font-size:.9rem;color:#2d3748;margin-bottom:12px">Indicadores de Qualidade do Ambulatório <span class="source-tag src-pdf">PDF SC</span> <span class="source-tag src-arpen">ARPEN</span></div>
+  <div class="ind-grid">
+    <div class="ind-card" style="border-top:3px solid #2b7a4b">
+      <h4 style="color:#2b7a4b">Acesso</h4>
+      <ul>
+        <li>% de pacientes referenciados para a Cardiologia</li>
+        <li>% de pacientes contrarreferenciados para a Clínica Médica (CM)</li>
+      </ul>
+    </div>
+    <div class="ind-card" style="border-top:3px solid #c53030">
+      <h4 style="color:#c53030">Assistencial</h4>
+      <ul>
+        <li>% de hipertensos com PA controlada</li>
+        <li>% de diabéticos com HbA1c individualizada na meta</li>
+        <li>Solicitação de exames por consulta cardiológica</li>
+      </ul>
+    </div>
+    <div class="ind-card" style="border-top:3px solid #2c5282">
+      <h4 style="color:#2c5282">Resultados</h4>
+      <ul>
+        <li>Taxa de reencaminhamento após alta compartilhada</li>
+        <li>Tempo médio até atingir as metas</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="warn-box" style="margin-top:22px">
+    <strong>Aviso institucional:</strong> conteúdo técnico-educacional baseado nos protocolos assistenciais de Avaliação Cardiovascular Preventiva e de Linha de Cuidado Ambulatorial em Cardiologia (São Cristóvão). Implementação condicionada à revisão crítica, adaptação à realidade local e aprovação formal pela equipe de Cardiologia e pelas instâncias de governança clínica.
+  </div>
+</div>
+
+</main>
+
+<script>
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+function toggleStage(header) {
+  header.parentElement.classList.toggle('open');
+}
+</script>
+</body>
+</html>
