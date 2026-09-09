@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linha de Cuidado — Artrite Reumatoide | São Cristóvão Saúde</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f4f8; color: #1a2535; min-height: 100vh; }
+
+header { background: linear-gradient(135deg, #004b6e 0%, #006b9e 100%); color: white; padding: 26px 40px 20px; border-bottom: 4px solid #00a8d4; }
+header h1 { font-size: 1.45rem; font-weight: 700; }
+header p  { font-size: .82rem; opacity: .8; margin-top: 4px; }
+.header-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.hbadge { display: inline-block; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3); border-radius: 4px; padding: 2px 9px; font-size: .7rem; font-weight: 600; }
+
+.tabs { display: flex; background: #e2eaf1; border-bottom: 2px solid #c5d5e4; padding: 0 40px; overflow-x: auto; }
+.tab { padding: 11px 20px; cursor: pointer; font-size: .82rem; font-weight: 600; border-bottom: 3px solid transparent; color: #5a7080; white-space: nowrap; transition: all .2s; flex-shrink: 0; }
+.tab:hover { color: #004b6e; }
+.tab.active { color: #004b6e; border-bottom-color: #004b6e; background: #f0f4f8; }
+
+.legend { display: flex; gap: 18px; flex-wrap: wrap; padding: 12px 40px; background: white; border-bottom: 1px solid #dce6ef; font-size: .75rem; }
+.legend-item { display: flex; align-items: center; gap: 5px; }
+.legend-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+
+main { padding: 28px 40px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.intro-box { background: white; border-left: 5px solid #004b6e; border-radius: 6px; padding: 14px 18px; margin-bottom: 24px; font-size: .83rem; line-height: 1.6; color: #2c3e50; }
+.intro-box strong { color: #004b6e; }
+.source-tag { display: inline-block; font-size: .68rem; font-weight: 700; padding: 1px 7px; border-radius: 3px; margin-left: 6px; vertical-align: middle; }
+.src-pdf { background: #bee3f8; color: #2a4365; }
+.src-arpen { background: #c6f6d5; color: #22543d; }
+
+.stage-grid { display: flex; flex-direction: column; gap: 18px; }
+.stage { background: white; border-radius: 10px; box-shadow: 0 1px 6px rgba(0,0,0,.07); overflow: hidden; }
+.stage-header { display: flex; align-items: center; gap: 14px; padding: 14px 20px; cursor: pointer; user-select: none; }
+.stage-header:hover { background: #f7fafc; }
+.stage-num { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: .88rem; color: white; flex-shrink: 0; }
+.stage-title { font-weight: 700; font-size: .94rem; flex: 1; }
+.stage-subtitle { font-size: .76rem; color: #637080; margin-top: 2px; }
+.stage-badge { font-size: .7rem; font-weight: 700; padding: 3px 9px; border-radius: 20px; white-space: nowrap; }
+.stage-chevron { font-size: .72rem; color: #8a9bb0; transition: transform .25s; }
+.stage.open .stage-chevron { transform: rotate(180deg); }
+.stage-body { display: none; padding: 0 20px 18px; border-top: 1px solid #edf2f7; }
+.stage.open .stage-body { display: block; }
+
+.cols { display: grid; gap: 12px; margin-top: 14px; }
+.cols-2 { grid-template-columns: 1fr 1fr; }
+.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.col-box { background: #f7fafc; border-radius: 7px; padding: 13px 15px; font-size: .8rem; }
+.col-box h4 { font-size: .76rem; font-weight: 700; margin-bottom: 7px; text-transform: uppercase; letter-spacing: .5px; }
+.col-box ul { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.col-box ul li::before { content: "→ "; color: #8a9bb0; }
+.col-box ul li { line-height: 1.4; }
+
+.alert-box { background: #fff5f5; border-left: 4px solid #e53e3e; border-radius: 6px; padding: 12px 15px; margin-top: 14px; font-size: .8rem; color: #742a2a; line-height: 1.5; }
+.alert-box strong { display: block; margin-bottom: 4px; }
+.warn-box { background: #fffbeb; border-left: 4px solid #d69e2e; border-radius: 6px; padding: 12px 15px; margin-top: 12px; font-size: .8rem; color: #744210; line-height: 1.5; }
+.decision-box { background: #fffbeb; border: 2px dashed #d69e2e; border-radius: 8px; padding: 13px 15px; margin-top: 14px; font-size: .8rem; color: #744210; }
+.decision-box strong { color: #b7791f; display: block; margin-bottom: 5px; }
+.success-box { background: #f0fff4; border-left: 4px solid #2b7a4b; border-radius: 6px; padding: 12px 15px; margin-top: 12px; font-size: .8rem; color: #22543d; line-height: 1.5; }
+.arrow-connector { text-align: center; color: #8a9bb0; font-size: 1.2rem; margin: 2px 0 -6px; }
+
+/* Colors */
+.c-clinico { background: #2b7a4b; } .bg-clinico-light { background: #e6f4ec; } .text-clinico { color: #2b7a4b; } .badge-clinico { background: #c6f6d5; color: #22543d; } .border-clinico { border-color: #2b7a4b; }
+.c-reuma { background: #2c5282; } .bg-reuma-light { background: #ebf4ff; } .text-reuma { color: #2c5282; } .badge-reuma { background: #bee3f8; color: #2a4365; }
+.c-mista { background: #b7791f; } .bg-mista-light { background: #fffbeb; } .badge-mista { background: #fefcbf; color: #744210; }
+.c-rx { background: #6b46c1; } .bg-rx-light { background: #faf5ff; } .text-rx { color: #6b46c1; } .badge-rx { background: #e9d8fd; color: #553c9a; }
+.c-alerta { background: #c53030; } .badge-alerta { background: #fed7d7; color: #742a2a; } .c-gray { background: #4a5568; } .bg-gray-light { background: #f7fafc; }
+
+/* Pills */
+.pill { display: inline-block; padding: 1px 7px; border-radius: 10px; font-size: .68rem; font-weight: 700; margin-right: 3px; vertical-align: middle; }
+.pill-g { background: #c6f6d5; color: #22543d; } .pill-b { background: #bee3f8; color: #2a4365; } .pill-y { background: #fefcbf; color: #744210; } .pill-r { background: #fed7d7; color: #742a2a; } .pill-p { background: #e9d8fd; color: #553c9a; }
+
+/* Summary table */
+.summary-table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: .79rem; }
+.summary-table th { background: #14375F; color: white; padding: 9px 13px; text-align: left; font-size: .75rem; font-weight: 700; }
+.summary-table td { padding: 8px 13px; border-bottom: 1px solid #e2e8f0; vertical-align: top; line-height: 1.4; }
+.summary-table tr:nth-child(even) td { background: #f7fafc; }
+.summary-table td strong { color: #2d3748; }
+
+/* Data table (activity indices, monitoring) */
+.data-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: .78rem; }
+.data-table th { background: #2c5282; color: white; padding: 8px 11px; text-align: left; font-size: .74rem; font-weight: 700; }
+.data-table td { padding: 7px 11px; border-bottom: 1px solid #e2e8f0; vertical-align: top; line-height: 1.35; }
+.data-table tr:nth-child(even) td { background: #f7fafc; }
+.data-table .row-head { background: #ebf4ff !important; font-weight: 700; color: #2a4365; }
+
+/* Prescription / escalation cards */
+.rx-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+.rx-card { background: white; border-radius: 10px; box-shadow: 0 1px 6px rgba(0,0,0,.07); overflow: hidden; }
+.rx-card-header { padding: 12px 16px; font-weight: 700; font-size: .9rem; color: white; }
+.rx-card-body { padding: 14px 16px; font-size: .8rem; line-height: 1.5; }
+.rx-drug { margin-bottom: 12px; }
+.rx-drug-name { font-weight: 700; font-size: .85rem; margin-bottom: 4px; }
+.rx-drug-detail { color: #4a5568; margin-left: 10px; }
+.rx-drug-detail li { list-style: none; }
+.rx-drug-detail li::before { content: "▸ "; color: #8a9bb0; }
+.rx-or { text-align: center; color: #718096; font-size: .78rem; font-weight: 600; margin: 6px 0; }
+.rx-warn { font-size: .74rem; color: #742a2a; margin-top: 8px; font-style: italic; }
+
+.rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
+.rules-card { background: white; border-radius: 8px; box-shadow: 0 1px 5px rgba(0,0,0,.06); padding: 14px 16px; }
+.rules-card h4 { font-size: .82rem; font-weight: 700; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 2px solid currentColor; }
+.rules-card ul { list-style: none; display: flex; flex-direction: column; gap: 5px; font-size: .79rem; }
+.rules-card ul li::before { content: "→ "; color: #8a9bb0; }
+.not-rec-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.not-rec-tag { background: #fed7d7; color: #742a2a; border-radius: 4px; padding: 4px 10px; font-size: .76rem; font-weight: 600; }
+
+/* Indicators */
+.ind-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 16px; }
+.ind-card { background: white; border-radius: 8px; box-shadow: 0 1px 5px rgba(0,0,0,.06); padding: 13px 15px; }
+.ind-card h4 { font-size: .78rem; font-weight: 700; margin-bottom: 8px; text-transform: uppercase; letter-spacing: .4px; }
+.ind-card ul { list-style: none; font-size: .76rem; display: flex; flex-direction: column; gap: 4px; }
+.ind-card ul li::before { content: "• "; }
+
+/* Sequential cyclic flow (Cuidado Compartilhado) */
+.seq-flow { display:flex; flex-direction:column; gap:0; max-width:900px; margin:0 auto; }
+.seq-step { display:flex; gap:0; border-radius:8px; overflow:hidden; box-shadow:0 1px 5px rgba(0,0,0,.1); margin-bottom:6px; }
+.seq-num  { min-width:50px; display:flex; align-items:center; justify-content:center; font-size:1.15rem; font-weight:800; color:#fff; flex-shrink:0; }
+.seq-body { flex:1; padding:14px 18px; }
+.seq-actor-badge { display:inline-block; padding:2px 11px; border-radius:20px; font-size:.7rem; font-weight:700; margin-bottom:7px; color:#fff; }
+.seq-title { font-weight:700; font-size:.92rem; margin-bottom:6px; }
+.seq-body ul { margin:4px 0 0 0; padding-left:16px; }
+.seq-body ul li { font-size:.81rem; margin-bottom:4px; color:#2d3748; line-height:1.4; }
+.seq-note  { font-size:.76rem; color:#718096; margin-top:8px; font-style:italic; border-top:1px dashed #e2e8f0; padding-top:6px; }
+.cycle-wrapper { position:relative; border:2px dashed #d69e2e; border-radius:12px; padding:16px 14px 14px 20px; margin:14px 0; background:rgba(255,251,235,.35); }
+.cycle-label { position:absolute; top:-12px; left:20px; background:#d69e2e; color:white; font-size:.72rem; font-weight:800; padding:2px 12px; border-radius:20px; letter-spacing:.5px; white-space:nowrap; }
+.decision-header { background:#b7791f; color:white; border-radius:8px 8px 0 0; padding:11px 16px; font-weight:700; font-size:.88rem; display:flex; align-items:center; gap:8px; }
+.decision-branches { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; }
+.branch-yes { background:#f0fff4; border:2px solid #68d391; border-radius:8px; padding:13px 15px; font-size:.8rem; color:#276749; line-height:1.5; }
+.branch-no { background:#fff5f5; border:2px solid #fc8181; border-radius:8px; padding:13px 15px; font-size:.8rem; color:#9b2c2c; line-height:1.5; }
+.branch-yes strong, .branch-no strong { display:block; font-size:.85rem; margin-bottom:8px; }
+.loop-back { display:flex; align-items:center; gap:10px; background:#fff5f5; border:1px dashed #fc8181; border-radius:6px; padding:9px 14px; margin-top:8px; font-size:.78rem; font-weight:700; color:#9b2c2c; }
+
+@media (max-width: 700px) {
+  header, .tabs, main { padding-left: 16px; padding-right: 16px; }
+  .cols-2, .cols-3 { grid-template-columns: 1fr; }
+  .rx-grid, .rules-grid, .ind-grid, .decision-branches { grid-template-columns: 1fr; }
+  .legend { padding: 10px 16px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Linha de Cuidado — Artrite Reumatoide</h1>
+  <p>São Cristóvão Saúde · Arpen · CID-10: M05 / M06 · Ambulatório de Reumatologia · Interface com a Clínica Médica</p>
+  <div class="header-badges">
+    <span class="hbadge">Protocolo SC — Jul/2026</span>
+    <span class="hbadge">EULAR 2022/2025 · ACR/EULAR 2010</span>
+    <span class="hbadge">PCDT MS 2026 · DUT 65.1 (ANS)</span>
+    <span class="hbadge">Jornada v2 — Arpen</span>
+  </div>
+</header>
+
+<div class="tabs">
+  <div class="tab active"  onclick="showView('clinico')">🟢 Jornada do Clínico</div>
+  <div class="tab"         onclick="showView('reuma')">🔵 Jornada Reumatologia</div>
+  <div class="tab"         onclick="showView('mista')">🟡 Cuidado Compartilhado</div>
+  <div class="tab"         onclick="showView('rx')">💊 Escalonamento Terapêutico</div>
+  <div class="tab"         onclick="showView('matriz')">📋 Matriz e Indicadores</div>
+</div>
+
+<div class="legend">
+  <span style="font-weight:700;font-size:.75rem;color:#4a5568">Responsável:</span>
+  <div class="legend-item"><div class="legend-dot" style="background:#2b7a4b"></div> Clínico Geral — porta de entrada e co-gestão</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#2c5282"></div> Reumatologia — coordenador longitudinal da doença</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#d69e2e"></div> Compartilhado</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#c53030"></div> Alerta / Urgência</div>
+  <div class="legend-item"><span class="source-tag src-pdf">PDF SC</span> Conteúdo do Protocolo São Cristóvão</div>
+  <div class="legend-item"><span class="source-tag src-arpen">ARPEN</span> Contribuição operacional Arpen</div>
+</div>
+
+<main>
+
+<!-- ══════════════════ TAB: JORNADA DO CLÍNICO ══════════════════ -->
+<div id="view-clinico" class="view active">
+  <div class="intro-box">
+    <strong>Trilha do Clínico Geral — a Porta de Entrada</strong> <span class="source-tag src-arpen">ARPEN</span> — Diferentemente da Fibromialgia, na Artrite Reumatoide o <strong>reumatologista é o coordenador longitudinal da doença</strong>: confirmação diagnóstica, indicação e troca de DMARD, biológico e JAK são de responsabilidade <strong>exclusiva do especialista</strong>. O papel do Clínico é decisivo e tem três pilares: <strong>(1)</strong> reconhecer o quadro suspeito dentro da "janela de oportunidade" (sintomas &lt; 6 meses); <strong>(2)</strong> encaminhar com agilidade e qualidade; <strong>(3)</strong> quando seguro, iniciar metotrexato de ponte enquanto o paciente aguarda a consulta especializada. Depois, o Clínico permanece como co-gestor de segurança, comorbidades e vacinação.
+  </div>
+
+  <div class="stage-grid">
+
+    <!-- ESTÁGIO 0 -->
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-clinico">0</div>
+        <div><div class="stage-title">Reconhecimento da Suspeita de AR</div>
+        <div class="stage-subtitle">Sinovite de pequenas articulações · aditiva · simétrica · rigidez matinal prolongada</div></div>
+        <span class="stage-badge badge-clinico">Clínico</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="cols cols-2">
+          <div class="col-box bg-clinico-light">
+            <h4 class="text-clinico">Quadro suspeito — encaminhar à Reumatologia <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Dor + sinovite (edema articular, calor local, dor à palpação/compressão)</li>
+              <li>Predomínio em pequenas articulações de mãos e/ou pés</li>
+              <li>Caráter aditivo e predominantemente simétrico</li>
+              <li>Rigidez matinal prolongada (&gt; 30–60 minutos)</li>
+              <li>Objetivo do encaminhamento: confirmação diagnóstica, estratificação de atividade e definição terapêutica</li>
+            </ul>
+          </div>
+          <div class="col-box bg-gray-light">
+            <h4>Informações mínimas a coletar <span class="source-tag src-arpen">ARPEN</span></h4>
+            <ul>
+              <li>Articulações acometidas, simetria e tempo de evolução</li>
+              <li>Duração da rigidez matinal</li>
+              <li>Manifestações extra-articulares (nódulos, olho seco, sintomas pulmonares)</li>
+              <li>Tabagismo, história familiar de AR</li>
+              <li>Comorbidades e medicamentos em uso</li>
+              <li>Função renal e hepática de base (orienta a ponte terapêutica)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="decision-box">
+          <strong>⏱ Ponto de decisão — janela de oportunidade (sintomas &lt; 6 meses)</strong>
+          O diagnóstico e o tratamento precoces mudam o prognóstico funcional e estrutural. Sintomas &lt; 6 meses ou fatores de mau prognóstico (FR/anti-CCP altos, muitas articulações edemaciadas, erosões precoces) → <strong>encaminhamento prioritário</strong>. Não postergar aguardando exames complexos ou tentativa terapêutica prolongada.
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <!-- ESTÁGIO 1 -->
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-clinico">1</div>
+        <div><div class="stage-title">Exames de Apoio e Racionalização Diagnóstica</div>
+        <div class="stage-subtitle">Solicitar exames que agilizam a 1ª consulta especializada · o diagnóstico é clínico</div></div>
+        <span class="stage-badge badge-clinico">Clínico</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="cols cols-2">
+          <div class="col-box bg-gray-light">
+            <h4>Exames complementares úteis <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Fator reumatoide (FR) — sensib. ~75%, espec. ~85%</li>
+              <li>Anti-CCP — sensib. ~75%, espec. ~95%; útil quando FR negativo</li>
+              <li>VHS e PCR — provas de atividade inflamatória</li>
+              <li>Radiografia de mãos, punhos e pés — baixo custo; útil como linha de base</li>
+              <li>Hemograma, transaminases (TGO/TGP) e creatinina — indispensáveis se pretende iniciar MTX</li>
+              <li>USG com Doppler / RM — maior sensibilidade; reservadas a dúvida diagnóstica</li>
+            </ul>
+          </div>
+          <div class="col-box bg-clinico-light">
+            <h4 class="text-clinico">Critérios ACR/EULAR 2010 — apoio (escore ≥ 6/10) <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Articulações: 1 grande (0) · 2–10 grandes (1) · 1–3 pequenas (2) · 4–10 pequenas (3) · &gt;10 c/ ≥1 pequena (5)</li>
+              <li>Sorologia: FR/anti-CCP negativos (0) · baixos títulos ≤3× LSN (2) · altos títulos &gt;3× LSN (3)</li>
+              <li>Provas inflamatórias: VHS e PCR normais (0) · alterados (1)</li>
+              <li>Duração: &lt; 6 semanas (0) · ≥ 6 semanas (1)</li>
+              <li>Critérios classificatórios (não diagnósticos). Escore &lt; 6 → reavaliar periodicamente</li>
+            </ul>
+          </div>
+        </div>
+        <div class="warn-box"><strong>Diagnóstico diferencial a considerar:</strong> osteoartrite, fibromialgia, LES, Sjögren, artrite psoriásica, espondiloartrites, gota, poliartrites virais (parvovírus B19, chikungunya, rubéola, HIV, hepatites B/C — sobretudo em quadros &lt; 6 semanas). Em idosos com poliartrite recente: polimialgia reumática e síndromes paraneoplásicas.</div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <!-- ESTÁGIO 2 -->
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-clinico">2</div>
+        <div><div class="stage-title">Ponte Terapêutica pelo Clínico — Metotrexato "enquanto aguarda"</div>
+        <div class="stage-subtitle">Opcional e condicionada à segurança · não substitui a avaliação especializada</div></div>
+        <span class="stage-badge badge-clinico">Clínico → Reumato</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="warn-box">⚠️ Quando o médico assistente não especialista identificar quadro sugestivo de AR, pode-se iniciar metotrexato (MTX) enquanto o paciente aguarda avaliação especializada — medida para não perder a janela de oportunidade. A confirmação diagnóstica e todo o escalonamento subsequente permanecem exclusivos do reumatologista.</div>
+        <div class="cols cols-2">
+          <div class="col-box bg-clinico-light">
+            <h4 class="text-clinico">Como iniciar o MTX de ponte <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Metotrexato VO/SC, 7,5–25 mg 1×/semana (iniciar em dose baixa e titular)</li>
+              <li>Ácido fólico 5 mg, 1×/semana, no dia seguinte à dose do MTX</li>
+              <li>Solicitar hemograma, transaminases e creatinina antes de iniciar</li>
+              <li>Se intolerância à via oral: fracionar dose ou considerar via subcutânea</li>
+            </ul>
+          </div>
+          <div class="col-box" style="background:#fff5f5">
+            <h4 style="color:#c53030">🚫 NÃO iniciar MTX de ponte se <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Citopenias isoladas ou combinadas</li>
+              <li>Transaminases acima do limite superior da normalidade</li>
+              <li>Doença renal crônica com TFG &lt; 60 mL/min/1,73 m²</li>
+              <li>Contraindicações gerais ao MTX: gestação, amamentação e tentativa de concepção (homens e mulheres), hepatopatia ativa, infecção ativa não tratada, TFG &lt; 30</li>
+            </ul>
+          </div>
+        </div>
+        <div class="decision-box">
+          <strong>⚠️ Regra de governança — delegação condicionada</strong> <span class="source-tag src-arpen">ARPEN</span>
+          O MTX de ponte é uma delegação de imunossupressor a um não especialista. Tratar como <strong>delegação condicionada</strong>, não conduta padrão: checklist de segurança obrigatório, exames de base antes de prescrever, ácido fólico e canal de apoio matricial ativo com a Reumatologia. <em>Decisão pendente dos coordenadores: adotar como opção disponível ao CM ou reservar a casos discutidos previamente por apoio matricial.</em>
+        </div>
+        <div class="warn-box">Tratamento sintomático de ponte (curto prazo): AINE na menor dose e pelo menor tempo possível; glicocorticoide em baixa dose (≤ 10 mg/dia de prednisona) por &lt; 3 meses, reduzido assim que possível. Uso crônico de AINE/corticoide sinaliza controle inadequado — o controle definitivo é com DMARD, sob condução do reumatologista.</div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <!-- ESTÁGIO 3 -->
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-clinico">3</div>
+        <div><div class="stage-title">Encaminhamento Qualificado à Reumatologia</div>
+        <div class="stage-subtitle">Com as informações mínimas para uma 1ª consulta resolutiva</div></div>
+        <span class="stage-badge badge-clinico">Clínico</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="cols cols-2">
+          <div class="col-box bg-gray-light">
+            <h4>Conteúdo do encaminhamento qualificado <span class="source-tag src-arpen">ARPEN</span></h4>
+            <ul>
+              <li>Articulações acometidas, simetria, tempo de evolução e rigidez matinal</li>
+              <li>Resultados de FR, anti-CCP, VHS, PCR (se disponíveis)</li>
+              <li>Radiografia de mãos/punhos/pés, se realizada</li>
+              <li>Hemograma, transaminases e creatinina</li>
+              <li>Se MTX de ponte foi iniciado: dose, data de início e ácido fólico</li>
+              <li>Comorbidades, tabagismo, medicamentos em uso, história familiar</li>
+              <li>Pergunta clínica específica e classificação de prioridade</li>
+            </ul>
+          </div>
+          <div class="col-box bg-clinico-light">
+            <h4 class="text-clinico">Papel continuado do Clínico após o encaminhamento <span class="source-tag src-arpen">ARPEN</span></h4>
+            <ul>
+              <li>Manter o paciente vinculado — não "transferir e esquecer"</li>
+              <li>Assegurar comparecimento à 1ª consulta especializada</li>
+              <li>Manejar comorbidades cardiovasculares e metabólicas (a AR aumenta o risco CV)</li>
+              <li>Atualizar calendário vacinal antes de eventual bDMARD/tsDMARD</li>
+              <li>Reforçar cessação do tabagismo e atividade física</li>
+              <li>Reconhecer sinais de alerta e acionar urgência quando necessário</li>
+            </ul>
+          </div>
+        </div>
+        <div class="alert-box">
+          <strong>🚨 Sinais de alerta — avaliação prioritária / urgência</strong>
+          Manifestações extra-articulares graves com risco à função orgânica ou à vida (vasculite reumatoide, neurite, pneumonite/doença pulmonar intersticial em descompensação) · Febre persistente com suspeita de infecção (sobretudo em imunossuprimido) · Monoartrite aguda com suspeita de artrite séptica → encaminhamento prioritário à Reumatologia ou PA/urgência.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════ TAB: JORNADA REUMATOLOGIA ══════════════════ -->
+<div id="view-reuma" class="view">
+  <div class="intro-box">
+    <strong>Jornada da Reumatologia — coordenação longitudinal da doença</strong> <span class="source-tag src-pdf">PDF SC</span> — O reumatologista confirma o diagnóstico, estratifica a atividade, pactua a meta (treat-to-target) e conduz todo o escalonamento farmacológico. A cada consulta reavalia a atividade de doença e ajusta a terapia diante de falha. Emite contrarreferência qualificada ao Clínico em 100% dos episódios.
+  </div>
+
+  <div class="stage-grid">
+
+    <!-- ESTÁGIO 1 -->
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-reuma">1</div>
+        <div><div class="stage-title">1ª Consulta — Confirmação Diagnóstica e Plano</div>
+        <div class="stage-subtitle">Confirmar diagnóstico · estratificar atividade · pactuar meta · definir csDMARD</div></div>
+        <span class="stage-badge badge-reuma">Reumatologia</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="cols cols-2">
+          <div class="col-box bg-reuma-light">
+            <h4 class="text-reuma">Confirmação e estratificação <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Confirma diagnóstico (ACR/EULAR 2010 + julgamento clínico) e avalia mau prognóstico</li>
+              <li>Estratifica atividade com índice composto (ICAD): DAS28, CDAI ou SDAI — manter o mesmo índice no seguimento</li>
+              <li>Avalia capacidade funcional (HAQ-DI) ao menos anualmente</li>
+              <li>Pactua a meta: remissão sustentada (preferencial) ou baixa atividade</li>
+              <li>Define/ajusta csDMARD (MTX 1ª linha) e o plano de escalonamento</li>
+            </ul>
+          </div>
+          <div class="col-box bg-gray-light">
+            <h4>Contrarreferência qualificada ao Clínico <span class="source-tag src-arpen">ARPEN</span></h4>
+            <ul>
+              <li>Diagnóstico confirmado (CID M05/M06) e índice de atividade na data</li>
+              <li>Plano farmacológico: fármaco, dose, via, frequência</li>
+              <li>Monitorização laboratorial a cargo do CM nos intervalos</li>
+              <li>Sinais de reativação e critérios de retorno ao especialista</li>
+              <li>Nível de cuidado de seguimento (N3 compartilhado ou N4 especialista)</li>
+            </ul>
+          </div>
+        </div>
+        <div style="font-weight:700;font-size:.82rem;color:#2c5282;margin-top:16px">Pontos de corte dos índices de atividade <span class="source-tag src-pdf">PDF SC</span></div>
+        <table class="data-table">
+          <thead><tr><th>Índice</th><th>Remissão</th><th>Baixa atividade</th><th>Atividade moderada</th><th>Alta atividade</th></tr></thead>
+          <tbody>
+            <tr><td class="row-head">DAS28 (VHS/PCR)</td><td>≤ 2,6</td><td>&gt; 2,6 – 3,2</td><td>&gt; 3,2 – 5,1</td><td>&gt; 5,1</td></tr>
+            <tr><td class="row-head">CDAI</td><td>≤ 2,8</td><td>&gt; 2,8 – 10</td><td>&gt; 10 – 22</td><td>&gt; 22</td></tr>
+            <tr><td class="row-head">SDAI</td><td>≤ 3,3</td><td>&gt; 3,3 – 11</td><td>&gt; 11 – 26</td><td>&gt; 26</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <!-- ESTÁGIO 2 -->
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-reuma">2</div>
+        <div><div class="stage-title">Condução Ativa e Escalonamento Terapêutico</div>
+        <div class="stage-subtitle">Treat-to-target · reavaliação de atividade a cada 1–3 meses · escalonar diante de falha</div></div>
+        <span class="stage-badge badge-reuma">Reumatologia</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="cols cols-2">
+          <div class="col-box bg-reuma-light">
+            <h4 class="text-reuma">Condução da doença ativa <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Reavalia atividade a cada 1–3 meses; escalona diante de falha</li>
+              <li>Progride no algoritmo: MTX → combinação csDMARD → bDMARD → JAK → troca (ver aba Escalonamento)</li>
+              <li>Solicita rastreamento pré-biológico e submete autorização à auditoria (DUT 65.1)</li>
+              <li>Maneja manifestações extra-articulares e ajusta conforme comorbidades</li>
+            </ul>
+          </div>
+          <div class="col-box bg-gray-light">
+            <h4>Definição de falha terapêutica <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Ausência de melhora relevante em até 3 meses do início/otimização</li>
+              <li>Não obtenção da meta pactuada em até 6 meses de tratamento otimizado</li>
+              <li>Nenhuma troca de linha em intervalo inferior, exceto toxicidade inaceitável</li>
+              <li>Também caracterizam falha: intolerância, reação adversa não controlável, não adesão</li>
+            </ul>
+          </div>
+        </div>
+        <div class="warn-box"><strong>🔄 Ciclo treat-to-target:</strong> a cada reavaliação existe uma pergunta ativa — "a meta terapêutica está atingida e sustentada, ou é preciso escalonar mais um ciclo?". A condução da doença é do reumatologista; o Clínico co-gerencia segurança e comorbidades em paralelo (ver aba Cuidado Compartilhado).</div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <!-- ESTÁGIO 3 -->
+    <div class="stage open">
+      <div class="stage-header" onclick="toggleStage(this)">
+        <div class="stage-num c-reuma">3</div>
+        <div><div class="stage-title">Remissão Sustentada — Espaçamento e Co-gestão</div>
+        <div class="stage-subtitle">Não há alta definitiva: doença crônica com terapia contínua · vínculo mantido com espaçamento</div></div>
+        <span class="stage-badge badge-reuma">Reumatologia</span>
+        <span class="stage-chevron">▼</span>
+      </div>
+      <div class="stage-body">
+        <div class="cols cols-2">
+          <div class="col-box bg-reuma-light">
+            <h4 class="text-reuma">Ao atingir e sustentar a meta <span class="source-tag src-pdf">PDF SC</span></h4>
+            <ul>
+              <li>Espaçar consultas de reavaliação para 6–12 meses (sem prejuízo da monitorização de segurança)</li>
+              <li>Remissão sustentada por ≥ 6–12 meses → considerar redução gradual do bDMARD/tsDMARD, mantendo os csDMARDs</li>
+              <li>Retirada individualizada e compartilhada com o paciente</li>
+              <li>Reintroduzir o esquema anterior em caso de reativação</li>
+            </ul>
+          </div>
+          <div class="col-box bg-clinico-light">
+            <h4 class="text-clinico">O que passa a ser co-gerido pelo Clínico <span class="source-tag src-arpen">ARPEN</span></h4>
+            <ul>
+              <li>Continuidade de prescrição em fase estável, conforme plano do especialista</li>
+              <li>Monitorização laboratorial de segurança nos intervalos</li>
+              <li>Manejo intensivo do risco cardiovascular e comorbidades</li>
+              <li>Vigilância de infecções e adesão; calendário vacinal</li>
+              <li>Reconhecer reativação e reencaminhar sem demora</li>
+            </ul>
+          </div>
+        </div>
+        <div class="success-box"><strong>Vínculo longitudinal:</strong> na AR o reumatologista permanece como coordenador da doença, com consultas espaçadas na remissão. O Clínico é o co-gestor permanente que sustenta a segurança do tratamento e a saúde global do paciente entre as consultas especializadas.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════ TAB: CUIDADO COMPARTILHADO ══════════════════ -->
+<div id="view-mista" class="view">
+  <div class="intro-box">
+    <strong>Jornada Mista — Modelo Cíclico Especialista-liderado</strong> <span class="source-tag src-arpen">ARPEN</span> — Princípio: <strong>um responsável por fase</strong>. O Clínico é a porta de entrada; o Reumatologista assume a condução da doença; e o ciclo alterna entre <strong>doença ativa</strong> (reumato intensivo, treat-to-target) e <strong>remissão sustentada</strong> (consultas espaçadas + co-gestão do Clínico). Não há alta definitiva: o vínculo com a Reumatologia é permanente, apenas com intensidade variável.
+  </div>
+
+  <div class="seq-flow">
+
+    <!-- FASE 1: CLÍNICO -->
+    <div class="seq-step">
+      <div class="seq-num" style="background:#2b7a4b;">1</div>
+      <div class="seq-body" style="background:#f0fff4; border-left:3px solid #2b7a4b;">
+        <span class="seq-actor-badge" style="background:#2b7a4b;">🟢 CLÍNICO GERAL — porta de entrada</span>
+        <div class="seq-title">Reconhecimento, Ponte e Encaminhamento</div>
+        <ul>
+          <li>Reconhece sinovite de pequenas articulações, simétrica, aditiva, com rigidez matinal &gt; 30–60 min</li>
+          <li>Solicita FR, anti-CCP, VHS, PCR, RX de mãos/punhos/pés + hemograma, transaminases, creatinina</li>
+          <li>Quando seguro, inicia MTX de ponte + ácido fólico (exceto citopenias, transaminases &gt; LSN, TFG &lt; 60)</li>
+          <li>Encaminha à Reumatologia com informações mínimas e pergunta clínica</li>
+        </ul>
+        <div class="seq-note">⏱ Janela de oportunidade: sintomas &lt; 6 meses = encaminhamento prioritário. O reumatologista confirmará o diagnóstico e assumirá a condução; o Clínico não conduz o DMARD isoladamente.</div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <!-- FASE 2: REUMATO -->
+    <div class="seq-step">
+      <div class="seq-num" style="background:#2c5282;">2</div>
+      <div class="seq-body" style="background:#ebf4ff; border-left:3px solid #2c5282;">
+        <span class="seq-actor-badge" style="background:#2c5282;">🔵 REUMATOLOGIA — único responsável nesta fase</span>
+        <div class="seq-title">1ª Consulta — Confirmação Diagnóstica e Plano</div>
+        <ul>
+          <li>Confirma diagnóstico (ACR/EULAR 2010) e avalia mau prognóstico</li>
+          <li>Estratifica atividade (DAS28/CDAI/SDAI) e pactua a meta (treat-to-target)</li>
+          <li>Define/ajusta csDMARD (MTX 1ª linha) e o plano de escalonamento</li>
+          <li>Emite contrarreferência qualificada: diagnóstico + índice + plano + monitorização + sinais de retorno</li>
+        </ul>
+        <div class="seq-note">📄 Confirmação diagnóstica e indicação/troca de DMARD, bDMARD e JAK são exclusivas do reumatologista.</div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <!-- CICLO ATIVO -->
+    <div class="cycle-wrapper">
+      <div class="cycle-label">🔄 CICLO TREAT-TO-TARGET — repete até meta sustentada</div>
+
+      <div class="seq-step">
+        <div class="seq-num" style="background:#2c5282;">3</div>
+        <div class="seq-body" style="background:#ebf4ff; border-left:3px solid #2c5282;">
+          <span class="seq-actor-badge" style="background:#2c5282;">🔵 REUMATOLOGIA — conduz a doença</span>
+          <div class="seq-title">Condução Ativa e Escalonamento</div>
+          <ul>
+            <li>Reavalia atividade a cada 1–3 meses; escalona diante de falha (3 e 6 meses)</li>
+            <li>Progride no algoritmo: MTX → combinação csDMARD → bDMARD → JAK → troca</li>
+            <li>Solicita rastreamento pré-biológico e submete autorização à auditoria (DUT 65.1)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="seq-step">
+        <div class="seq-num" style="background:#2b7a4b;">3'</div>
+        <div class="seq-body" style="background:#f0fff4; border-left:3px solid #2b7a4b;">
+          <span class="seq-actor-badge" style="background:#2b7a4b;">🟢 CLÍNICO — co-gestão simultânea</span>
+          <div class="seq-title">Sustenta a segurança em paralelo (sem conduzir o DMARD)</div>
+          <ul>
+            <li>Coleta e lê hemograma, transaminases e creatinina nos intervalos; vigia toxicidade</li>
+            <li>Maneja risco cardiovascular e comorbidades; reforça cessação do tabagismo</li>
+            <li>Atualiza calendário vacinal e vigia infecções em imunossuprimido</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="decision-header">🔀 Ponto de decisão — a meta terapêutica está atingida e sustentada?</div>
+      <div class="decision-branches">
+        <div class="branch-yes">
+          <strong>SIM → Remissão sustentada</strong>
+          Espaçar consultas do reumatologista para 6–12 meses. Considerar redução gradual do bDMARD/tsDMARD (manter csDMARD). Passa à fase de co-gestão do Clínico. <span class="pill pill-y">N3</span>
+        </div>
+        <div class="branch-no">
+          <strong>NÃO → Novo ciclo</strong>
+          Escalonar mais uma etapa do algoritmo (falha em 3–6 meses). A Reumatologia mantém a condução intensiva. <span class="pill pill-b">N4</span>
+          <div class="loop-back">↺ Retorna ao ciclo treat-to-target</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <!-- FASE 4: REMISSÃO / CO-GESTÃO -->
+    <div class="seq-step">
+      <div class="seq-num" style="background:#d69e2e;">4</div>
+      <div class="seq-body" style="background:#fffbeb; border-left:3px solid #d69e2e;">
+        <span class="seq-actor-badge" style="background:#d69e2e;">🟡 COMPARTILHADO — remissão sustentada</span>
+        <div class="seq-title">Espaçamento com Co-gestão Permanente</div>
+        <ul>
+          <li>Reumatologia: reavaliação espaçada (6–12 meses); ajusta terapia em caso de reativação</li>
+          <li>Clínico: continuidade de prescrição em fase estável, monitorização de segurança, comorbidades e vacinação</li>
+          <li>Sem alta definitiva — vínculo permanente com a Reumatologia</li>
+        </ul>
+        <div class="loop-back" style="background:#fff5f5;color:#9b2c2c">🚨 Reativação (piora de sinovite, ↑ rigidez matinal, novo edema articular) → o Clínico reencaminha sem demora e o ciclo retorna à condução ativa</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="font-weight:700;font-size:.9rem;color:#2d3748;margin:26px 0 4px">Periodicidade calibrada por fase (N3 e N4) <span class="source-tag src-arpen">ARPEN</span></div>
+  <table class="data-table">
+    <thead><tr><th>Fase da doença</th><th>Reavaliação de atividade (Reumatologia)</th><th>Monitorização laboratorial (executada/lida pelo CM)</th><th>Consulta do CM</th></tr></thead>
+    <tbody>
+      <tr><td class="row-head"><span class="pill pill-b">N4</span> Doença ativa (moderada/alta)</td><td>A cada 1–3 meses</td><td>csDMARD/bDMARD/JAK: a cada 2–4 semanas nos primeiros 3 meses; depois 8–12 semanas</td><td>Conforme comorbidades; suporte à segurança</td></tr>
+      <tr><td class="row-head"><span class="pill pill-y">N3</span> Estável em csDMARD / baixa atividade</td><td>Trimestral</td><td>A cada 12 semanas (hemograma, transaminases, creatinina)</td><td>Bimestral (monitorização + comorbidades + risco CV)</td></tr>
+      <tr><td class="row-head"><span class="pill pill-y">N3</span> Remissão sustentada (≥ 6–12 meses)</td><td>Espaçada: 6–12 meses</td><td>A cada 12 semanas (mantida mesmo com consulta espaçada)</td><td>Trimestral; co-gestor de segurança e comorbidades</td></tr>
+    </tbody>
+  </table>
+  <div class="warn-box"><strong>Ponto central da co-gestão:</strong> a reavaliação clínica pode espaçar na remissão, mas a monitorização de segurança laboratorial não acompanha esse espaçamento enquanto o paciente mantém DMARD. Entre as consultas espaçadas do reumatologista, é o Clínico quem sustenta a vigilância de segurança.</div>
+</div>
+
+<!-- ══════════════════ TAB: ESCALONAMENTO TERAPÊUTICO ══════════════════ -->
+<div id="view-rx" class="view">
+  <div class="intro-box">
+    <strong>Algoritmo Terapêutico — estratégia sequencial e escalonada (treat-to-target)</strong> <span class="source-tag src-pdf">PDF SC</span> — Reavaliação de atividade a cada consulta e ajuste sistemático diante de falha. Meta primária: remissão clínica sustentada; alternativa aceitável: baixa atividade. <strong>Toda indicação, troca e associação de DMARD, bDMARD e JAK é exclusiva do reumatologista.</strong>
+  </div>
+
+  <div class="rx-grid">
+
+    <div class="rx-card">
+      <div class="rx-card-header" style="background:#2b7a4b">1ª linha / 1ª etapa — csDMARD</div>
+      <div class="rx-card-body">
+        <div class="rx-drug">
+          <div class="rx-drug-name">Metotrexato (MTX) — 1ª escolha</div>
+          <ul class="rx-drug-detail">
+            <li>VO/SC, 7,5–25 mg 1×/semana</li>
+            <li>Ácido fólico 5 mg 1×/semana no dia seguinte à dose</li>
+            <li>Contraindicações: gestação/amamentação/concepção, hepatopatia ativa, infecção ativa, TFG &lt; 30</li>
+          </ul>
+        </div>
+        <div class="rx-or">— alternativas de 1ª linha (toxicidade/intolerância/contraindicação ao MTX) —</div>
+        <div class="rx-drug">
+          <div class="rx-drug-name">Leflunomida · Sulfassalazina · Hidroxicloroquina</div>
+          <ul class="rx-drug-detail">
+            <li>Leflunomida 20 mg/dia VO · Sulfassalazina 1–3 g/dia</li>
+            <li>Hidroxicloroquina 400 mg/dia — reservada a quadros de menor gravidade</li>
+          </ul>
+        </div>
+        <div class="rx-warn">O uso de bDMARD ou JAK não é indicado nesta etapa inicial</div>
+      </div>
+    </div>
+
+    <div class="rx-card">
+      <div class="rx-card-header" style="background:#2c5282">2ª linha / 1ª etapa — combinação de csDMARD</div>
+      <div class="rx-card-body">
+        <div class="rx-drug">
+          <div class="rx-drug-name">Terapia combinada (após falha à monoterapia ≥ 3 meses)</div>
+          <ul class="rx-drug-detail">
+            <li>MTX + leflunomida* · MTX + hidroxicloroquina · MTX + sulfassalazina</li>
+            <li>* Reservada a boa função hepática (hepatotoxicidade sobreposta); monitorização hepática mais frequente</li>
+            <li>Se MTX contraindicado: leflunomida + hidroxicloroquina ou sulfassalazina</li>
+          </ul>
+        </div>
+        <div class="rx-warn">Falha terapêutica = ausência de melhora em 3 meses ou meta não atingida em 6 meses de tratamento otimizado</div>
+      </div>
+    </div>
+
+    <div class="rx-card">
+      <div class="rx-card-header" style="background:#6b46c1">2ª etapa — bDMARD (biológicos)</div>
+      <div class="rx-card-body">
+        <div class="rx-drug">
+          <div class="rx-drug-name">Anti-TNF</div>
+          <ul class="rx-drug-detail">
+            <li>Adalimumabe 40 mg SC/2 sem · Etanercepte 50 mg SC/sem · Golimumabe 50 mg SC/4 sem</li>
+            <li>Certolizumabe pegol · Infliximabe 3 mg/kg IV (0, 2, 6 sem; manutenção 8/8 sem)</li>
+            <li>Associar a csDMARD (preferencialmente MTX)</li>
+          </ul>
+        </div>
+        <div class="rx-or">— não anti-TNF —</div>
+        <div class="rx-drug">
+          <div class="rx-drug-name">Abatacepte · Tocilizumabe · Rituximabe</div>
+          <ul class="rx-drug-detail">
+            <li>Abatacepte 125 mg SC/sem · Tocilizumabe 8 mg/kg IV/4 sem · Rituximabe 1.000 mg (D0 e D14), ciclos/6 meses</li>
+            <li>Tocilizumabe e abatacepte podem ser usados em monoterapia se contraindicação a csDMARD</li>
+            <li>Rituximabe: 1ª escolha entre bDMARD em DPI associada à AR de gravidade relevante</li>
+          </ul>
+        </div>
+        <div class="rx-warn">Critério: falha a ≥ 2 esquemas de csDMARD (≥ 3 meses cada, dose otimizada)</div>
+      </div>
+    </div>
+
+    <div class="rx-card">
+      <div class="rx-card-header" style="background:#b7791f">2ª etapa — JAK inibidores (tsDMARD) e 3ª etapa</div>
+      <div class="rx-card-body">
+        <div class="rx-drug">
+          <div class="rx-drug-name">JAK inibidores (VO)</div>
+          <ul class="rx-drug-detail">
+            <li>Baricitinibe 4 mg/dia (2 mg se &gt; 75 anos, DRC ou remissão) · Tofacitinibe 5 mg 12/12h · Upadacitinibe 15 mg/dia</li>
+            <li>Vantagem: via oral, dispensa refrigeração</li>
+          </ul>
+        </div>
+        <div class="rx-drug">
+          <div class="rx-drug-name" style="color:#c53030">⚠️ Alerta de segurança de classe</div>
+          <ul class="rx-drug-detail">
+            <li>Avaliar risco cardiovascular, tromboembólico e neoplásico antes de prescrever</li>
+            <li>Cautela especial em ≥ 65 anos, tabagistas ou fatores de risco CV/tromboembólico prévios</li>
+          </ul>
+        </div>
+        <div class="rx-or">— 3ª etapa —</div>
+        <div class="rx-drug">
+          <div class="rx-drug-name">Troca entre bDMARD/tsDMARD</div>
+          <ul class="rx-drug-detail">
+            <li>Após falha na 2ª etapa: trocar por outro bDMARD ou JAK ainda não utilizado</li>
+            <li>Falha a um anti-TNF → outro anti-TNF ou mecanismo distinto (sem preferência estabelecida)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:24px">
+    <div style="font-weight:700;font-size:.9rem;color:#2d3748;margin-bottom:14px">Monitorização, contraindicações e cobertura <span class="source-tag src-pdf">PDF SC</span></div>
+    <div class="rules-grid">
+      <div class="rules-card" style="border-top:3px solid #2b7a4b">
+        <h4 style="color:#2b7a4b">Monitorização laboratorial de rotina</h4>
+        <ul>
+          <li>MTX, leflunomida, sulfassalazina: a cada 2–4 sem (até 3 meses), depois 8–12 sem, depois 12 sem</li>
+          <li>bDMARD e tsDMARD: mesma cadência (2–4 sem → 8–12 sem → 12 sem)</li>
+          <li>Hidroxicloroquina/cloroquina: avaliação inicial; depois não rotineira</li>
+          <li>Antes de bDMARD/tsDMARD: TB ativa e latente (RX tórax, IGRA), hepatites B e C, vacinal</li>
+          <li>Tratar ILTB ≥ 4 semanas antes de iniciar o biológico/JAK</li>
+        </ul>
+      </div>
+      <div class="rules-card" style="border-top:3px solid #c53030">
+        <h4 style="color:#c53030">Contraindicações-chave dos bDMARD</h4>
+        <ul>
+          <li>Infecção ativa não controlada / TB não tratada (todas as classes)</li>
+          <li>IC classes III/IV e doença desmielinizante → evitar anti-TNF</li>
+          <li>Neoplasia em atividade ou &lt; 5 anos (exceto CBC tratado)</li>
+          <li>DPI associada à AR grave → evitar anti-TNF; preferir rituximabe/tocilizumabe</li>
+          <li>Hepatite B ativa / contato prévio (rituximabe → antiviral preemptivo)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="warn-box" style="margin-top:14px"><strong>Cobertura (DUT 65.1 / ANS) <span class="source-tag src-pdf">PDF SC</span>:</strong> a DUT 65.1 é o piso de cobertura obrigatória dos bDMARD (imunobiológicos EV/IM/SC). Critérios: diagnóstico de AR, atividade documentada (DAS28 &gt; 3,2 · CDAI &gt; 10 · SDAI &gt; 11) e falha a ≥ 2 csDMARD. Os JAK (VO) não integram a DUT 65.1: solicitação individualizada à auditoria (registro ANVISA, Tema 990/STJ, Lei 14.454/2022 — Rol exemplificativo). A sequência do algoritmo vale para todos os pacientes, independentemente da fonte pagadora.</div>
+  </div>
+</div>
+
+<!-- ══════════════════ TAB: MATRIZ E INDICADORES ══════════════════ -->
+<div id="view-matriz" class="view">
+  <div class="intro-box">
+    <strong>Matriz de Responsabilidade e Indicadores</strong> — Síntese de quem faz o quê em cada domínio, no modelo especialista-liderado com co-gestão do Clínico, conforme o Protocolo São Cristóvão e a contribuição operacional Arpen.
+  </div>
+
+  <table class="summary-table">
+    <thead>
+      <tr>
+        <th style="width:16%">Domínio</th>
+        <th style="width:29%">🟢 Clínico Geral <span class="source-tag src-arpen" style="font-size:.65rem">ARPEN</span></th>
+        <th style="width:29%">🔵 Reumatologia <span class="source-tag src-pdf" style="font-size:.65rem">PDF SC</span></th>
+        <th style="width:26%">🟣 Equipe multiprofissional</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Reconhecimento / diagnóstico</strong></td><td>Reconhecer suspeita precoce (janela &lt; 6 meses); solicitar FR, anti-CCP, VHS, PCR, RX; encaminhar</td><td>Confirmar diagnóstico (ACR/EULAR 2010); excluir diferenciais; avaliar mau prognóstico</td><td>—</td></tr>
+      <tr><td><strong>Início do tratamento</strong></td><td>Iniciar MTX de ponte quando seguro (+ ácido fólico); AINE/corticoide de ponte curto</td><td>Definir e escalonar csDMARD → bDMARD → JAK (treat-to-target); indicação exclusiva</td><td>Farmácia: dispensação de csDMARD/bDMARD/tsDMARD; centro de infusão (EV)</td></tr>
+      <tr><td><strong>Estratificação de atividade</strong></td><td>—</td><td>Aplicar e manter DAS28/CDAI/SDAI; HAQ-DI anual; definir metas</td><td>—</td></tr>
+      <tr><td><strong>Monitorização de segurança</strong></td><td>Coletar/ler hemograma, transaminases, creatinina nos intervalos; vigiar toxicidade</td><td>Definir cronograma; interpretar no contexto do escalonamento; ajustar terapia</td><td>Laboratório e assistência farmacêutica: apoio à monitorização</td></tr>
+      <tr><td><strong>Comorbidades e risco CV</strong></td><td>Manejar HAS, DM, dislipidemia, obesidade; cessação do tabagismo — a AR eleva o risco CV</td><td>Rastreamento de comorbidades e osteoporose; considerar impacto na escolha terapêutica</td><td>Nutrição: controle de peso e comorbidade metabólica</td></tr>
+      <tr><td><strong>Vacinação / infecções</strong></td><td>Atualizar calendário vacinal antes de bDMARD/tsDMARD; vigiar infecções</td><td>Rastreamento pré-biológico (TB, hepatites); conduzir profilaxias</td><td>Enfermagem: educação e apoio vacinal</td></tr>
+      <tr><td><strong>Autorização de biológicos</strong></td><td>—</td><td>Submeter à auditoria (DUT 65.1); documentar critérios; conduzir via JAK/fora do Rol</td><td>Auditoria/regulação do convênio: análise de cobertura</td></tr>
+      <tr><td><strong>Reabilitação e suporte</strong></td><td>Acionar fisioterapia/TO/psicologia conforme incapacidade</td><td>Indicar suporte multiprofissional; conduzir manifestações extra-articulares</td><td>Fisioterapia, TO, psicologia: função, dor, adaptação, órteses em casos avançados</td></tr>
+      <tr><td><strong>Vínculo longitudinal</strong></td><td>Co-gestor permanente — segurança, comorbidades e saúde global entre consultas</td><td>Coordenador da doença — consultas espaçadas na remissão; sem alta definitiva</td><td>Suporte pontual/programado; alta ao atingir objetivos específicos</td></tr>
+      <tr><td><strong>Reativação / urgência</strong></td><td>Reconhecer reativação e sinais graves; reencaminhar ou acionar PA</td><td>Reavaliar prioritariamente; manejar manifestações graves; ajustar terapia</td><td>—</td></tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:28px;font-weight:700;font-size:.9rem;color:#2d3748;margin-bottom:12px">Indicadores de Monitoramento do Protocolo <span class="source-tag src-arpen">ARPEN</span></div>
+  <div class="ind-grid">
+    <div class="ind-card" style="border-top:3px solid #2b7a4b">
+      <h4 style="color:#2b7a4b">Processo / Acesso</h4>
+      <ul>
+        <li>Tempo entre suspeita pelo Clínico e 1ª consulta na Reumatologia</li>
+        <li>% encaminhamentos dentro da janela de oportunidade (&lt; 6 meses)</li>
+        <li>% encaminhamentos com informações mínimas completas</li>
+        <li>% pacientes com MTX de ponte iniciado quando elegível</li>
+        <li>% pacientes com índice de atividade registrado na 1ª consulta</li>
+      </ul>
+    </div>
+    <div class="ind-card" style="border-top:3px solid #c53030">
+      <h4 style="color:#c53030">Qualidade e Segurança</h4>
+      <ul>
+        <li>% pacientes com monitorização laboratorial em dia</li>
+        <li>% pacientes com rastreamento pré-biológico completo (TB, hepatites)</li>
+        <li>% pacientes com calendário vacinal atualizado antes de imunossupressor</li>
+        <li>Taxa de eventos adversos graves / infecções relacionadas ao tratamento</li>
+        <li>% autorizações de bDMARD dentro da DUT 65.1</li>
+      </ul>
+    </div>
+    <div class="ind-card" style="border-top:3px solid #2c5282">
+      <h4 style="color:#2c5282">Resultados</h4>
+      <ul>
+        <li>% pacientes em remissão ou baixa atividade em 6 e 12 meses</li>
+        <li>Tempo médio até atingir a meta terapêutica</li>
+        <li>% pacientes com redução de bDMARD/tsDMARD por remissão sustentada</li>
+        <li>Taxa de reativação após espaçamento</li>
+        <li>Capacidade funcional (HAQ-DI) ao longo do seguimento</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top:28px;padding-top:14px;border-top:1px solid #dce6ef;font-size:.72rem;color:#718096;line-height:1.6">
+    Jornada v2 — 2026-09-09 · Arpen — Projeto São Cristóvão · Linha de Cuidado: Artrite Reumatoide (CID M05/M06). Substitui a v1 (arquivada). Fonte clínica: Protocolo de Artrite Reumatoide (Sabrina Zanardi Machado, jul/2026). Fontes de governança: Protocolo de Referência/Contrarreferência CM↔Especialidade e Classificação de CIDs por Complexidade (criterios_assistenciais/). Status: rascunho para validação clínica dos coordenadores de Clínica Médica e Reumatologia.
+  </div>
+</div>
+
+</main>
+
+<script>
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+function toggleStage(header) {
+  header.parentElement.classList.toggle('open');
+}
+</script>
+</body>
+</html>
