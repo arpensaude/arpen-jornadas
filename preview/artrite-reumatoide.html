@@ -152,7 +152,7 @@ main { padding: 28px 40px 60px; }
     <span class="hbadge">Protocolo SC — Jul/2026</span>
     <span class="hbadge">EULAR 2022/2025 · ACR/EULAR 2010</span>
     <span class="hbadge">PCDT MS 2026 · DUT 65.1 (ANS)</span>
-    <span class="hbadge">Jornada v2 — Arpen</span>
+    <span class="hbadge">Jornada v3 — Arpen</span>
   </div>
 </header>
 
@@ -179,7 +179,7 @@ main { padding: 28px 40px 60px; }
 <!-- ══════════════════ TAB: JORNADA DO CLÍNICO ══════════════════ -->
 <div id="view-clinico" class="view active">
   <div class="intro-box">
-    <strong>Trilha do Clínico Geral — a Porta de Entrada</strong> <span class="source-tag src-arpen">ARPEN</span> — Diferentemente da Fibromialgia, na Artrite Reumatoide o <strong>reumatologista é o coordenador longitudinal da doença</strong>: confirmação diagnóstica, indicação e troca de DMARD, biológico e JAK são de responsabilidade <strong>exclusiva do especialista</strong>. O papel do Clínico é decisivo e tem três pilares: <strong>(1)</strong> reconhecer o quadro suspeito dentro da "janela de oportunidade" (sintomas &lt; 6 meses); <strong>(2)</strong> encaminhar com agilidade e qualidade; <strong>(3)</strong> quando seguro, iniciar metotrexato de ponte enquanto o paciente aguarda a consulta especializada. Depois, o Clínico permanece como co-gestor de segurança, comorbidades e vacinação.
+    <strong>Trilha do Clínico Geral — a Porta de Entrada</strong> <span class="source-tag src-arpen">ARPEN</span> — Diferentemente da Fibromialgia, na Artrite Reumatoide o <strong>reumatologista é o coordenador longitudinal da doença</strong>: confirmação diagnóstica, indicação e troca de DMARD, biológico e JAK são de responsabilidade <strong>exclusiva do especialista</strong>. O papel do Clínico é decisivo e tem três pilares: <strong>(1)</strong> reconhecer o quadro suspeito dentro da "janela de oportunidade" (sintomas &lt; 6 meses); <strong>(2)</strong> encaminhar com agilidade e qualidade; <strong>(3)</strong> garantir o encaminhamento dentro do <strong>prazo pactuado de 14 dias</strong>, com os exames de base já solicitados, para que a primeira consulta especializada seja resolutiva. <strong>O tratamento modificador da doença é exclusivo do reumatologista: o Clínico não inicia metotrexato nem qualquer DMARD.</strong> Depois, o Clínico permanece como co-gestor de segurança, comorbidades e vacinação.
   </div>
 
   <div class="stage-grid">
@@ -213,7 +213,7 @@ main { padding: 28px 40px 60px; }
               <li>Manifestações extra-articulares (nódulos, olho seco, sintomas pulmonares)</li>
               <li>Tabagismo, história familiar de AR</li>
               <li>Comorbidades e medicamentos em uso</li>
-              <li>Função renal e hepática de base (orienta a ponte terapêutica)</li>
+              <li>Função renal e hepática de base (linha de base para o início do DMARD pela Reumatologia)</li>
             </ul>
           </div>
         </div>
@@ -244,7 +244,7 @@ main { padding: 28px 40px 60px; }
               <li>Anti-CCP — sensib. ~75%, espec. ~95%; útil quando FR negativo</li>
               <li>VHS e PCR — provas de atividade inflamatória</li>
               <li>Radiografia de mãos, punhos e pés — baixo custo; útil como linha de base</li>
-              <li>Hemograma, transaminases (TGO/TGP) e creatinina — indispensáveis se pretende iniciar MTX</li>
+              <li>Hemograma, transaminases (TGO/TGP) e creatinina — <strong>linha de base obrigatória</strong>: permitem que o reumatologista inicie o DMARD já na 1ª consulta, evitando uma consulta adicional apenas para solicitar exames</li>
               <li>USG com Doppler / RM — maior sensibilidade; reservadas a dúvida diagnóstica</li>
             </ul>
           </div>
@@ -269,38 +269,38 @@ main { padding: 28px 40px 60px; }
     <div class="stage open">
       <div class="stage-header" onclick="toggleStage(this)">
         <div class="stage-num c-clinico">2</div>
-        <div><div class="stage-title">Ponte Terapêutica pelo Clínico — Metotrexato "enquanto aguarda"</div>
-        <div class="stage-subtitle">Opcional e condicionada à segurança · não substitui a avaliação especializada</div></div>
-        <span class="stage-badge badge-clinico">Clínico → Reumato</span>
+        <div><div class="stage-title">Manejo Sintomático Enquanto Aguarda a Reumatologia</div>
+        <div class="stage-subtitle">Controle de dor e inflamação por curto prazo · DMARD é exclusivo do especialista</div></div>
+        <span class="stage-badge badge-clinico">Clínico</span>
         <span class="stage-chevron">▼</span>
       </div>
       <div class="stage-body">
-        <div class="warn-box">⚠️ Quando o médico assistente não especialista identificar quadro sugestivo de AR, pode-se iniciar metotrexato (MTX) enquanto o paciente aguarda avaliação especializada — medida para não perder a janela de oportunidade. A confirmação diagnóstica e todo o escalonamento subsequente permanecem exclusivos do reumatologista.</div>
+        <div class="decision-box">
+          <strong>⚠️ Regra de governança — decisão da coordenação (14/09/2026)</strong> <span class="source-tag src-arpen">ARPEN</span>
+          O tratamento modificador da doença é <strong>exclusivo da Reumatologia</strong>. A Clínica Médica não inicia metotrexato nem qualquer DMARD, ainda que o quadro seja típico e os exames estejam normais. O papel da Clínica Médica é reconhecer, investigar, tratar sintomas por curto prazo e encaminhar dentro do prazo pactuado.
+        </div>
         <div class="cols cols-2">
           <div class="col-box bg-clinico-light">
-            <h4 class="text-clinico">Como iniciar o MTX de ponte <span class="source-tag src-pdf">PDF SC</span></h4>
+            <h4 class="text-clinico">Permitido ao Clínico <span class="source-tag src-arpen">ARPEN</span></h4>
             <ul>
-              <li>Metotrexato VO/SC, 7,5–25 mg 1×/semana (iniciar em dose baixa e titular)</li>
-              <li>Ácido fólico 5 mg, 1×/semana, no dia seguinte à dose do MTX</li>
-              <li>Solicitar hemograma, transaminases e creatinina antes de iniciar</li>
-              <li>Se intolerância à via oral: fracionar dose ou considerar via subcutânea</li>
+              <li>AINE na menor dose eficaz e pelo menor tempo possível</li>
+              <li>Glicocorticoide em baixa dose (≤ 10 mg/dia de prednisona), por período curto (&lt; 3 meses) e com redução programada</li>
+              <li>Analgesia simples e orientação de proteção articular</li>
+              <li>Solicitação dos exames de base (hemograma, transaminases, creatinina) para a 1ª consulta especializada</li>
             </ul>
           </div>
           <div class="col-box" style="background:#fff5f5">
-            <h4 style="color:#c53030">🚫 NÃO iniciar MTX de ponte se <span class="source-tag src-pdf">PDF SC</span></h4>
+            <h4 style="color:#c53030">🚫 Exclusivo da Reumatologia <span class="source-tag src-pdf">PDF SC</span></h4>
             <ul>
-              <li>Citopenias isoladas ou combinadas</li>
-              <li>Transaminases acima do limite superior da normalidade</li>
-              <li>Doença renal crônica com TFG &lt; 60 mL/min/1,73 m²</li>
-              <li>Contraindicações gerais ao MTX: gestação, amamentação e tentativa de concepção (homens e mulheres), hepatopatia ativa, infecção ativa não tratada, TFG &lt; 30</li>
+              <li>Metotrexato e demais csDMARD (leflunomida, sulfassalazina, hidroxicloroquina)</li>
+              <li>Biológicos (bDMARD) e inibidores de JAK</li>
+              <li>Combinações e escalonamento terapêutico</li>
+              <li>Corticoide em dose alta ou uso prolongado</li>
             </ul>
           </div>
         </div>
-        <div class="decision-box">
-          <strong>⚠️ Regra de governança — delegação condicionada</strong> <span class="source-tag src-arpen">ARPEN</span>
-          O MTX de ponte é uma delegação de imunossupressor a um não especialista. Tratar como <strong>delegação condicionada</strong>, não conduta padrão: checklist de segurança obrigatório, exames de base antes de prescrever, ácido fólico e canal de apoio matricial ativo com a Reumatologia. <em>Decisão pendente dos coordenadores: adotar como opção disponível ao CM ou reservar a casos discutidos previamente por apoio matricial.</em>
-        </div>
-        <div class="warn-box">Tratamento sintomático de ponte (curto prazo): AINE na menor dose e pelo menor tempo possível; glicocorticoide em baixa dose (≤ 10 mg/dia de prednisona) por &lt; 3 meses, reduzido assim que possível. Uso crônico de AINE/corticoide sinaliza controle inadequado — o controle definitivo é com DMARD, sob condução do reumatologista.</div>
+        <div class="warn-box"><strong>⏱ Se a 1ª consulta ultrapassar 14 dias:</strong> o Clínico aciona a coordenação da Reumatologia para que o especialista defina o início do tratamento, de forma remota ou por encaixe. A janela de oportunidade não pode ser perdida por fila de agenda, e a solução é acionar o especialista, nunca prescrever DMARD pela Clínica Médica.</div>
+        <div class="warn-box">Uso crônico de AINE ou corticoide sinaliza controle inadequado e atraso de acesso. O controle definitivo é com DMARD, sob condução do reumatologista.</div>
       </div>
     </div>
 
@@ -324,7 +324,7 @@ main { padding: 28px 40px 60px; }
               <li>Resultados de FR, anti-CCP, VHS, PCR (se disponíveis)</li>
               <li>Radiografia de mãos/punhos/pés, se realizada</li>
               <li>Hemograma, transaminases e creatinina</li>
-              <li>Se MTX de ponte foi iniciado: dose, data de início e ácido fólico</li>
+              <li>Sintomáticos em uso: AINE e/ou corticoide, dose e data de início</li>
               <li>Comorbidades, tabagismo, medicamentos em uso, história familiar</li>
               <li>Pergunta clínica específica e classificação de prioridade</li>
             </ul>
@@ -340,6 +340,10 @@ main { padding: 28px 40px 60px; }
               <li>Reconhecer sinais de alerta e acionar urgência quando necessário</li>
             </ul>
           </div>
+        </div>
+        <div class="decision-box">
+          <strong>⏱ Prazo pactuado — 14 dias</strong> <span class="source-tag src-arpen">ARPEN</span>
+          Toda suspeita de AR encaminhada deve ter a <strong>primeira consulta na Reumatologia em até 14 dias corridos</strong>. O prazo é único para todas as suspeitas. Encaminhamentos que ultrapassarem o prazo devem ser reportados à coordenação da Reumatologia, que define o início do tratamento pelo especialista.
         </div>
         <div class="alert-box">
           <strong>🚨 Sinais de alerta — avaliação prioritária / urgência</strong>
@@ -492,14 +496,14 @@ main { padding: 28px 40px 60px; }
       <div class="seq-num" style="background:#2b7a4b;">1</div>
       <div class="seq-body" style="background:#f0fff4; border-left:3px solid #2b7a4b;">
         <span class="seq-actor-badge" style="background:#2b7a4b;">🟢 CLÍNICO GERAL — porta de entrada</span>
-        <div class="seq-title">Reconhecimento, Ponte e Encaminhamento</div>
+        <div class="seq-title">Reconhecimento, Investigação e Encaminhamento</div>
         <ul>
           <li>Reconhece sinovite de pequenas articulações, simétrica, aditiva, com rigidez matinal &gt; 30–60 min</li>
           <li>Solicita FR, anti-CCP, VHS, PCR, RX de mãos/punhos/pés + hemograma, transaminases, creatinina</li>
-          <li>Quando seguro, inicia MTX de ponte + ácido fólico (exceto citopenias, transaminases &gt; LSN, TFG &lt; 60)</li>
+          <li>Trata sintomas por curto prazo (AINE, prednisona ≤ 10 mg/dia). <strong>Não inicia MTX nem qualquer DMARD</strong></li>
           <li>Encaminha à Reumatologia com informações mínimas e pergunta clínica</li>
         </ul>
-        <div class="seq-note">⏱ Janela de oportunidade: sintomas &lt; 6 meses = encaminhamento prioritário. O reumatologista confirmará o diagnóstico e assumirá a condução; o Clínico não conduz o DMARD isoladamente.</div>
+        <div class="seq-note">⏱ Prazo pactuado: <strong>1ª consulta na Reumatologia em até 14 dias</strong>. Se o prazo não for cumprido, o Clínico aciona a coordenação da Reumatologia para definição do início do tratamento pelo especialista. O Clínico não conduz DMARD em nenhuma hipótese.</div>
       </div>
     </div>
 
@@ -614,6 +618,7 @@ main { padding: 28px 40px 60px; }
           <ul class="rx-drug-detail">
             <li>VO/SC, 7,5–25 mg 1×/semana</li>
             <li>Ácido fólico 5 mg 1×/semana no dia seguinte à dose</li>
+            <li><strong>Segurança — uso semanal:</strong> registrar o dia da semana na prescrição, orientar o paciente ou cuidador de que a dose é <strong>única e semanal</strong> e confirmar o entendimento antes do fim da consulta. <strong>O uso diário causa toxicidade grave.</strong></li>
             <li>Contraindicações: gestação/amamentação/concepção, hepatopatia ativa, infecção ativa, TFG &lt; 30</li>
           </ul>
         </div>
@@ -743,7 +748,7 @@ main { padding: 28px 40px 60px; }
     </thead>
     <tbody>
       <tr><td><strong>Reconhecimento / diagnóstico</strong></td><td>Reconhecer suspeita precoce (janela &lt; 6 meses); solicitar FR, anti-CCP, VHS, PCR, RX; encaminhar</td><td>Confirmar diagnóstico (ACR/EULAR 2010); excluir diferenciais; avaliar mau prognóstico</td><td>—</td></tr>
-      <tr><td><strong>Início do tratamento</strong></td><td>Iniciar MTX de ponte quando seguro (+ ácido fólico); AINE/corticoide de ponte curto</td><td>Definir e escalonar csDMARD → bDMARD → JAK (treat-to-target); indicação exclusiva</td><td>Farmácia: dispensação de csDMARD/bDMARD/tsDMARD; centro de infusão (EV)</td></tr>
+      <tr><td><strong>Início do tratamento</strong></td><td>Não inicia DMARD. Sintomáticos de curto prazo: AINE e prednisona ≤ 10 mg/dia. Aciona a Reumatologia se a consulta ultrapassar 14 dias</td><td>Definir e escalonar csDMARD → bDMARD → JAK (treat-to-target); indicação exclusiva</td><td>Farmácia: dispensação de csDMARD/bDMARD/tsDMARD; centro de infusão (EV)</td></tr>
       <tr><td><strong>Estratificação de atividade</strong></td><td>—</td><td>Aplicar e manter DAS28/CDAI/SDAI; HAQ-DI anual; definir metas</td><td>—</td></tr>
       <tr><td><strong>Monitorização de segurança</strong></td><td>Coletar/ler hemograma, transaminases, creatinina nos intervalos; vigiar toxicidade</td><td>Definir cronograma; interpretar no contexto do escalonamento; ajustar terapia</td><td>Laboratório e assistência farmacêutica: apoio à monitorização</td></tr>
       <tr><td><strong>Comorbidades e risco CV</strong></td><td>Manejar HAS, DM, dislipidemia, obesidade; cessação do tabagismo — a AR eleva o risco CV</td><td>Rastreamento de comorbidades e osteoporose; considerar impacto na escolha terapêutica</td><td>Nutrição: controle de peso e comorbidade metabólica</td></tr>
@@ -763,7 +768,7 @@ main { padding: 28px 40px 60px; }
         <li>Tempo entre suspeita pelo Clínico e 1ª consulta na Reumatologia</li>
         <li>% encaminhamentos dentro da janela de oportunidade (&lt; 6 meses)</li>
         <li>% encaminhamentos com informações mínimas completas</li>
-        <li>% pacientes com MTX de ponte iniciado quando elegível</li>
+        <li>% encaminhamentos com 1ª consulta realizada em até 14 dias</li>
         <li>% pacientes com índice de atividade registrado na 1ª consulta</li>
       </ul>
     </div>
@@ -790,7 +795,7 @@ main { padding: 28px 40px 60px; }
   </div>
 
   <div style="margin-top:28px;padding-top:14px;border-top:1px solid #dce6ef;font-size:.72rem;color:#718096;line-height:1.6">
-    Jornada v2 — 2026-09-09 · Arpen — Projeto São Cristóvão · Linha de Cuidado: Artrite Reumatoide (CID M05/M06). Substitui a v1 (arquivada). Fonte clínica: Protocolo de Artrite Reumatoide (Sabrina Zanardi Machado, jul/2026). Fontes de governança: Protocolo de Referência/Contrarreferência CM↔Especialidade e Classificação de CIDs por Complexidade (criterios_assistenciais/). Status: rascunho para validação clínica dos coordenadores de Clínica Médica e Reumatologia.
+    Jornada v3 — 2026-09-14 · Arpen — Projeto São Cristóvão · Linha de Cuidado: Artrite Reumatoide (CID M05/M06). Substitui a v2 (arquivada). Alteração da v3: decisão da coordenação de que o tratamento é exclusivo da Reumatologia, retirada do metotrexato de ponte pela Clínica Médica e pactuação de prazo de 14 dias para a 1ª consulta. Fonte clínica: Protocolo de Artrite Reumatoide (Sabrina Zanardi Machado, jul/2026). Fontes de governança: Protocolo de Referência/Contrarreferência CM↔Especialidade e Classificação de CIDs por Complexidade (criterios_assistenciais/). Status: revisado pela coordenação de Reumatologia (Sabrina Zanardi Machado) e ajustado conforme decisão de 14/09/2026.
   </div>
 </div>
 
